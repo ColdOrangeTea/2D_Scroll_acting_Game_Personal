@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559526419002959673}
   - component: {fileID: 2559526419002959672}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero_2DColliderRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559526419678391903}
   - component: {fileID: 2559526419678391902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero_2DColliderGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559526419908318489}
   - component: {fileID: 2559526419908318488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 2559526420252927140}
   - component: {fileID: 2559526420252927141}
   - component: {fileID: 2559526420252927066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559526420560441857}
   - component: {fileID: 2559526420560441856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero_2DColliderRoof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 2559526420667707788}
   - component: {fileID: 2559526420667707789}
   - component: {fileID: 2559526420667707791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,9 +422,6 @@ MonoBehaviour:
   timeSinceAttack: 0
   xAxis: 0
   yAxis: 0
-  gravity: 0
-  stepsXRecoiled: 0
-  stepsYRecoiled: 0
   stepsJumped: 0
 --- !u!114 &2559526420667707789
 MonoBehaviour:

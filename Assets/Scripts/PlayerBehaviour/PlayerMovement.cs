@@ -82,16 +82,16 @@ public class PlayerMovement : MonoBehaviour
     float xAxis;
     [SerializeField]
     float yAxis;
-    [SerializeField]
-    float gravity;
-    [SerializeField]
-    int stepsXRecoiled;
-    [SerializeField]
-    int stepsYRecoiled;
+    // [SerializeField]
+    // float gravity;
+    // [SerializeField]
+    // int stepsXRecoiled;
+    // [SerializeField]
+    // int stepsYRecoiled;
 
     // 玩家按下跳躍鍵時，用來計時的變數，好控制逐漸增加的Y軸高度(小於jumpSteps、jumpThreshold)
     [SerializeField]
-    int stepsJumped = 0;
+    private int stepsJumped = 0;
 
     void Start()
     {
@@ -131,31 +131,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Walk(float MoveDirection)
+    void Walk(float moveDirection)
     {
-        if (!pState.recoilingX)
+        // if (!pState.recoilingX)
+        // {
+        rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
+
+        if (Mathf.Abs(rb.velocity.x) > 0)
         {
-            rb.velocity = new Vector2(MoveDirection * walkSpeed, rb.velocity.y);
-
-            if (Mathf.Abs(rb.velocity.x) > 0)
-            {
-                pState.walking = true;
-            }
-            else
-            {
-                pState.walking = false;
-            }
-            if (xAxis > 0)
-            {
-                pState.looking = true;
-            }
-            else if (xAxis < 0)
-            {
-                pState.looking = true;
-            }
-
-            //anim.SetBool("Walking", pState.walking);
+            pState.walking = true;
         }
+        else
+        {
+            pState.walking = false;
+        }
+        // if (xAxis > 0)
+        // {
+        //     pState.looking = true;
+        // }
+        // else if (xAxis < 0)
+        // {
+        //     pState.looking = true;
+        // }
+
+        //anim.SetBool("Walking", pState.walking);
+        //     }
     }
     void Jump()
     {
