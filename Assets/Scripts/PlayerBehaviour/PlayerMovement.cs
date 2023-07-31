@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (xAxis < 0)
             {
-                pState.looking = false;
+                pState.looking = true;
             }
 
             //anim.SetBool("Walking", pState.walking);
