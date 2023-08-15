@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2559526419002959673}
   - component: {fileID: 2559526419002959672}
   m_Layer: 8
-  m_Name: Hero_2DColliderRange
-  m_TagString: Untagged
+  m_Name: Hero_2DCollider
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
   pState: {fileID: 2559526420667707789}
   rb: {fileID: 2559526420667707791}
   walkSpeed: 10
-  jumpSpeed: 8
+  jumpSpeed: 12
   fallSpeed: 45
   jumpSteps: 20
   jumpThreshold: 1

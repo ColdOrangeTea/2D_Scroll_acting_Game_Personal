@@ -59,6 +59,18 @@ public class TestEnemy0001 : MonoBehaviour
     void Update()
     {
         Idle(xAxis);
+        Attacking();
+    }
+
+    // 狀態互換: attacking <=> idle 、 attacking <=> dead
+    void Attacking()
+    {
+        if (status == attacking)
+        {
+            Debug.Log("打人喔!!");
+            // 打人
+        }
+
     }
 
     public bool PlayerCheck(float moveDirection)
@@ -127,7 +139,7 @@ public class TestEnemy0001 : MonoBehaviour
                 Debug.Log("走路");
                 rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
             }
-            else if (HittingWall(xAxis))
+            else
             {
                 rb.velocity = new Vector2(0, 0);
                 Flip();
@@ -136,12 +148,6 @@ public class TestEnemy0001 : MonoBehaviour
         }
     }
 
-
-    // 狀態互換: attacking <=> idle 、 attacking <=> dead
-    void Attacking()
-    {
-        Debug.Log("打人喔!!");
-    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

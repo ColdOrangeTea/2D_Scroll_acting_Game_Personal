@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Y軸 移動")]
 
-    [SerializeField] private float jumpSpeed = 10;
+    [SerializeField] private float jumpSpeed = 12;
     [SerializeField] private float fallSpeed = 45;
 
     // 跳躍的時間限制
