@@ -11,10 +11,9 @@ public class PlayerStateList : MonoBehaviour
     public bool jumping;
     public bool attacking;
 
-    // 反作用力，水平方向(X)攻擊、垂直方向(Y)攻擊皆可造成
-    public bool recoilingX;
-    public bool recoilingY;
-
+    // // 反作用力，水平方向(X)攻擊、垂直方向(Y)攻擊皆可造成
+    // public bool recoilingX;
+    // public bool recoilingY;
     // 未來計畫新增的:移動視角、施展技能、與NPC對話、開啟商店
 
     // 玩家移動視角
