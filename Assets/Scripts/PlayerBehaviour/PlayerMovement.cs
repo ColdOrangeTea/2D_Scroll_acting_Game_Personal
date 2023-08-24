@@ -101,15 +101,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        GetInputs();
-
-        Walk(xAxis);
-        Flip();
         Attack();
+        Flip();
+        Walk(xAxis);
+        GetInputs();
     }
 
     void FixedUpdate()
     {
+
         Jump();
     }
 
@@ -133,53 +133,46 @@ public class PlayerMovement : MonoBehaviour
 
     void Walk(float moveDirection)
     {
-        // if (!pState.recoilingX)
-        // {
-        rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
-
-        if (Mathf.Abs(rb.velocity.x) > 0)
+        if (!pState.attacking)
         {
-            pState.walking = true;
-        }
-        else
-        {
-            pState.walking = false;
-        }
-        // if (xAxis > 0)
-        // {
-        //     pState.looking = true;
-        // }
-        // else if (xAxis < 0)
-        // {
-        //     pState.looking = true;
-        // }
-
-        //anim.SetBool("Walking", pState.walking);
-        //     }
-    }
-    void Jump()
-    {
-        if (pState.jumping)
-        {
-            // 還沒到跳躍的限制，也沒有撞到天花板就可以繼續往上跳
-            if (stepsJumped < jumpSteps && !Roofed())
+            rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
+            if (Mathf.Abs(rb.velocity.x) > 0)
             {
-                Debug.Log("繼續往上跳");
-                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                stepsJumped++;
-                // Debug.Log("rb.velocity = " + rb.velocity);
+                pState.walking = true;
             }
             else
             {
-                Debug.Log("停止跳躍");
-                StopJumpSlow();
+                pState.walking = false;
             }
         }
-        // 玩家掉落的速度限制 避免掉太快穿過平台 要限制速度
-        if (rb.velocity.y < -Mathf.Abs(fallSpeed))
+
+    }
+    void Jump()
+    {
+        if (!pState.attacking)
         {
-            Debug.Log("限制跳躍速度");
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -Mathf.Abs(fallSpeed), Mathf.Infinity));
+            if (pState.jumping)
+            {
+                // 還沒到跳躍的限制，也沒有撞到天花板就可以繼續往上跳
+                if (stepsJumped < jumpSteps && !Roofed())
+                {
+                    Debug.Log("繼續往上跳");
+                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    stepsJumped++;
+                    // Debug.Log("rb.velocity = " + rb.velocity);
+                }
+                else
+                {
+                    Debug.Log("停止跳躍");
+                    StopJumpSlow();
+                }
+            }
+            // 玩家掉落的速度限制 避免掉太快穿過平台 要限制速度
+            if (rb.velocity.y < -Mathf.Abs(fallSpeed))
+            {
+                Debug.Log("限制跳躍速度");
+                rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -Mathf.Abs(fallSpeed), Mathf.Infinity));
+            }
         }
     }
 
@@ -275,6 +268,16 @@ public class PlayerMovement : MonoBehaviour
                 pState.jumping = true;
 
             }
+            // Debug.Log("跳起來 " + pState.jumping);
+        }
+        // 在地板輸入攻擊鍵
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+
+            pState.attacking = true;
+
+
+
             // Debug.Log("跳起來 " + pState.jumping);
         }
         // 按超過時間的臨界點，但還沒跳到最高點時放開跳躍鍵

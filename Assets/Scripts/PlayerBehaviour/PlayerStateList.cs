@@ -9,6 +9,7 @@ public class PlayerStateList : MonoBehaviour
 
     public bool walking;
     public bool jumping;
+    public bool attacking;
 
     // 反作用力，水平方向(X)攻擊、垂直方向(Y)攻擊皆可造成
     public bool recoilingX;
