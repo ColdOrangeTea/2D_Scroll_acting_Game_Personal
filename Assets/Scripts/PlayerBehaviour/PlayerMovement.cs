@@ -101,8 +101,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        AttackColdDown();
-
         Flip();
         Walk(xAxis);
         GetInputs();
@@ -110,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        AttackColdDown();
         Attack(yAxis);
         Jump();
     }
