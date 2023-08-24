@@ -27,19 +27,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int jumpThreshold = 1;
 
     [Header("攻擊")]
-    [SerializeField] private float timeBetweenAttack = 0.4f;
-
+    [SerializeField] private float timeBetweenAttack = 0.8f;
+    [SerializeField] private float AttackPeriod = 0.4f;
     // transform 型別的 childed 主角正面攻擊的碰撞格
     [SerializeField] private Transform attackTransform;
-    [SerializeField] private float attackRadius = 1;
 
     // transform 型別的 childed 朝下攻擊的碰撞格
     [SerializeField] private Transform downAttackTransform;
-    [SerializeField] private float downAttackRadius = 1;
 
     // transform 型別的 childed 朝上攻擊的碰撞格
     [SerializeField] private Transform upAttackTransform;
-    [SerializeField] private float upAttackRadius = 1;
+
     [SerializeField] private LayerMask attackableLayer;
     [Space(5)]
 
@@ -75,9 +73,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Space(20)]
-
-    [SerializeField]
-    float timeSinceAttack;
     [SerializeField]
     float xAxis;
     [SerializeField]
@@ -92,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
     // 玩家按下跳躍鍵時，用來計時的變數，好控制逐漸增加的Y軸高度(小於jumpSteps、jumpThreshold)
     [SerializeField]
     private int stepsJumped = 0;
+    // 玩家按下攻擊鍵時，用來計時的變數，好控制攻擊間隔(用timeBetweenAttack 控制)
+    [SerializeField]
+    private float coldDownSinceAttack = 0;
+    [SerializeField]
+    private float timeSinceAttack = 0;
 
     void Start()
     {
@@ -101,7 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Attack();
+        AttackColdDown();
+
         Flip();
         Walk(xAxis);
         GetInputs();
@@ -109,26 +110,92 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        Attack(yAxis);
         Jump();
     }
 
-    void Attack()
+    void AttackColdDown()
     {
+        if (IsAttackColdDown())
+        {
+            // 攻擊的間隔
+            coldDownSinceAttack -= Time.deltaTime;
+            if (coldDownSinceAttack <= 0)
+            {
+                coldDownSinceAttack = 0;
+            }
+        }
 
+    }
+
+    // false代表不在冷卻狀態，可進行攻擊 true代表還在冷卻
+    public bool IsAttackColdDown()
+    {
+        if (coldDownSinceAttack == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    void Attack(float faceDirection)
+    {
+        if (pState.attacking)
+        {
+            timeSinceAttack += Time.deltaTime;
+
+            if (!IsAttackColdDown())
+            {
+                // 進行攻擊冷卻時間的計算
+                coldDownSinceAttack = timeBetweenAttack;
+
+                if (timeSinceAttack < AttackPeriod)
+                {
+                    // 方向攻擊
+                    if (faceDirection == 1)
+                    {
+                        upAttackTransform.gameObject.SetActive(true);
+                    }
+                    else if (faceDirection == -1)
+                    {
+                        downAttackTransform.gameObject.SetActive(true);
+                    }
+                    else if (faceDirection == 0)
+                    {
+                        attackTransform.gameObject.SetActive(true);
+                    }
+                }
+            }
+
+            if (timeSinceAttack >= AttackPeriod)
+            {
+                timeSinceAttack = 0;
+                pState.attacking = false;
+                upAttackTransform.gameObject.SetActive(false);
+                downAttackTransform.gameObject.SetActive(false);
+                attackTransform.gameObject.SetActive(false);
+            }
+        }
     }
 
     // 角色轉向
     void Flip()
     {
-        if (xAxis > 0)
+        if (!pState.attacking)
         {
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            if (xAxis > 0)
+            {
+                transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            }
+            else if (xAxis < 0)
+            {
+                transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            }
         }
-        else if (xAxis < 0)
-        {
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-        }
+
     }
 
     void Walk(float moveDirection)
@@ -136,50 +203,54 @@ public class PlayerMovement : MonoBehaviour
         if (!pState.attacking)
         {
             rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
-            if (Mathf.Abs(rb.velocity.x) > 0)
-            {
-                pState.walking = true;
-            }
-            else
-            {
-                pState.walking = false;
-            }
         }
-
+        else
+        {
+            if (rb.velocity.y == 0)
+                rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        if (Mathf.Abs(rb.velocity.x) > 0)
+        {
+            pState.walking = true;
+        }
+        else
+        {
+            pState.walking = false;
+        }
     }
     void Jump()
     {
-        if (!pState.attacking)
+        // if (!pState.attacking)
+        // {
+        if (pState.jumping)
         {
-            if (pState.jumping)
+            // 還沒到跳躍的限制，也沒有撞到天花板就可以繼續往上跳
+            if (stepsJumped < jumpSteps && !Roofed())
             {
-                // 還沒到跳躍的限制，也沒有撞到天花板就可以繼續往上跳
-                if (stepsJumped < jumpSteps && !Roofed())
-                {
-                    Debug.Log("繼續往上跳");
-                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                    stepsJumped++;
-                    // Debug.Log("rb.velocity = " + rb.velocity);
-                }
-                else
-                {
-                    Debug.Log("停止跳躍");
-                    StopJumpSlow();
-                }
+                // Debug.Log("繼續往上跳");
+                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                stepsJumped++;
+                // Debug.Log("rb.velocity = " + rb.velocity);
             }
-            // 玩家掉落的速度限制 避免掉太快穿過平台 要限制速度
-            if (rb.velocity.y < -Mathf.Abs(fallSpeed))
+            else
             {
-                Debug.Log("限制跳躍速度");
-                rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -Mathf.Abs(fallSpeed), Mathf.Infinity));
+                // Debug.Log("停止跳躍");
+                StopJumpSlow();
             }
         }
+        // 玩家掉落的速度限制 避免掉太快穿過平台 要限制速度
+        if (rb.velocity.y < -Mathf.Abs(fallSpeed))
+        {
+            // Debug.Log("限制跳躍速度");
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -Mathf.Abs(fallSpeed), Mathf.Infinity));
+        }
+        // }
     }
 
     // 玩家放開按鍵時立刻停止跳躍，讓角色開始落下
     void StopJumpQuick()
     {
-        Debug.Log("停止跳躍，向上的力立刻歸0");
+        // Debug.Log("停止跳躍，向上的力立刻歸0");
         stepsJumped = 0;
         pState.jumping = false;
         rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -201,12 +272,12 @@ public class PlayerMovement : MonoBehaviour
         || Physics2D.Raycast(groundTransform.position + new Vector3(-groundCheckX, 0), Vector2.down, groundCheckY, groundLayer)
         || Physics2D.Raycast(groundTransform.position + new Vector3(groundCheckX, 0), Vector2.down, groundCheckY, groundLayer))
         {
-            Debug.Log("在地板");
+            // Debug.Log("在地板");
             return true;
         }
         else
         {
-            Debug.Log("不在地板");
+            // Debug.Log("不在地板");
             return false;
         }
     }
@@ -260,35 +331,35 @@ public class PlayerMovement : MonoBehaviour
             yAxis = 0;
         }
 
+        // 輸入攻擊鍵
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (!IsAttackColdDown())
+            {
+                pState.attacking = true;
+                Debug.Log("攻擊");
+            }
+        }
+
         // 在地板輸入跳躍鍵
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (Grounded())
             {
                 pState.jumping = true;
-
             }
             // Debug.Log("跳起來 " + pState.jumping);
         }
-        // 在地板輸入攻擊鍵
-        if (Input.GetKeyDown(KeyCode.X))
-        {
 
-            pState.attacking = true;
-
-
-
-            // Debug.Log("跳起來 " + pState.jumping);
-        }
         // 按超過時間的臨界點，但還沒跳到最高點時放開跳躍鍵
         if (!Input.GetKey(KeyCode.Z) && stepsJumped < jumpSteps && stepsJumped > jumpThreshold && pState.jumping)
         {
-            Debug.Log("向上的力立刻歸0");
+            // Debug.Log("向上的力立刻歸0");
             StopJumpQuick();
         }
         else if (!Input.GetKey(KeyCode.Z) && stepsJumped < jumpThreshold && pState.jumping)
         {
-            Debug.Log("停止上升");
+            // Debug.Log("停止上升");
             StopJumpSlow();
         }
 

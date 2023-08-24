@@ -315,6 +315,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 912961231248907378, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876462799937792545, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2559526419002959678, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2559526420252927067, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -370,6 +382,14 @@ PrefabInstance:
     - target: {fileID: 2559526420667707779, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2559526420667707788, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960124858335720542, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
@@ -564,6 +584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6901bac28f5311e449b3bfdfdc7f265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
   Level1: level_1
   TestScene1: TestScene1
 --- !u!1001 &861402244

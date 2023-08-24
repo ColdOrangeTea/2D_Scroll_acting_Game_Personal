@@ -79,12 +79,12 @@ public class TestEnemy0001 : MonoBehaviour
         || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer)
         || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, -playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer))
         {
-            Debug.Log("有人在前面");
+            // Debug.Log("有人在前面");
             return true;
         }
         else
         {
-            Debug.Log("沒人");
+            // Debug.Log("沒人");
             return false;
         }
     }
@@ -112,12 +112,12 @@ public class TestEnemy0001 : MonoBehaviour
         || Physics2D.Raycast(wallCheckTransform.position + new Vector3(0, wallCheckY), new Vector3(moveDirection, 0), wallCheckX, groundLayer)
         || Physics2D.Raycast(wallCheckTransform.position + new Vector3(0, -wallCheckY), new Vector3(moveDirection, 0), wallCheckX, groundLayer))
         {
-            Debug.Log("撞牆!!!!!!");
+            // Debug.Log("撞牆!!!!!!");
             return true;
         }
         else
         {
-            Debug.Log("沒有撞牆!!!!!!");
+            // Debug.Log("沒有撞牆!!!!!!");
             return false;
         }
     }
@@ -136,7 +136,7 @@ public class TestEnemy0001 : MonoBehaviour
             // 碰牆停止移動
             if (!HittingWall(xAxis))
             {
-                Debug.Log("走路");
+                // Debug.Log("走路");
                 rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
             }
             else
