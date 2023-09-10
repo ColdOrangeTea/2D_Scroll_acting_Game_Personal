@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTest : MonoBehaviour
+public class HealTest : MonoBehaviour
 {
     public PlayerData unitData;
     public Transform player;
@@ -15,7 +15,8 @@ public class DamageTest : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            unitData.playerData.hp -= 1;
+            Debug.Log("碰到補血");
+            unitData.playerData.hp += 1;
             Debug.Log("資料: " + unitData);
         }
     }
