@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TestEnemy0001 : MonoBehaviour
@@ -14,7 +15,7 @@ public class TestEnemy0001 : MonoBehaviour
 
     // 狀態: 閒逛、攻擊、死亡
     [Header("狀態")]
-    private int status = 0;
+    public int status = 0;
     private const int idle = 0;
     private const int attacking = 1;
     private const int dead = 2;
@@ -44,33 +45,64 @@ public class TestEnemy0001 : MonoBehaviour
 
     [Header("攻擊Check")]
     [SerializeField]
-    private float attackingCheckRadius = 0;
+    private IEnumerator action;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        xAxis = 1;
-        wallCheckTransform = transform.GetChild(1).GetChild(0).GetComponent<Transform>();
+        wallCheckTransform = transform.GetChild(1).GetChild(2).GetComponent<Transform>();
         checkCenter = GetComponent<Transform>();
+        xAxis = 1;
         status = 0;
+        // action = ActionCoroutine();
 
     }
 
     void Update()
     {
-        Idle(xAxis);
-        Attacking();
-    }
-
-    // 狀態互換: attacking <=> idle 、 attacking <=> dead
-    void Attacking()
-    {
-        if (status == attacking)
+        // 狀態機 ，這邊要寫判斷，行為從Update獨立出來寫
+        if (status == idle)
         {
-            Debug.Log("打人喔!!");
-            // 打人
+            if (PlayerCheck(xAxis))
+            {
+                status = attacking;
+                Debug.Log("轉換狀態:攻擊");
+            }
+            Idle(xAxis);
         }
 
+        if (status == attacking)
+        {
+            // if (!PlayerCheck(xAxis))
+            // {
+            //     status = idle;
+            //     Debug.Log("轉換狀態:閒置");
+            // }
+
+            // AttackCoroutine();
+            Attacking();
+        }
+
+        if (status == dead)
+        {
+
+        }
+
+    }
+
+
+    // 狀態互換: attacking <=> idle 、 attacking <=> dead
+    IEnumerator AttackCoroutine()
+    {
+        Debug.Log("prepare attack");
+        yield return new WaitForSeconds(3);
+        Debug.Log("攻擊完畢");
+        status = idle;
+    }
+    void Attacking()
+    {
+        Debug.Log("攻擊");
+        AttackCoroutine();
     }
 
     public bool PlayerCheck(float moveDirection)
@@ -105,6 +137,7 @@ public class TestEnemy0001 : MonoBehaviour
         }
     }
 
+    // 檢查敵人面前是否有牆
     public bool HittingWall(float moveDirection)
     {
         Debug.Log("方位: " + moveDirection);
@@ -125,27 +158,23 @@ public class TestEnemy0001 : MonoBehaviour
     // 狀態互換: idle <=> attack 、 idle <=> dead
     void Idle(float moveDirection)
     {
+        // 碰牆停止移動
+        if (!HittingWall(xAxis))
+        {
+            // Debug.Log("走路");
+            rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
+            Flip();
+        }
+
         if (PlayerCheck(xAxis))
         {
             rb.velocity = new Vector2(0, 0);
-            status = attacking;
         }
 
-        if (status == idle)
-        {
-            // 碰牆停止移動
-            if (!HittingWall(xAxis))
-            {
-                // Debug.Log("走路");
-                rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, 0);
-                Flip();
-            }
-
-        }
     }
 
     void OnDrawGizmos()
