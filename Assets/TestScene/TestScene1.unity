@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 38379723}
   - component: {fileID: 38379724}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1190,7 +1190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &803512229
 Transform:
   m_ObjectHideFlags: 0
@@ -1709,7 +1709,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396955465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.71, y: 9.19, z: 0}
+  m_LocalPosition: {x: 0.6, y: 11.32, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1792,10 +1792,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   checkCenter: {fileID: 0}
+  attackTransform: {fileID: 0}
   xAxis: 1
   yAxis: 0
   status: 0
   walkSpeed: 2
+  attackDuration: 1
+  attackColdDown: 2
   wallCheckTransform: {fileID: 1393481088}
   wallCheckX: 0.3
   wallCheckY: 0.8
@@ -1803,7 +1806,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerCheckTransform: {fileID: 1802668171}
-  playerCheckX: 1
+  playerCheckX: 3
   playerCheckY: 0.9
   playerLayer:
     serializedVersion: 2

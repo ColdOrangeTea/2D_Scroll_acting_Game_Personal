@@ -7,6 +7,7 @@ public class TestEnemy0001 : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform checkCenter;
+    [SerializeField] private Transform attackTransform;
 
     // 初始面向 xAxis -1左 1右 
     [SerializeField] private float xAxis = 1;
@@ -26,6 +27,14 @@ public class TestEnemy0001 : MonoBehaviour
     [SerializeField] private float walkSpeed = 2.5f;
 
     [Space(5)]
+    [Header("攻擊")]
+
+
+    [SerializeField] private float attackDuration = 1;
+    // 用來計時的變數，好控制攻擊間隔
+    [SerializeField] private float attackColdDown = 0.5f;
+
+    [Space(5)]
 
     [Header("用來檢查前方是否有牆的變數")]
     [SerializeField] private Transform wallCheckTransform;
@@ -41,68 +50,53 @@ public class TestEnemy0001 : MonoBehaviour
     [SerializeField] private float playerCheckY;
     [SerializeField] private LayerMask playerLayer;
 
-    [Space(5)]
-
-    [Header("攻擊Check")]
-    [SerializeField]
-    private IEnumerator action;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         wallCheckTransform = transform.GetChild(1).GetChild(2).GetComponent<Transform>();
+        attackTransform = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Transform>();
         checkCenter = GetComponent<Transform>();
-        xAxis = 1;
-        status = 0;
-        // action = ActionCoroutine();
-
+        InitEnemybehavior();
     }
 
     void Update()
     {
-        // 狀態機 ，這邊要寫判斷，行為從Update獨立出來寫
-        if (status == idle)
-        {
-            if (PlayerCheck(xAxis))
-            {
-                status = attacking;
-                Debug.Log("轉換狀態:攻擊");
-            }
-            Idle(xAxis);
-        }
-
-        if (status == attacking)
-        {
-            // if (!PlayerCheck(xAxis))
-            // {
-            //     status = idle;
-            //     Debug.Log("轉換狀態:閒置");
-            // }
-
-            // AttackCoroutine();
-            Attacking();
-        }
-
-        if (status == dead)
-        {
-
-        }
 
     }
-
+    private IEnumerator Attackperiod()
+    {
+        Debug.Log("Attackperiod");
+        attackTransform.gameObject.SetActive(true);
+        yield return new WaitForSeconds(attackDuration);
+        Debug.Log("Attackperiod End");
+        attackTransform.gameObject.SetActive(false);
+    }
 
     // 狀態互換: attacking <=> idle 、 attacking <=> dead
-    IEnumerator AttackCoroutine()
+    private IEnumerator Attacking()
     {
-        Debug.Log("prepare attack");
-        yield return new WaitForSeconds(3);
-        Debug.Log("攻擊完畢");
-        status = idle;
-    }
-    void Attacking()
-    {
-        Debug.Log("攻擊");
-        AttackCoroutine();
+
+        Debug.Log("attacking");
+
+        // Attackperiod();
+        yield return StartCoroutine(Attackperiod());
+        // Debug.Log("During attacking...");
+        yield return new WaitForSeconds(attackColdDown);
+
+        if (!PlayerCheck(xAxis))
+        {
+            status = idle;
+            // attackTransform.gameObject.SetActive(false);
+            StartCoroutine(Idle());
+            Debug.Log("attacking End");
+        }
+        else
+        {
+            StartCoroutine(Attacking());
+            Debug.Log("attacking End and continue attack");
+
+        }
+
     }
 
     public bool PlayerCheck(float moveDirection)
@@ -156,24 +150,41 @@ public class TestEnemy0001 : MonoBehaviour
     }
 
     // 狀態互換: idle <=> attack 、 idle <=> dead
-    void Idle(float moveDirection)
+    private IEnumerator Idle()
     {
-        // 碰牆停止移動
-        if (!HittingWall(xAxis))
+        while (status == idle)
         {
-            // Debug.Log("走路");
-            rb.velocity = new Vector2(moveDirection * walkSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, 0);
-            Flip();
-        }
+            Debug.Log("idle");
+            // 碰牆停止移動
+            if (!HittingWall(xAxis))
+            {
+                // Debug.Log("走路");
+                rb.velocity = new Vector2(xAxis * walkSpeed, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, 0);
+                Flip();
+            }
 
-        if (PlayerCheck(xAxis))
-        {
-            rb.velocity = new Vector2(0, 0);
+            if (PlayerCheck(xAxis))
+            {
+                rb.velocity = new Vector2(0, 0);
+                status = attacking;
+                Debug.Log("idle to attacking");
+                StartCoroutine(Attacking());
+                Debug.Log("idle to attacking End");
+            }
+            yield return null;
+
         }
+    }
+
+    void InitEnemybehavior()
+    {
+        xAxis = 1;
+        status = 0;
+        StartCoroutine(Idle());
 
     }
 

@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int jumpThreshold = 1;
 
     [Header("攻擊")]
-    [SerializeField] private float timeBetweenAttack = 0.8f;
+    [SerializeField] private float coldDown = 0.8f;
     [SerializeField] private float AttackPeriod = 0.4f;
     // transform 型別的 childed 主角正面攻擊的碰撞格
     [SerializeField] private Transform attackTransform;
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     // 玩家按下跳躍鍵時，用來計時的變數，好控制逐漸增加的Y軸高度(小於jumpSteps、jumpThreshold)
     [SerializeField]
     private int stepsJumped = 0;
-    // 玩家按下攻擊鍵時，用來計時的變數，好控制攻擊間隔(用timeBetweenAttack 控制)
+    // 玩家按下攻擊鍵時，用來計時的變數，好控制攻擊間隔
     [SerializeField]
     private float coldDownSinceAttack = 0;
     [SerializeField]
@@ -146,10 +146,11 @@ public class PlayerMovement : MonoBehaviour
         {
             timeSinceAttack += Time.deltaTime;
 
+            // 攻擊是否處在冷卻狀態，若否即可攻擊
             if (!IsAttackColdDown())
             {
                 // 進行攻擊冷卻時間的計算
-                coldDownSinceAttack = timeBetweenAttack;
+                coldDownSinceAttack = coldDown;
 
                 if (timeSinceAttack < AttackPeriod)
                 {
@@ -158,11 +159,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         upAttackTransform.gameObject.SetActive(true);
                     }
-                    else if (faceDirection == -1)
+                    if (faceDirection == -1)
                     {
                         downAttackTransform.gameObject.SetActive(true);
                     }
-                    else if (faceDirection == 0)
+                    if (faceDirection == 0)
                     {
                         attackTransform.gameObject.SetActive(true);
                     }
