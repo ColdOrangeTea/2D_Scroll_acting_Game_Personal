@@ -6,16 +6,24 @@ public class PlayerData : MonoBehaviour
 {
     public UnitData playerData;
 
-
     void Update()
     {
-        HpControl();
+        HpControl(playerData.hp);
     }
-    void HpControl()
+    void HpControl(int currentHp)
     {
-        if (playerData.hp < 0)
+        if (currentHp > playerData.maxHp)
         {
-            playerData.hp = 0;
+            currentHp = playerData.maxHp;
         }
+        if (currentHp == 0)
+        {
+
+        }
+        else if (currentHp < 0)
+        {
+            currentHp = 0;
+        }
+        playerData.hp = currentHp;
     }
 }

@@ -16,7 +16,7 @@ public class PlayerDataText : MonoBehaviour
 
     void Update()
     {
-        hp.text = "HP: " + playerData.playerData.maxHp.ToString() + " / " + playerData.playerData.hp;
+        hp.text = "HP: " + playerData.playerData.hp + " / " + playerData.playerData.maxHp.ToString();
         attack.text = "Attack: " + playerData.playerData.attack;
     }
 }
