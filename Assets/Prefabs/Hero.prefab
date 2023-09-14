@@ -456,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559526420252927140}
   - component: {fileID: 2559526420252927141}
-  - component: {fileID: 2559526420252927066}
+  - component: {fileID: 4342904340747690755}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -522,7 +522,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2559526420252927066
+--- !u!81 &4342904340747690755
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 2559526420667707788}
   - component: {fileID: 2559526420667707789}
   - component: {fileID: 2559526420667707791}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ MonoBehaviour:
   fallSpeed: 45
   jumpSteps: 20
   jumpThreshold: 1
-  timeBetweenAttack: 0.45
+  coldDown: 0.8
   AttackPeriod: 0.4
   attackTransform: {fileID: 9042308379769420171}
   downAttackTransform: {fileID: 3191072782828858994}

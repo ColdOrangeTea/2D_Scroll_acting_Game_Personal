@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   maxHp: 20
-  hp: 11
+  hp: 19
   maxMp: 0
   mp: 0
   attack: 3

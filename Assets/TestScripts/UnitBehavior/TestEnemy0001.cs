@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TestEnemy0001 : MonoBehaviour
 {
+    [SerializeField] public TestEnemyData enemyData;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform checkCenter;
     [SerializeField] private Transform attackTransform;
@@ -28,12 +29,11 @@ public class TestEnemy0001 : MonoBehaviour
 
     [Space(5)]
     [Header("攻擊")]
-
-
-    [SerializeField] private float attackDuration = 1;
+    [SerializeField] private float attackDuration = 10;
     // 用來計時的變數，好控制攻擊間隔
-    [SerializeField] private float attackColdDown = 0.5f;
+    [SerializeField] private float attackColdDown = 19.5F;
 
+    [SerializeField] private LayerMask attackableLayer;
     [Space(5)]
 
     [Header("用來檢查前方是否有牆的變數")]
@@ -52,16 +52,27 @@ public class TestEnemy0001 : MonoBehaviour
 
     void Start()
     {
+        enemyData = GetComponent<TestEnemyData>();
         rb = GetComponent<Rigidbody2D>();
         wallCheckTransform = transform.GetChild(1).GetChild(2).GetComponent<Transform>();
+        playerCheckTransform = transform.GetChild(1).GetChild(3).GetComponent<Transform>();
         attackTransform = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Transform>();
         checkCenter = GetComponent<Transform>();
+
         InitEnemybehavior();
     }
 
-    void Update()
+    // 受到傷害的檢定
+    private void OnTriggerEnter2D(Collider2D other)
     {
 
+    }
+
+    private IEnumerator Dead()
+    {
+        this.gameObject.SetActive(false);
+        yield return null;
+        Destroy(this.gameObject);
     }
     private IEnumerator Attackperiod()
     {
@@ -75,13 +86,13 @@ public class TestEnemy0001 : MonoBehaviour
     // 狀態互換: attacking <=> idle 、 attacking <=> dead
     private IEnumerator Attacking()
     {
-
         Debug.Log("attacking");
 
-        // Attackperiod();
-        yield return StartCoroutine(Attackperiod());
         // Debug.Log("During attacking...");
+
         yield return new WaitForSeconds(attackColdDown);
+        // StartCoroutine(Attackperiod());
+
 
         if (!PlayerCheck(xAxis))
         {
@@ -174,6 +185,11 @@ public class TestEnemy0001 : MonoBehaviour
                 Debug.Log("idle to attacking");
                 StartCoroutine(Attacking());
                 Debug.Log("idle to attacking End");
+            }
+            if (enemyData.enemyData.hp <= 0)
+            {
+                status = dead;
+                StartCoroutine(Dead());
             }
             yield return null;
 
