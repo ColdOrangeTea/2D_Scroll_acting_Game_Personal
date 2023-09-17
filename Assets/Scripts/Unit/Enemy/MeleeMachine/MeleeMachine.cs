@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TestEnemy0001 : MonoBehaviour
+public class MeleeMachine : MonoBehaviour
 {
-    [SerializeField] public TestEnemyData enemyData;
+    public UnitAttribute unitAttribute;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform checkCenter;
-    [SerializeField] private Transform attackTransform;
 
     // 初始面向 xAxis -1左 1右 
     [SerializeField] private float xAxis = 1;
@@ -17,7 +15,7 @@ public class TestEnemy0001 : MonoBehaviour
 
     // 狀態: 閒逛、攻擊、死亡
     [Header("狀態")]
-    public int status = 0;
+    [SerializeField] private int status = 0;
     private const int idle = 0;
     private const int attacking = 1;
     private const int dead = 2;
@@ -28,12 +26,15 @@ public class TestEnemy0001 : MonoBehaviour
     [SerializeField] private float walkSpeed = 2.5f;
 
     [Space(5)]
+
     [Header("攻擊")]
+    [SerializeField] private Transform attackTransform;
     [SerializeField] private float attackDuration = 10;
+
     // 用來計時的變數，好控制攻擊間隔
     [SerializeField] private float attackColdDown = 19.5F;
-
     [SerializeField] private LayerMask attackableLayer;
+
     [Space(5)]
 
     [Header("用來檢查前方是否有牆的變數")]
@@ -52,12 +53,10 @@ public class TestEnemy0001 : MonoBehaviour
 
     void Start()
     {
-        enemyData = GetComponent<TestEnemyData>();
         rb = GetComponent<Rigidbody2D>();
         wallCheckTransform = transform.GetChild(1).GetChild(2).GetComponent<Transform>();
         playerCheckTransform = transform.GetChild(1).GetChild(3).GetComponent<Transform>();
         attackTransform = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Transform>();
-        checkCenter = GetComponent<Transform>();
 
         InitEnemybehavior();
     }
@@ -186,7 +185,7 @@ public class TestEnemy0001 : MonoBehaviour
                 StartCoroutine(Attacking());
                 Debug.Log("idle to attacking End");
             }
-            if (enemyData.enemyData.hp <= 0)
+            if (unitAttribute.hp <= 0)
             {
                 status = dead;
                 StartCoroutine(Dead());
@@ -214,7 +213,6 @@ public class TestEnemy0001 : MonoBehaviour
         Gizmos.DrawLine(playerCheckTransform.position, playerCheckTransform.position + new Vector3(xAxis * playerCheckX, 0));
         Gizmos.DrawLine(playerCheckTransform.position + new Vector3(0, playerCheckY), playerCheckTransform.position + new Vector3(xAxis * playerCheckX, playerCheckY));
         Gizmos.DrawLine(playerCheckTransform.position + new Vector3(0, -playerCheckY), playerCheckTransform.position + new Vector3(xAxis * playerCheckX, -playerCheckY));
-
 
     }
 }

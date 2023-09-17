@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class DamageTest : MonoBehaviour
 {
-    public PlayerData unitData;
-    public Transform player;
+    public PlayerAttribute playerAttribute;
     void Start()
     {
-        unitData = FindObjectOfType<PlayerData>();
+        playerAttribute = FindObjectOfType<PlayerAttribute>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            unitData.playerData.hp -= 1;
-            Debug.Log("資料: " + unitData);
+            playerAttribute.TakeDamage();
+
+            Debug.Log("資料: " + playerAttribute);
         }
     }
+
 }
