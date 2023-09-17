@@ -90,7 +90,7 @@ public class MeleeMachine : MonoBehaviour
         // Debug.Log("During attacking...");
 
         yield return new WaitForSeconds(attackColdDown);
-        // StartCoroutine(Attackperiod());
+        StartCoroutine(Attackperiod());
 
 
         if (!PlayerCheck(xAxis))

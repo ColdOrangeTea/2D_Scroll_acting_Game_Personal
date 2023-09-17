@@ -4,24 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyStatusTest : MonoBehaviour
 {
-    public MeleeMachine enemy;
-    public Text status;
-    private string statusName;
+    public Text statusText;
+    private string statusName = "";
     void Start()
     {
 
     }
-
     void Update()
     {
-        // if (enemy.status == 0)
-        // {
-        //     statusName = "Idle";
-        // }
-        // else if (enemy.status == 1)
-        // {
-        //     statusName = "Attack";
-        // }
-        // status.text = "Status: " + enemy.status.ToString() + " " + statusName;
+
     }
+
+    public void UpdateEnemyStatus(int status)
+    {
+        if (status == 0)
+        {
+            statusName = "Idle";
+        }
+        else if (status == 1)
+        {
+            statusName = "Attack";
+        }
+        statusText.text = "Status: " + status.ToString() + " " + statusName;
+    }
+
 }

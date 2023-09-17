@@ -4,23 +4,24 @@ using UnityEngine;
 
 public abstract class AttackState : MonoBehaviour
 {
-    [SerializeField] private UnitStateMachineManager unitStateMachineManager;
+    [SerializeField] protected UnitStateMachineManager unitStateMachineManager;
 
-    [SerializeField] private float attackDuration = 10;
+    [SerializeField] protected float startUp = 0;
+    [SerializeField] protected float attackDuration = 10;
 
     // 用來計時的變數，好控制攻擊間隔
-    [SerializeField] private float attackColdDown = 19.5F;
+    [SerializeField] protected float attackColdDown = 19.5F;
 
-    [SerializeField] private Transform attackTransform;
-    [SerializeField] private LayerMask attackableLayer;
+    [SerializeField] protected Transform attackTransform;
+    [SerializeField] protected LayerMask attackableLayer;
 
     [Space(5)]
 
     [Header("用來檢查前方是否有玩家的變數")]
-    [SerializeField] private Transform playerCheckTransform;
-    [SerializeField] private float playerCheckX;
-    [SerializeField] private float playerCheckY;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] protected Transform playerCheckTransform;
+    [SerializeField] protected float playerCheckX;
+    [SerializeField] protected float playerCheckY;
+    [SerializeField] protected LayerMask playerLayer;
 
     void Start()
     {

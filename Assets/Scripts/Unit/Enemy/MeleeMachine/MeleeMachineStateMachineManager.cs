@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeleeMachineStateMachineManager : UnitStateMachineManager
 {
+    // 測試用
+    public EnemyStatusTest enemyStatusTest;
 
     void Start()
     {
@@ -15,24 +17,34 @@ public class MeleeMachineStateMachineManager : UnitStateMachineManager
 
     }
 
+    public override void SwitchStatus(int nextStatus)
+    {
+        status = nextStatus;
+        // 測試用
+        enemyStatusTest.UpdateEnemyStatus(status);
+        if (status == idle)
+        {
+            StartCoroutine(idleState.Idle());
+        }
+        else if (status == attacking)
+        {
+            StartCoroutine(attackState.Attacking());
+        }
+
+    }
+
     public override void InitStateMachine()
     {
         status = 0;
         idleState = GetComponent<IdleState>();
         attackState = GetComponent<AttackState>();
 
+        // 測試用
+        enemyStatusTest = FindObjectOfType<EnemyStatusTest>();
+
         StartCoroutine(idleState.Idle());
+
+        // 測試用
+        enemyStatusTest.UpdateEnemyStatus(status);
     }
-    // void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawLine(wallCheckTransform.position, wallCheckTransform.position + new Vector3(xAxis * wallCheckX, 0));
-    //     Gizmos.DrawLine(wallCheckTransform.position + new Vector3(0, wallCheckY), wallCheckTransform.position + new Vector3(xAxis * wallCheckX, wallCheckY));
-    //     Gizmos.DrawLine(wallCheckTransform.position + new Vector3(0, -wallCheckY), wallCheckTransform.position + new Vector3(xAxis * wallCheckX, -wallCheckY));
-
-    //     Gizmos.DrawLine(playerCheckTransform.position, playerCheckTransform.position + new Vector3(xAxis * playerCheckX, 0));
-    //     Gizmos.DrawLine(playerCheckTransform.position + new Vector3(0, playerCheckY), playerCheckTransform.position + new Vector3(xAxis * playerCheckX, playerCheckY));
-    //     Gizmos.DrawLine(playerCheckTransform.position + new Vector3(0, -playerCheckY), playerCheckTransform.position + new Vector3(xAxis * playerCheckX, -playerCheckY));
-
-    // }
 }

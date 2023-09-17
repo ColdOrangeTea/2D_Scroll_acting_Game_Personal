@@ -66,14 +66,14 @@ public class MeleeMachineIdleState : IdleState
                 Flip();
             }
 
-            // if (PlayerCheck(xAxis))
-            // {
-            //     rb.velocity = new Vector2(0, 0);
-            //     unitStateMachineManager.status = UnitStateMachineManager.attacking;
-            //     Debug.Log("idle to attacking");
-            //     StartCoroutine(Attacking());
-            //     Debug.Log("idle to attacking End");
-            // }
+            if (PlayerCheck(xAxis))
+            {
+                rb.velocity = new Vector2(0, 0);
+                Debug.Log("idle to attacking");
+                unitStateMachineManager.SwitchStatus(UnitStateMachineManager.attacking);
+                // StartCoroutine(Attacking());
+                Debug.Log("idle to attacking End");
+            }
 
             yield return null;
 

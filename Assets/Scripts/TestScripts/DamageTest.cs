@@ -19,5 +19,4 @@ public class DamageTest : MonoBehaviour
             Debug.Log("資料: " + playerAttribute);
         }
     }
-
 }

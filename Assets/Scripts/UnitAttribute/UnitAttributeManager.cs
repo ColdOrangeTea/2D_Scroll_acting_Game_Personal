@@ -7,12 +7,12 @@ public abstract class UnitAttributeManager : MonoBehaviour
     // 手動放入Asset
     [SerializeField] protected UnitAttribute unitAttribute;
 
-    void Update()
-    {
-        HpControl(unitAttribute.hp);
-    }
+    // void Update()
+    // {
+    //     HpControl(unitAttribute.hp);
+    // }
 
-    void HpControl(int currentHp)
+    public void HpControl(int currentHp)
     {
         if (currentHp > unitAttribute.maxHp)
         {

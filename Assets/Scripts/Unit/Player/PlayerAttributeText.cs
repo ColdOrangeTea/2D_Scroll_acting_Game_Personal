@@ -9,11 +9,6 @@ public class PlayerAttributeText : MonoBehaviour
     public Text hpText;
     public Text attackText;
 
-    void Start()
-    {
-
-    }
-
     public void UpdateHP(int hp, int maxHp, int attack)
     {
         hpText.text = "HP: " + hp.ToString() + " / " + maxHp.ToString();

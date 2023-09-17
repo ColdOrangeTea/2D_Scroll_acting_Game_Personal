@@ -13,8 +13,10 @@ public abstract class UnitStateMachineManager : MonoBehaviour
     public const int idle = 0;
     public const int attacking = 1;
     public const int dead = 2;
+
     [SerializeField] protected IdleState idleState;
     [SerializeField] protected AttackState attackState;
+    public abstract void SwitchStatus(int nextStatus);
 
     public abstract void InitStateMachine();
 }

@@ -510,8 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b4040d134c06449b13fc767c4a85b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
-  status: {fileID: 429014488}
+  statusText: {fileID: 429014488}
 --- !u!1001 &221915519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2635,6 +2634,7 @@ GameObject:
   - component: {fileID: 1485470867}
   - component: {fileID: 1485470868}
   - component: {fileID: 1485470869}
+  - component: {fileID: 1485470870}
   m_Layer: 0
   m_Name: Automaton
   m_TagString: Untagged
@@ -2708,6 +2708,7 @@ MonoBehaviour:
   status: 0
   idleState: {fileID: 0}
   attackState: {fileID: 0}
+  enemyStatusTest: {fileID: 0}
 --- !u!114 &1485470869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2731,6 +2732,32 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerCheckTransform: {fileID: 0}
+  playerCheckX: 0
+  playerCheckY: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1485470870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485470863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7b55da6589b34428910d879b8f8f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStateMachineManager: {fileID: 0}
+  startUp: 0
+  attackDuration: 10
+  attackColdDown: 19.5
+  attackTransform: {fileID: 0}
+  attackableLayer:
+    serializedVersion: 2
+    m_Bits: 128
   playerCheckTransform: {fileID: 0}
   playerCheckX: 0
   playerCheckY: 0
