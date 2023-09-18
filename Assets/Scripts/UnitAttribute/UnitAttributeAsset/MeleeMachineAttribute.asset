@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeleeMachineAttribute
   m_EditorClassIdentifier: 
   maxHp: 5
-  hp: 5
+  hp: 0
   maxMp: 0
   mp: 0
   attack: 2

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - MusicManager
+  - Attack
   layers:
   - Default
   - TransparentFX
