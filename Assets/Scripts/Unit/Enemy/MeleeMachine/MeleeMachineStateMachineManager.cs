@@ -9,7 +9,7 @@ public class MeleeMachineStateMachineManager : UnitStateMachineManager
 
     void Start()
     {
-        InitStateMachine();
+        StartCoroutine(idleState.Idle());
     }
 
     void Update()
@@ -30,6 +30,11 @@ public class MeleeMachineStateMachineManager : UnitStateMachineManager
         {
             StartCoroutine(attackState.Attacking());
         }
+        else if (status == dead)
+        {
+
+            StartCoroutine(deadState.Dying());
+        }
 
     }
 
@@ -38,12 +43,10 @@ public class MeleeMachineStateMachineManager : UnitStateMachineManager
         status = 0;
         idleState = GetComponent<IdleState>();
         attackState = GetComponent<AttackState>();
+        deadState = GetComponent<DeadState>();
 
         // 測試用
         enemyStatusTest = FindObjectOfType<EnemyStatusTest>();
-
-        StartCoroutine(idleState.Idle());
-
         // 測試用
         enemyStatusTest.UpdateEnemyStatus(status);
     }

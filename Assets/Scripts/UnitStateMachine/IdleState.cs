@@ -25,15 +25,19 @@ public abstract class IdleState : MonoBehaviour
     [Space(5)]
 
     [Header("用來檢查前方是否有玩家的變數")]
+
+    // 自己的BodyCollider 避免偵測到自己而攻擊
+    [SerializeField] protected Transform thisBodyTransform;
     [SerializeField] protected Transform playerCheckTransform;
     [SerializeField] protected float playerCheckX;
     [SerializeField] protected float playerCheckY;
-    [SerializeField] protected LayerMask playerLayer;
+    [SerializeField] protected LayerMask attackableLayer;
 
-    void Start()
+    void Awake()
     {
         InitIdleState();
     }
+
 
     public abstract bool PlayerCheck(float moveDirection);
     public abstract void Flip();

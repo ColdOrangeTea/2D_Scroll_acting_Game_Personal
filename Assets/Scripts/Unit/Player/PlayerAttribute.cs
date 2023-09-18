@@ -4,32 +4,44 @@ using UnityEngine;
 
 public class PlayerAttribute : UnitAttributeManager
 {
-    // 測試用
-    // protected HealTest healTest;
-    // protected DamageTest damageTest;
     protected PlayerAttributeText playerAttributeText;
 
-    void Start()
+    public override void HpControl(int currentHp)
     {
-        // healTest = FindObjectOfType<HealTest>();
-        // damageTest = FindObjectOfType<DamageTest>();
-        playerAttributeText = FindObjectOfType<PlayerAttributeText>();
-        playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
+        if (currentHp > unitAttribute.maxHp)
+        {
+            currentHp = unitAttribute.maxHp;
+        }
+        if (currentHp == 0)
+        {
+
+        }
+        else if (currentHp < 0)
+        {
+            currentHp = 0;
+        }
+        unitAttribute.hp = currentHp;
     }
 
-
-
-    public void TakeDamage()
+    public override void TakeDamage()
     {
         unitAttribute.hp -= 1;
         HpControl(unitAttribute.hp);
         playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
     }
 
-    public void Heal()
+    public override void Heal()
     {
         unitAttribute.hp += 1;
         HpControl(unitAttribute.hp);
+        playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
+    }
+
+    public override void InitAttribute()
+    {
+        // healTest = FindObjectOfType<HealTest>();
+        // damageTest = FindObjectOfType<DamageTest>();
+        playerAttributeText = FindObjectOfType<PlayerAttributeText>();
         playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class portal : MonoBehaviour
 {
-    public LayerMask playerLayer;
     public string Level1 = "level_1";
     public string TestScene1 = "TestScene1";
     public static int roomNum = 0;
@@ -28,14 +27,14 @@ public class portal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (roomNum == 0)
+            if (roomNum == TestRoom)
             {
                 Debug.Log("傳送到Level1Room");
                 SceneManager.LoadScene(Level1);
                 roomNum = Level1Room;
                 return;
             }
-            if (roomNum == 1)
+            if (roomNum == Level1Room)
             {
                 Debug.Log("傳送到TestScene1");
                 SceneManager.LoadScene(TestScene1);

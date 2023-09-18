@@ -14,21 +14,23 @@ public class MeleeMachineAttackState : AttackState
         Debug.Log("Attackperiod End");
         attackTransform.gameObject.SetActive(false);
     }
-    public override bool PlayerCheck(float moveDirection)
-    {
-        if (Physics2D.Raycast(playerCheckTransform.position, new Vector3(moveDirection, 0), playerCheckX, playerLayer)
-               || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer)
-               || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, -playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer))
-        {
-            // Debug.Log("有人在前面");
-            return true;
-        }
-        else
-        {
-            // Debug.Log("沒人");
-            return false;
-        }
-    }
+
+    // public override bool PlayerCheck(float moveDirection)
+    // {
+    //     if (Physics2D.Raycast(playerCheckTransform.position, new Vector3(moveDirection, 0), playerCheckX, playerLayer)
+    //            || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer)
+    //            || Physics2D.Raycast(playerCheckTransform.position + new Vector3(0, -playerCheckY), new Vector3(moveDirection, 0), playerCheckX, playerLayer))
+    //     {
+    //         // Debug.Log("有人在前面");
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         // Debug.Log("沒人");
+    //         return false;
+    //     }
+    // }
+
     public override IEnumerator Attacking()
     {
         Debug.Log("attacking");
@@ -59,12 +61,12 @@ public class MeleeMachineAttackState : AttackState
     public override void InitAttackState()
     {
         unitStateMachineManager = GetComponent<UnitStateMachineManager>();
-        playerCheckTransform = transform.GetChild(1).GetChild(3).GetComponent<Transform>();
+        // playerCheckTransform = transform.GetChild(1).GetChild(3).GetComponent<Transform>();
         attackTransform = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Transform>();
         startUp = 0.4f;
         attackDuration = 0.7f;
         attackColdDown = 1f;
-        playerCheckX = 2;
-        playerCheckY = 0.4f;
+        // playerCheckX = 2;
+        // playerCheckY = 0.4f;
     }
 }

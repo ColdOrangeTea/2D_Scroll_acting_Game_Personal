@@ -1019,7 +1019,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 912961231248907378, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 912961231248907378, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_IsActive
@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1876462799937792545, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1876462799937792545, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_IsActive
@@ -1035,7 +1035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2559526419002959678, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2559526420252927067, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_IsActive
@@ -1103,7 +1103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6960124858335720542, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6960124858335720542, guid: 2cbb922314fefe248858199f60f22ee0, type: 3}
       propertyPath: m_IsActive
@@ -1252,7 +1252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593016195}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.020000458, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1.1999999, y: 0.096, z: 1.1999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1357,9 +1357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6901bac28f5311e449b3bfdfdc7f265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
   Level1: level_1
   TestScene1: TestScene1
 --- !u!1 &684465390
@@ -1601,7 +1598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803512229}
   - component: {fileID: 803512230}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: FrontAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2434,7 +2431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393481087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47999954, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0.75, y: 1.2, z: 0}
   m_LocalScale: {x: 0.48, y: 2.3999999, z: 2.3999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2635,6 +2632,7 @@ GameObject:
   - component: {fileID: 1485470868}
   - component: {fileID: 1485470869}
   - component: {fileID: 1485470870}
+  - component: {fileID: 1485470871}
   m_Layer: 0
   m_Name: Automaton
   m_TagString: Untagged
@@ -2708,6 +2706,7 @@ MonoBehaviour:
   status: 0
   idleState: {fileID: 0}
   attackState: {fileID: 0}
+  deadState: {fileID: 0}
   enemyStatusTest: {fileID: 0}
 --- !u!114 &1485470869
 MonoBehaviour:
@@ -2726,18 +2725,19 @@ MonoBehaviour:
   xAxis: 1
   yAxis: 0
   walkSpeed: 2.5
-  wallCheckTransform: {fileID: 0}
+  wallCheckTransform: {fileID: 1393481088}
   wallCheckX: 0
   wallCheckY: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCheckTransform: {fileID: 0}
+  thisBodyTransform: {fileID: 0}
+  playerCheckTransform: {fileID: 1802668171}
   playerCheckX: 0
   playerCheckY: 0
-  playerLayer:
+  attackableLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
 --- !u!114 &1485470870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2758,12 +2758,20 @@ MonoBehaviour:
   attackableLayer:
     serializedVersion: 2
     m_Bits: 128
-  playerCheckTransform: {fileID: 0}
-  playerCheckX: 0
-  playerCheckY: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
+--- !u!114 &1485470871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485470863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865dc4943c152f54c94ba23ba58a4348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStateMachineManager: {fileID: 0}
+  thisThing: {fileID: 1485470863}
 --- !u!1 &1495631854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,7 +3036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675591154}
   m_Layer: 0
-  m_Name: AttackColider
+  m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3075,7 +3083,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802668170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47999954, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0.75, y: 1.2, z: 0}
   m_LocalScale: {x: 0.48, y: 2.3999999, z: 2.3999999}
   m_ConstrainProportionsScale: 0
   m_Children: []

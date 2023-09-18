@@ -7,26 +7,13 @@ public abstract class UnitAttributeManager : MonoBehaviour
     // 手動放入Asset
     [SerializeField] protected UnitAttribute unitAttribute;
 
-    // void Update()
-    // {
-    //     HpControl(unitAttribute.hp);
-    // }
-
-    public void HpControl(int currentHp)
+    void Awake()
     {
-        if (currentHp > unitAttribute.maxHp)
-        {
-            currentHp = unitAttribute.maxHp;
-        }
-        if (currentHp == 0)
-        {
-
-        }
-        else if (currentHp < 0)
-        {
-            currentHp = 0;
-        }
-        unitAttribute.hp = currentHp;
+        InitAttribute(); ;
     }
 
+    public abstract void HpControl(int currentHp);
+    public abstract void TakeDamage();
+    public abstract void Heal();
+    public abstract void InitAttribute();
 }

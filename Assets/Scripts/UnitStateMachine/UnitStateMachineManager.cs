@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class UnitStateMachineManager : MonoBehaviour
 {
-    // 手動放入Asset
-    protected UnitAttribute unitAttribute;
+    // // 手動放入Asset
+    // protected UnitAttributeManager unitAttribute;
 
     // 狀態: 閒逛、攻擊、死亡
     [Header("狀態")]
@@ -16,6 +16,11 @@ public abstract class UnitStateMachineManager : MonoBehaviour
 
     [SerializeField] protected IdleState idleState;
     [SerializeField] protected AttackState attackState;
+    [SerializeField] protected DeadState deadState;
+    void Awake()
+    {
+        InitStateMachine();
+    }
     public abstract void SwitchStatus(int nextStatus);
 
     public abstract void InitStateMachine();

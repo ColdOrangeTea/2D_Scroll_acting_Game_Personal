@@ -15,22 +15,21 @@ public abstract class AttackState : MonoBehaviour
     [SerializeField] protected Transform attackTransform;
     [SerializeField] protected LayerMask attackableLayer;
 
-    [Space(5)]
+    // [Space(5)]
 
-    [Header("用來檢查前方是否有玩家的變數")]
-    [SerializeField] protected Transform playerCheckTransform;
-    [SerializeField] protected float playerCheckX;
-    [SerializeField] protected float playerCheckY;
-    [SerializeField] protected LayerMask playerLayer;
+    // [Header("用來檢查前方是否有玩家的變數")]
+    // [SerializeField] protected Transform playerCheckTransform;
+    // [SerializeField] protected float playerCheckX;
+    // [SerializeField] protected float playerCheckY;
+    // [SerializeField] protected LayerMask playerLayer;
 
-    void Start()
+    void Awake()
     {
         InitAttackState();
     }
 
-
     public abstract IEnumerator Attackperiod();
-    public abstract bool PlayerCheck(float moveDirection);
+    // public abstract bool PlayerCheck(float moveDirection);
     public abstract IEnumerator Attacking();
     public abstract void InitAttackState();
 
