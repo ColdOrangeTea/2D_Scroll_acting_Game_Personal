@@ -22,6 +22,7 @@ public class MeleeMachineStateMachineManager : UnitStateMachineManager
         status = nextStatus;
         // 測試用
         enemyStatusTest.UpdateEnemyStatus(status);
+
         if (status == idle)
         {
             StartCoroutine(idleState.Idle());

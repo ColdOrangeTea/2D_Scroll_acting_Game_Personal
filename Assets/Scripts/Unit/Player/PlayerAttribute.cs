@@ -8,9 +8,9 @@ public class PlayerAttribute : UnitAttributeManager
 
     public override void HpControl(int currentHp)
     {
-        if (currentHp > unitAttribute.maxHp)
+        if (currentHp > maxHp)
         {
-            currentHp = unitAttribute.maxHp;
+            currentHp = maxHp;
         }
         if (currentHp == 0)
         {
@@ -20,21 +20,21 @@ public class PlayerAttribute : UnitAttributeManager
         {
             currentHp = 0;
         }
-        unitAttribute.hp = currentHp;
+        hp = currentHp;
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int Damage)
     {
-        unitAttribute.hp -= 1;
-        HpControl(unitAttribute.hp);
-        playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
+        hp -= Damage;
+        HpControl(hp);
+        playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
     public override void Heal()
     {
-        unitAttribute.hp += 1;
-        HpControl(unitAttribute.hp);
-        playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
+        hp += 1;
+        HpControl(hp);
+        playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
     public override void InitAttribute()
@@ -42,7 +42,14 @@ public class PlayerAttribute : UnitAttributeManager
         // healTest = FindObjectOfType<HealTest>();
         // damageTest = FindObjectOfType<DamageTest>();
         playerAttributeText = FindObjectOfType<PlayerAttributeText>();
-        playerAttributeText.UpdateHP(unitAttribute.hp, unitAttribute.maxHp, unitAttribute.attack);
+
+        maxHp = unitAttribute.maxHp;
+        hp = unitAttribute.hp;
+        maxMp = unitAttribute.maxMp;
+        mp = unitAttribute.mp;
+        attack = unitAttribute.attack;
+
+        playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
 }

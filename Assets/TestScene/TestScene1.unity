@@ -1541,7 +1541,7 @@ GameObject:
   - component: {fileID: 773267280}
   - component: {fileID: 773267281}
   m_Layer: 7
-  m_Name: BodyCollider
+  m_Name: HitCollider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2691,6 +2691,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitAttribute: {fileID: 11400000, guid: c5c3274cff205aa42a6c3473f9f30ff7, type: 2}
+  maxHp: 0
+  hp: 0
+  maxMp: 0
+  mp: 0
+  attack: 0
 --- !u!114 &1485470868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2771,7 +2776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStateMachineManager: {fileID: 0}
-  thisThing: {fileID: 1485470863}
+  thisThing: {fileID: 0}
 --- !u!1 &1495631854
 GameObject:
   m_ObjectHideFlags: 0

@@ -104,12 +104,12 @@ public class PlayerMovement : MonoBehaviour
         Flip();
         Walk(xAxis);
         GetInputs();
+        AttackColdDown();
+        Attack(yAxis);
     }
 
     void FixedUpdate()
     {
-        AttackColdDown();
-        Attack(yAxis);
         Jump();
     }
 
@@ -139,6 +139,8 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
     }
+
+   
 
     void Attack(float faceDirection)
     {

@@ -6,9 +6,9 @@ public class MeleeMachineAttribute : UnitAttributeManager
 {
     public override void HpControl(int currentHp)
     {
-        if (currentHp > unitAttribute.maxHp)
+        if (currentHp > maxHp)
         {
-            currentHp = unitAttribute.maxHp;
+            currentHp = maxHp;
         }
         if (currentHp == 0)
         {
@@ -19,30 +19,34 @@ public class MeleeMachineAttribute : UnitAttributeManager
         {
             currentHp = 0;
         }
-        unitAttribute.hp = currentHp;
+        hp = currentHp;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Attack")
-            TakeDamage();
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.tag == "Attack")
+    //        TakeDamage();
+    //}
 
-    public override void TakeDamage()
+    public override void TakeDamage(int Damage)
     {
-        unitAttribute.hp -= 1;
-        HpControl(unitAttribute.hp);
+        hp -= Damage;
+        HpControl(hp);
     }
 
     public override void Heal()
     {
-        unitAttribute.hp += 1;
-        HpControl(unitAttribute.hp);
+        hp += 1;
+        HpControl(hp);
     }
 
     public override void InitAttribute()
     {
-
+        maxHp = unitAttribute.maxHp;
+        hp = unitAttribute.hp;
+        maxMp = unitAttribute.maxMp;
+        mp = unitAttribute.mp;
+        attack = unitAttribute.attack;
     }
 
 }
