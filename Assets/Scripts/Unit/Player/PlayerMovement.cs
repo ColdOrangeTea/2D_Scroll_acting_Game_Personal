@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int jumpThreshold = 1;
 
     [Header("攻擊")]
-    [SerializeField] private float coldDown = 0.8f;
-    [SerializeField] private float AttackPeriod = 0.4f;
+    [SerializeField] private float attackColdDown = 0.6f;
+    [SerializeField] private float attackDuration = 0.4f;
     // transform 型別的 childed 主角正面攻擊的碰撞格
     [SerializeField] private Transform attackTransform;
 
@@ -87,11 +87,11 @@ public class PlayerMovement : MonoBehaviour
     // 玩家按下跳躍鍵時，用來計時的變數，好控制逐漸增加的Y軸高度(小於jumpSteps、jumpThreshold)
     [SerializeField]
     private int stepsJumped = 0;
-    // 玩家按下攻擊鍵時，用來計時的變數，好控制攻擊間隔
-    [SerializeField]
-    private float coldDownSinceAttack = 0;
-    [SerializeField]
-    private float timeSinceAttack = 0;
+    // // 玩家按下攻擊鍵時，用來計時的變數，好控制攻擊間隔
+    // [SerializeField]
+    // private float coldDownSinceAttack = 0;
+    // [SerializeField]
+    // private float timeSinceAttack = 0;
 
     void Start()
     {
@@ -104,8 +104,9 @@ public class PlayerMovement : MonoBehaviour
         Flip();
         Walk(xAxis);
         GetInputs();
-        AttackColdDown();
-        Attack(yAxis);
+        // AttackColdDown();
+        // Attack(yAxis);
+        // Attacking(yAxis);
     }
 
     void FixedUpdate()
@@ -113,75 +114,108 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
-    void AttackColdDown()
+
+    public IEnumerator Attackperiod(float faceDirection)
     {
-        if (IsAttackColdDown())
+        // Debug.Log("Attackperiod");
+        // 方向攻擊
+        // PolygonCollider2D[] hitEnemies =  upAttackTransform.GetComponent<PolygonCollider2D>();
+
+        if (faceDirection == 1)
         {
-            // 攻擊的間隔
-            coldDownSinceAttack -= Time.deltaTime;
-            if (coldDownSinceAttack <= 0)
-            {
-                coldDownSinceAttack = 0;
-            }
+            upAttackTransform.gameObject.SetActive(true);
+        }
+        if (faceDirection == -1)
+        {
+            downAttackTransform.gameObject.SetActive(true);
+        }
+        if (faceDirection == 0)
+        {
+            attackTransform.gameObject.SetActive(true);
         }
 
+        yield return new WaitForSeconds(attackDuration);
+        // Debug.Log("Attackperiod End");
+        upAttackTransform.gameObject.SetActive(false);
+        downAttackTransform.gameObject.SetActive(false);
+        attackTransform.gameObject.SetActive(false);
     }
-
-    // false代表不在冷卻狀態，可進行攻擊 true代表還在冷卻
-    public bool IsAttackColdDown()
-    {
-        if (coldDownSinceAttack == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-   
-
-    void Attack(float faceDirection)
+    public IEnumerator Attacking(float faceDirection)
     {
         if (pState.attacking)
         {
-            timeSinceAttack += Time.deltaTime;
-
-            // 攻擊是否處在冷卻狀態，若否即可攻擊
-            if (!IsAttackColdDown())
-            {
-                // 進行攻擊冷卻時間的計算
-                coldDownSinceAttack = coldDown;
-
-                if (timeSinceAttack < AttackPeriod)
-                {
-                    // 方向攻擊
-                    if (faceDirection == 1)
-                    {
-                        upAttackTransform.gameObject.SetActive(true);
-                    }
-                    if (faceDirection == -1)
-                    {
-                        downAttackTransform.gameObject.SetActive(true);
-                    }
-                    if (faceDirection == 0)
-                    {
-                        attackTransform.gameObject.SetActive(true);
-                    }
-                }
-            }
-
-            if (timeSinceAttack >= AttackPeriod)
-            {
-                timeSinceAttack = 0;
-                pState.attacking = false;
-                upAttackTransform.gameObject.SetActive(false);
-                downAttackTransform.gameObject.SetActive(false);
-                attackTransform.gameObject.SetActive(false);
-            }
+            StartCoroutine(Attackperiod(faceDirection));
+            yield return new WaitForSeconds(attackColdDown);
+            pState.attacking = false;
         }
     }
+
+    // void AttackColdDown()
+    // {
+    //     if (IsAttackColdDown())
+    //     {
+    //         // 攻擊的間隔
+    //         coldDownSinceAttack -= Time.deltaTime;
+    //         if (coldDownSinceAttack <= 0)
+    //         {
+    //             coldDownSinceAttack = 0;
+    //         }
+    //     }
+
+    // }
+    // // false代表不在冷卻狀態，可進行攻擊 true代表還在冷卻
+    // public bool IsAttackColdDown()
+    // {
+    //     if (coldDownSinceAttack == 0)
+    //     {
+    //         return false;
+    //     }
+    //     else
+    //     {
+    //         return true;
+    //     }
+    // }
+
+    // void Attack(float faceDirection)
+    // {
+    //     if (pState.attacking)
+    //     {
+    //         timeSinceAttack += Time.deltaTime;
+
+    //         // 攻擊是否處在冷卻狀態，若否即可攻擊
+    //         if (!IsAttackColdDown())
+    //         {
+    //             // 進行攻擊冷卻時間的計算
+    //             coldDownSinceAttack = attackColdDown;
+
+    //             if (timeSinceAttack < attackDuration)
+    //             {
+    //                 // 方向攻擊
+    //                 if (faceDirection == 1)
+    //                 {
+    //                     upAttackTransform.gameObject.SetActive(true);
+    //                 }
+    //                 if (faceDirection == -1)
+    //                 {
+    //                     downAttackTransform.gameObject.SetActive(true);
+    //                 }
+    //                 if (faceDirection == 0)
+    //                 {
+    //                     attackTransform.gameObject.SetActive(true);
+    //                 }
+    //             }
+    //         }
+
+    //         if (timeSinceAttack >= attackDuration)
+    //         {
+    //             timeSinceAttack = 0;
+    //             pState.attacking = false;
+    //             upAttackTransform.gameObject.SetActive(false);
+    //             downAttackTransform.gameObject.SetActive(false);
+    //             attackTransform.gameObject.SetActive(false);
+    //         }
+    //     }
+    // }
 
     // 角色轉向
     void Flip()
@@ -336,11 +370,13 @@ public class PlayerMovement : MonoBehaviour
         // 輸入攻擊鍵
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (!IsAttackColdDown())
+            if (pState.attacking == false)
             {
                 pState.attacking = true;
+                StartCoroutine(Attacking(yAxis));
                 Debug.Log("攻擊");
             }
+
         }
 
         // 在地板輸入跳躍鍵
@@ -363,12 +399,6 @@ public class PlayerMovement : MonoBehaviour
         {
             // Debug.Log("停止上升");
             StopJumpSlow();
-        }
-
-        // 輸入攻擊鍵
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-
         }
     }
 
