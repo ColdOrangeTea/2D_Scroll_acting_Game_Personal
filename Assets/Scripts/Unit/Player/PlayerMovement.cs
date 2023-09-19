@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Debug.Log("Attackperiod");
         // 方向攻擊
-        // PolygonCollider2D[] hitEnemies =  upAttackTransform.GetComponent<PolygonCollider2D>();
+        // PolygonCollider2D[] hitEnemies =  upAttackTransform.GetComponent<PolygonCollider2D>().
 
         if (faceDirection == 1)
         {
@@ -133,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             attackTransform.gameObject.SetActive(true);
         }
+
 
         yield return new WaitForSeconds(attackDuration);
         // Debug.Log("Attackperiod End");

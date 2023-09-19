@@ -6,6 +6,7 @@ public class MeleeMachineAttribute : UnitAttributeManager
 {
     public override void HpControl(int currentHp)
     {
+
         if (currentHp > maxHp)
         {
             currentHp = maxHp;
@@ -30,6 +31,7 @@ public class MeleeMachineAttribute : UnitAttributeManager
 
     public override void TakeDamage(int Damage)
     {
+
         hp -= Damage;
         HpControl(hp);
     }
