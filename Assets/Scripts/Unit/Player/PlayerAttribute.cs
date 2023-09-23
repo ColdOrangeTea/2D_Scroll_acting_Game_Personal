@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttribute : UnitAttributeManager
 {
-    protected PlayerAttributeText playerAttributeText;
+    // protected PlayerAttributeText playerAttributeText;
 
     public override void HpControl(int currentHp)
     {
@@ -27,21 +27,21 @@ public class PlayerAttribute : UnitAttributeManager
     {
         hp -= Damage;
         HpControl(hp);
-        playerAttributeText.UpdateHP(hp, maxHp, attack);
+        // playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
     public override void Heal()
     {
         hp += 1;
         HpControl(hp);
-        playerAttributeText.UpdateHP(hp, maxHp, attack);
+        // playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
     public override void InitAttribute()
     {
         // healTest = FindObjectOfType<HealTest>();
         // damageTest = FindObjectOfType<DamageTest>();
-        playerAttributeText = FindObjectOfType<PlayerAttributeText>();
+        // playerAttributeText = FindObjectOfType<PlayerAttributeText>();
 
         maxHp = unitAttribute.maxHp;
         hp = unitAttribute.hp;
@@ -49,7 +49,7 @@ public class PlayerAttribute : UnitAttributeManager
         mp = unitAttribute.mp;
         attack = unitAttribute.attack;
 
-        playerAttributeText.UpdateHP(hp, maxHp, attack);
+        // playerAttributeText.UpdateHP(hp, maxHp, attack);
     }
 
 }

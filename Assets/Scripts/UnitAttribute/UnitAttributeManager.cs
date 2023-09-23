@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class UnitAttributeManager : MonoBehaviour
 {
     // 手動放入Asset
-    [SerializeField] protected UnitAttribute unitAttribute;
+    [SerializeField] public UnitAttribute unitAttribute;
     [SerializeField] protected int maxHp = 0;
     [SerializeField] protected int hp = 0;
     [SerializeField] protected int maxMp = 0;
