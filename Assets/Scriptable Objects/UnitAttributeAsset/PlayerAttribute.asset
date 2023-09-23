@@ -17,8 +17,8 @@ MonoBehaviour:
   maxMp: 0
   mp: 0
   attack: 3
-  gravityStrength: -57.14286
-  gravityScale: 5.82496
+  gravityStrength: -40
+  gravityScale: 4.0774717
   fallGravityMult: 1.5
   maxFallSpeed: 25
   fastFallGravityMult: 2
@@ -31,8 +31,8 @@ MonoBehaviour:
   accelInAir: 0.65
   deccelInAir: 0.65
   doConserveMomentum: 1
-  jumpHeight: 3.5
-  jumpTimeToApex: 0.35
+  jumpHeight: 5
+  jumpTimeToApex: 0.5
   jumpForce: 20
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5

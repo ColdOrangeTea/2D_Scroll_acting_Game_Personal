@@ -54,24 +54,18 @@ public class PlayerMovement : MonoBehaviour
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
     [SerializeField] private Vector2 _groundCheckSize = new Vector2(0.49f, 0.03f);
     [Space(5)]
-    // [SerializeField] private Transform _frontWallCheckPoint;
-    // [SerializeField] private Transform _backWallCheckPoint;
-    // [SerializeField] private Vector2 _wallCheckSize = new Vector2(0.5f, 1f);
-    // [SerializeField] private Transform _sneakStrikeCheckPoint;
-    // [SerializeField] private Vector2 _sneakStrikeSize = new Vector2(1.5f, 1f);
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _slashRadius = 3f;
+
     [Space(5)]
-    //[SerializeField] private Transform _barrelCheckPoint;
-    //[SerializeField] private Vector2 _pushCheckSize = new Vector2(1f, 0.5f);
+
     #endregion
 
     #region LAYERS
     [Header("Layers")]
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _enemyLayer;
-    //[SerializeField] private LayerMask _airMovable;
-    //[SerializeField] private LayerMask _mudLayer;
+
     #endregion
 
     #region TIMERS
@@ -106,15 +100,6 @@ public class PlayerMovement : MonoBehaviour
         InAirState = new InAirState(this, StateMachine, unitAttribute, "inAir");
         LandState = new LandState(this, StateMachine, unitAttribute, "land");
 
-        // WallSlideState = new PlayerWallSlideState(this, StateMachine, unitAttribute, "wallSlide");
-        // WallGrabState = new PlayerWallGrabState(this, StateMachine, unitAttribute, "wallGrab");
-        // WallJumpState = new PlayerWallJumpState(this, StateMachine, unitAttribute, "wallJump");
-        // CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, unitAttribute, "crouchIdle");
-        // SneakStrikeState = new PlayerSneakStrikeState(this, StateMachine, unitAttribute, "sneakStrike");
-        // CrouchSlideState = new PlayerCrouchSlideState(this, StateMachine, unitAttribute, "crouchSlide");
-        // FireballState = new PlayerFireballState(this, StateMachine, unitAttribute, "fireball");
-        // AirPushState = new PlayerAirPushState(this, StateMachine, unitAttribute, "airPush");
-
         AttackState = new AttackState(this, StateMachine, unitAttribute, "slash");
         DashState = new DashState(this, StateMachine, unitAttribute, "dash");
     }
@@ -131,11 +116,6 @@ public class PlayerMovement : MonoBehaviour
         IsFacingRight = true;
         FacingDirection = 1;
         SetGravityScale(unitAttribute.gravityScale);
-
-        //FireballDirectionIndicator = transform.Find("FireballDirectionIndicator");
-        // AimPivot = transform.Find("AimPivot");
-        //FireballScript = GetComponentInChildren<FireballScript>();
-        // PushWind = GetComponentInChildren<PushWind>();
     }
 
     private void Update()
