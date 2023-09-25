@@ -10,7 +10,7 @@ public class TouchingWallState : State
     protected bool jumpInput;
     public bool IsOnWall { get; private set; }
 
-    public TouchingWallState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public TouchingWallState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -18,8 +18,8 @@ public class TouchingWallState : State
     {
         base.DoChecks();
 
-        playerMovement.OnGroundCheck();
-        isGrounded = playerMovement.CheckIfGrounded();
+        player.OnGroundCheck();
+        isGrounded = player.CheckIfGrounded();
 
         // playerMovement.OnWallCheck();
         // isOnWall = playerMovement.CheckIfOnWall();
@@ -68,5 +68,5 @@ public class TouchingWallState : State
     }
 
     public bool OnWall() => isOnWall && XInputAtWall();
-    public bool XInputAtWall() => (playerMovement.LastOnWallLeftTime > 0 && xInput < 0) || (playerMovement.LastOnWallRightTime > 0 && xInput > 0);
+    public bool XInputAtWall() => (player.LastOnWallLeftTime > 0 && xInput < 0) || (player.LastOnWallRightTime > 0 && xInput > 0);
 }

@@ -7,7 +7,7 @@ public class State
 {
     protected Core core;
 
-    protected PlayerMovement playerMovement;
+    protected Player player;
     protected PlayerStateMachine stateMachine;
     protected UnitAttribute unitAttribute;
 
@@ -19,13 +19,13 @@ public class State
     private string animBoolName;
 
 
-    public State(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName)
+    public State(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName)
     {
-        this.playerMovement = playerMovement;
+        this.player = player;
         this.stateMachine = stateMachine;
         this.unitAttribute = unitAttribute;
         this.animBoolName = animBoolName;
-        core = playerMovement.Core;
+        core = player.Core;
     }
     public virtual void Enter()
     {

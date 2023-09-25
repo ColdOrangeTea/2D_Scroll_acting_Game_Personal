@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LandState : GroundedState
 {
-    public LandState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public LandState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -14,16 +14,16 @@ public class LandState : GroundedState
         base.LogicUpdate();
 
         if (xInput != 0)
-            playerMovement.CheckDirectionToFace(xInput > 0);
+            player.CheckDirectionToFace(xInput > 0);
 
         if (!isExitingState)
         {
             if (xInput != 0)
             {
-                stateMachine.ChangeState(playerMovement.MoveState);
+                stateMachine.ChangeState(player.MoveState);
             }
             else
-                stateMachine.ChangeState(playerMovement.IdleState);
+                stateMachine.ChangeState(player.IdleState);
         }
     }
 }

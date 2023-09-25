@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     #region STATE VARIABLES
     public Core Core { get; private set; }

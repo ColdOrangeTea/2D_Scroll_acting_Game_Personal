@@ -7,14 +7,14 @@ public class DashState : AbilityState
     private bool DashUsed;
     private int DashesLeft = 0;
     private Vector2 _lastDashDir;
-    public DashState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public DashState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
     public override void Enter()
     {
         base.Enter();
         DashUsed = false;
-        playerMovement.inputHandler.UseDashInput();
+        player.inputHandler.UseDashInput();
 
     }
     public override void Exit()
@@ -28,16 +28,16 @@ public class DashState : AbilityState
         {
             if (!DashUsed && DashesLeft > 0)
                 //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
-                playerMovement.Sleep(unitAttribute.dashSleepTime);
+                player.Sleep(unitAttribute.dashSleepTime);
             //If not direction pressed, dash forward
-            if ((playerMovement.inputHandler.XInput, playerMovement.inputHandler.YInput) != (0, 0))
+            if ((player.inputHandler.XInput, player.inputHandler.YInput) != (0, 0))
             {
-                _lastDashDir = new Vector2(playerMovement.inputHandler.XInput, playerMovement.inputHandler.YInput).normalized;
+                _lastDashDir = new Vector2(player.inputHandler.XInput, player.inputHandler.YInput).normalized;
             }
             else
-                _lastDashDir = new Vector2(playerMovement.FacingDirection, 0);
+                _lastDashDir = new Vector2(player.FacingDirection, 0);
 
-            playerMovement.GoDash(_lastDashDir);
+            player.GoDash(_lastDashDir);
             DashesLeft--;
             Debug.Log("Dashleft:" + DashesLeft);
             DashUsed = true;

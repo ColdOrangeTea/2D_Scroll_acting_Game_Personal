@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class JumpState : AbilityState
 {
-    public JumpState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public JumpState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        playerMovement.inputHandler.UseJumpInput();
-        playerMovement.Jump();
+        player.inputHandler.UseJumpInput();
+        player.Jump();
 
         isAbilityDone = true;
 
-        playerMovement.InAirState.SetJumping(true);
-        playerMovement.InAirState.SetJumpCut(false);
+        player.InAirState.SetJumping(true);
+        player.InAirState.SetJumpCut(false);
     }
 }

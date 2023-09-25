@@ -7,7 +7,7 @@ public class AbilityState : State
     protected bool isAbilityDone;
     protected bool isGrounded;
     protected float xInput;
-    public AbilityState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public AbilityState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -15,8 +15,8 @@ public class AbilityState : State
     {
         base.DoChecks();
 
-        playerMovement.OnGroundCheck();
-        isGrounded = playerMovement.CheckIfGrounded();
+        player.OnGroundCheck();
+        isGrounded = player.CheckIfGrounded();
         //Debug.Log(isGrounded);
         //Debug.Log(Time.time);
     }
@@ -37,7 +37,7 @@ public class AbilityState : State
     {
         base.LogicUpdate();
 
-        xInput = playerMovement.inputHandler.XInput;
+        xInput = player.inputHandler.XInput;
 
         if (isAbilityDone)
         {
@@ -45,13 +45,13 @@ public class AbilityState : State
             // {
             //     stateMachine.ChangeState(playerMovement.CrouchIdleState);
             // }
-            if (isGrounded && playerMovement.CurrentVelocity.y < 0.01f)
+            if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {
-                stateMachine.ChangeState(playerMovement.IdleState);
+                stateMachine.ChangeState(player.IdleState);
             }
             else
             {
-                stateMachine.ChangeState(playerMovement.InAirState);
+                stateMachine.ChangeState(player.InAirState);
             }
         }
     }

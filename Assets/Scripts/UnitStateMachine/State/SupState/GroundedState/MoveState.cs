@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveState : GroundedState
 {
-    public MoveState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public MoveState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -30,13 +30,13 @@ public class MoveState : GroundedState
         base.LogicUpdate();
 
         if (xInput != 0)
-            playerMovement.CheckDirectionToFace(xInput > 0);
+            player.CheckDirectionToFace(xInput > 0);
 
         if (!isExitingState)
         {
             if (xInput == 0)
             {
-                stateMachine.ChangeState(playerMovement.IdleState);
+                stateMachine.ChangeState(player.IdleState);
             }
             // else if (yInput == -1 && Mathf.Abs(playerMovement.CurrentVelocity.x) >= unitAttribute.runMaxSpeed * 0.9f)
             // {
@@ -53,6 +53,6 @@ public class MoveState : GroundedState
     {
         base.PhysicsUpdate();
 
-        playerMovement.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
+        player.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
     }
 }

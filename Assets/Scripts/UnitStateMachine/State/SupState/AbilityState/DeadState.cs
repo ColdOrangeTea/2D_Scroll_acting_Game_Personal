@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class DeadState : State
 {
-    public DeadState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public DeadState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
-
     }
     public override void DoChecks()
     {

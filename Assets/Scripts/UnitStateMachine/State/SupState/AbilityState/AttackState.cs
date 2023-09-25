@@ -12,7 +12,7 @@ public class AttackState : AbilityState
     private bool SlashStopInput;
     private Vector2 SlashDirectionInput;
     private float lastSlashTime;
-    public AttackState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public AttackState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
     public override void Enter()
@@ -20,14 +20,14 @@ public class AttackState : AbilityState
         base.Enter();
 
         //CanSlash = true;
-        playerMovement.inputHandler.UseMeleeInput();
+        player.inputHandler.UseMeleeInput();
 
         isHolding = true;
         slashUsed = false;
 
         // playerMovement.AimPivot.gameObject.SetActive(true);
         Time.timeScale = unitAttribute.slashHoldtimeScale;
-        playerMovement.RB.drag = unitAttribute.SlashDrag;
+        player.RB.drag = unitAttribute.SlashDrag;
 
         startTime = Time.unscaledTime;
     }
@@ -42,11 +42,11 @@ public class AttackState : AbilityState
                 // 動畫先保留
                 // playerMovement.Anim.speed = 0;
 
-                SlashStopInput = playerMovement.inputHandler.SlashAimStopInput;
-                SlashDirectionInput = playerMovement.inputHandler.PointerDirectionInput;
-                xInput = playerMovement.inputHandler.XInput;
+                SlashStopInput = player.inputHandler.SlashAimStopInput;
+                SlashDirectionInput = player.inputHandler.PointerDirectionInput;
+                xInput = player.inputHandler.XInput;
 
-                playerMovement.RotateAimPivot();
+                player.RotateAimPivot();
 
                 if (SlashDirectionInput != Vector2.zero)
                 {
@@ -72,7 +72,7 @@ public class AttackState : AbilityState
 
                 float angle = Mathf.Atan2(SlashDirection.y, SlashDirection.x) * Mathf.Rad2Deg;
 
-                if (playerMovement.RB.transform.localScale.x == -1)
+                if (player.RB.transform.localScale.x == -1)
                     angle -= 90;
 
                 Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -83,7 +83,7 @@ public class AttackState : AbilityState
                 if (!slashUsed)
                 {
                     //Debug.Log("Slashed!boom");
-                    playerMovement.AirSlash();
+                    player.AirSlash();
                     slashUsed = true;
                 }
                 //執行Slash
@@ -92,7 +92,7 @@ public class AttackState : AbilityState
                 {
                     isAbilityDone = true;
                     lastSlashTime = Time.time;
-                    playerMovement.RB.drag = 0f;
+                    player.RB.drag = 0f;
                 }
             }
         }
@@ -103,10 +103,10 @@ public class AttackState : AbilityState
 
         if (isGrounded)
         {
-            playerMovement.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
+            player.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
         }
         else
-            playerMovement.InAirMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
+            player.InAirMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
             unitAttribute.runDeccelAmount * unitAttribute.deccelInAir, unitAttribute.jumpHangTimeThreshold,
             unitAttribute.jumpHangAccelerationMult, unitAttribute.jumpHangMaxSpeedMult, unitAttribute.doConserveMomentum, false);
     }
@@ -116,40 +116,7 @@ public class AttackState : AbilityState
     }
     void AimFacingDirection()
     {
-        playerMovement.CheckDirectionToFace(SlashDirection.x > 0 && SlashDirection.x != 0);
+        player.CheckDirectionToFace(SlashDirection.x > 0 && SlashDirection.x != 0);
     }
 
 }
-
-// public abstract class AttackState : MonoBehaviour
-// {
-//     [SerializeField] protected UnitStateMachineManager unitStateMachineManager;
-
-//     [SerializeField] protected float startUp = 0;
-//     [SerializeField] protected float attackDuration = 10;
-
-//     // 用來計時的變數，好控制攻擊間隔
-//     [SerializeField] protected float attackColdDown = 19.5F;
-
-//     [SerializeField] protected Transform attackTransform;
-//     [SerializeField] protected LayerMask attackableLayer;
-
-//     // [Space(5)]
-
-//     // [Header("用來檢查前方是否有玩家的變數")]
-//     // [SerializeField] protected Transform playerCheckTransform;
-//     // [SerializeField] protected float playerCheckX;
-//     // [SerializeField] protected float playerCheckY;
-//     // [SerializeField] protected LayerMask playerLayer;
-
-//     void Awake()
-//     {
-//         InitAttackState();
-//     }
-
-//     public abstract IEnumerator Attackperiod();
-//     // public abstract bool PlayerCheck(float moveDirection);
-//     public abstract IEnumerator Attacking();
-//     public abstract void InitAttackState();
-
-// }

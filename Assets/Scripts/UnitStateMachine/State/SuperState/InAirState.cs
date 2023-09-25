@@ -16,7 +16,7 @@ public class InAirState : State
     public bool IsJumping { get; private set; }
     public bool IsJumpCut { get; private set; }
     private bool canGrab;
-    public InAirState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public InAirState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -25,8 +25,8 @@ public class InAirState : State
     {
         base.DoChecks();
 
-        playerMovement.OnGroundCheck();
-        isGrounded = playerMovement.CheckIfGrounded();
+        player.OnGroundCheck();
+        isGrounded = player.CheckIfGrounded();
 
         // playerMovement.OnWallCheck();
         // isOnWall = playerMovement.CheckIfOnWall();
@@ -48,23 +48,23 @@ public class InAirState : State
     {
         base.LogicUpdate();
         //Local Assign vvv remember
-        xInput = playerMovement.inputHandler.XInput;
-        jumpCutInput = playerMovement.inputHandler.JumpCutInput;
-        jumpInput = playerMovement.inputHandler.JumpInput();
+        xInput = player.inputHandler.XInput;
+        jumpCutInput = player.inputHandler.JumpCutInput;
+        jumpInput = player.inputHandler.JumpInput();
         // fireballInput = playerMovement.inputHandler.FireballInput();
         // airPushInput = playerMovement.inputHandler.AirPushInput();
-        meleeInput = playerMovement.inputHandler.MeleeInput();
-        dashInput = playerMovement.inputHandler.DashInput();
+        meleeInput = player.inputHandler.MeleeInput();
+        dashInput = player.inputHandler.DashInput();
 
         // canGrab = playerMovement.CanGrab();
 
         if (xInput != 0)
-            playerMovement.CheckDirectionToFace(xInput > 0);
+            player.CheckDirectionToFace(xInput > 0);
 
-        if (isGrounded && playerMovement.CurrentVelocity.y < 0.01f)
+        if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             IsJumpCut = false;
-            stateMachine.ChangeState(playerMovement.LandState);
+            stateMachine.ChangeState(player.LandState);
         }
         // else if (isOnWall && jumpInput)
         // {
@@ -86,13 +86,13 @@ public class InAirState : State
         // {
         //     stateMachine.ChangeState(playerMovement.AirPushState);
         // }
-        // else if (meleeInput && playerMovement.SlashState.CheckIfCanSlash())
-        // {
-        //     stateMachine.ChangeState(playerMovement.SlashState);
-        // }
-        else if (dashInput && playerMovement.DashState.CheckIfCanDash())
+        else if (meleeInput && player.AttackState.CheckIfCanSlash())
         {
-            stateMachine.ChangeState(playerMovement.DashState);
+            stateMachine.ChangeState(player.AttackState);
+        }
+        else if (dashInput && player.DashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(player.DashState);
         }
 
 
@@ -104,14 +104,14 @@ public class InAirState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        playerMovement.InAirMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
+        player.InAirMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
         unitAttribute.runDeccelAmount * unitAttribute.deccelInAir, unitAttribute.jumpHangTimeThreshold, unitAttribute.jumpHangAccelerationMult,
         unitAttribute.jumpHangMaxSpeedMult, unitAttribute.doConserveMomentum, IsJumping);
     }
 
     private void CheckJumping()
     {
-        if (IsJumping && playerMovement.CurrentVelocity.y < 0)
+        if (IsJumping && player.CurrentVelocity.y < 0)
             IsJumping = false;
     }
     private void CheckJumpCut()
@@ -123,13 +123,13 @@ public class InAirState : State
     }
 
     //public bool CanWallJumpCut() => player.WallJumpState.IsWallJumping && player.CurrentVelocity.y > 0;
-    public bool CanJumpCut() => IsJumping && playerMovement.CurrentVelocity.y > 0;
+    public bool CanJumpCut() => IsJumping && player.CurrentVelocity.y > 0;
 
     public void SetJumping(bool setting) => IsJumping = setting;
     public void SetJumpCut(bool setting) => IsJumpCut = setting;
-    public bool CanWallSlide() => !IsJumping && isOnWall && XInputAtWall() && playerMovement.CurrentVelocity.y < 0;
+    public bool CanWallSlide() => !IsJumping && isOnWall && XInputAtWall() && player.CurrentVelocity.y < 0;
     public bool CanWallGrab() => !IsJumping && isOnWall && XInputAtWall() && canGrab;
-    public bool XInputAtWall() => (playerMovement.LastOnWallLeftTime > 0 && xInput < 0) || (playerMovement.LastOnWallRightTime > 0 && xInput > 0);
+    public bool XInputAtWall() => (player.LastOnWallLeftTime > 0 && xInput < 0) || (player.LastOnWallRightTime > 0 && xInput > 0);
 
 
 }

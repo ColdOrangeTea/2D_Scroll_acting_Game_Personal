@@ -13,7 +13,7 @@ public class GroundedState : State
     protected bool DashInput;
     protected bool isGrounded;
 
-    public GroundedState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(playerMovement, stateMachine, unitAttribute, animBoolName)
+    public GroundedState(Player player, PlayerStateMachine stateMachine, UnitAttribute unitAttribute, string animBoolName) : base(player, stateMachine, unitAttribute, animBoolName)
     {
     }
 
@@ -21,8 +21,8 @@ public class GroundedState : State
     {
         base.DoChecks();
 
-        playerMovement.OnGroundCheck();
-        isGrounded = playerMovement.CheckIfGrounded();
+        player.OnGroundCheck();
+        isGrounded = player.CheckIfGrounded();
     }
 
     public override void Enter()
@@ -31,7 +31,7 @@ public class GroundedState : State
 
         // playerMovement.FireballState.ResetCanFireball();
         // playerMovement.AirPushState.ResetCanAirPush();
-        playerMovement.DashState.ResetDashesLeft();
+        player.DashState.ResetDashesLeft();
     }
 
     public override void Exit()
@@ -43,20 +43,20 @@ public class GroundedState : State
     {
         base.LogicUpdate();
 
-        xInput = playerMovement.inputHandler.XInput;
-        yInput = playerMovement.inputHandler.YInput;
-        jumpInput = playerMovement.inputHandler.JumpInput();
+        xInput = player.inputHandler.XInput;
+        yInput = player.inputHandler.YInput;
+        jumpInput = player.inputHandler.JumpInput();
         // fireballInput = playerMovement.inputHandler.FireballInput();
         // airPushInput = playerMovement.inputHandler.AirPushInput();
-        meleeInput = playerMovement.inputHandler.MeleeInput();
-        DashInput = playerMovement.inputHandler.DashInput();
+        meleeInput = player.inputHandler.MeleeInput();
+        DashInput = player.inputHandler.DashInput();
         if (jumpInput && isGrounded)
         {
-            stateMachine.ChangeState(playerMovement.JumpState);
+            stateMachine.ChangeState(player.JumpState);
         }
         else if (!isGrounded)
         {
-            stateMachine.ChangeState(playerMovement.InAirState);
+            stateMachine.ChangeState(player.InAirState);
         }
         // else if (fireballInput && playerMovement.FireballState.CheckIfCanFireball())
         // {
@@ -69,11 +69,11 @@ public class GroundedState : State
         else if (meleeInput)
         {
             if (yInput != -1)// on Groundand no Crouch
-                stateMachine.ChangeState(playerMovement.AttackState);
+                stateMachine.ChangeState(player.AttackState);
         }
-        else if (DashInput && yInput != -1 && playerMovement.DashState.CheckIfCanDash())
+        else if (DashInput && yInput != -1 && player.DashState.CheckIfCanDash())
         {
-            stateMachine.ChangeState(playerMovement.DashState);
+            stateMachine.ChangeState(player.DashState);
         }
 
     }
