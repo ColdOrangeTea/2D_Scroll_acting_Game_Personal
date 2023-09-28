@@ -1703,6 +1703,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4321583645251566811, guid: 3c36c7705a9b2d646a8b10d6288cfe13, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4321583646375092998, guid: 3c36c7705a9b2d646a8b10d6288cfe13, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1751,7 +1755,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4321583645251566810, guid: 3c36c7705a9b2d646a8b10d6288cfe13, type: 3}
+    - {fileID: 4321583646265335940, guid: 3c36c7705a9b2d646a8b10d6288cfe13, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3c36c7705a9b2d646a8b10d6288cfe13, type: 3}
 --- !u!1 &722945896
 GameObject:
