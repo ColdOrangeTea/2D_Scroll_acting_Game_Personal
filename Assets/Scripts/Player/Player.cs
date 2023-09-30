@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     #region COMPONENTS
 
     // 動畫先保留
-    // public Animator Anim { get; private set; }
+    public Animator Anim { get; private set; }
 
 
     public PlayerInputHandler InputHandler { get; private set; }
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
 
-        // Anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
 
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();

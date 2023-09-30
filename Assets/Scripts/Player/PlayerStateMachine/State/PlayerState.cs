@@ -32,7 +32,7 @@ public class PlayerState
         DoChecks();
 
         // 動畫先保留
-        // playerMovement.Anim.SetBool(animBoolName, true);
+        player.Anim.SetBool(anim_bool_name, true);
 
         startTime = Time.time;
 
@@ -44,7 +44,7 @@ public class PlayerState
     public virtual void Exit()
     {
         // 動畫先保留
-        // playerMovement.Anim.SetBool(animBoolName, false);
+        player.Anim.SetBool(anim_bool_name, false);
 
         isExitingState = true;
     }
