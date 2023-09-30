@@ -86,9 +86,9 @@ public class PlayerInAirState : PlayerState
         // {
         //     stateMachine.ChangeState(playerMovement.AirPushState);
         // }
-        else if (melee_input && player.PlayerAttackState.CheckIfCanSlash())
+        else if (melee_input && player.PlayerPunchState.CheckIfCanSlash())
         {
-            playerStateMachine.ChangeState(player.PlayerAttackState);
+            playerStateMachine.ChangeState(player.PlayerPunchState);
         }
         else if (dash_input && player.PlayerDashState.CheckIfCanDash())
         {

@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public PlayerIdleState PlayerIdleState { get; private set; }
     public PlayerMoveState PlayerMoveState { get; private set; }
     public PlayerJumpState PlayerJumpState { get; private set; }
-    public PlayerAttackState PlayerAttackState { get; private set; }
+    public PlayerPunchState PlayerPunchState { get; private set; }
     public PlayerDashState PlayerDashState { get; private set; }
     public PlayerInAirState PlayerInAirState { get; private set; }
     public PlayerLandState PlayerLandState { get; private set; }
@@ -76,6 +76,20 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region ANIMATION BOOL NAME
+
+    public const string INAIR = "inAir";
+
+    public const string IDLE = "idle";
+    public const string LAND = "land";
+    public const string MOVE = "move";
+
+    public const string DASH = "dash";
+    public const string JUMP = "jump";
+    public const string PUNCH = "punch";
+
+    #endregion
+
     #region OTHER VARIABLES
     public bool IsFacingRight { get; private set; }
     public int FacingDirection { get; private set; }
@@ -94,14 +108,15 @@ public class Player : MonoBehaviour
 
         PlayerStateMachine = new PlayerStateMachine();
 
-        PlayerIdleState = new PlayerIdleState(this, PlayerStateMachine, unit_attribute, "idle");
-        PlayerMoveState = new PlayerMoveState(this, PlayerStateMachine, unit_attribute, "move");
-        PlayerJumpState = new PlayerJumpState(this, PlayerStateMachine, unit_attribute, "jump");
-        PlayerInAirState = new PlayerInAirState(this, PlayerStateMachine, unit_attribute, "inAir");
-        PlayerLandState = new PlayerLandState(this, PlayerStateMachine, unit_attribute, "land");
+        PlayerInAirState = new PlayerInAirState(this, PlayerStateMachine, unit_attribute, INAIR);
 
-        PlayerAttackState = new PlayerAttackState(this, PlayerStateMachine, unit_attribute, "slash");
-        PlayerDashState = new PlayerDashState(this, PlayerStateMachine, unit_attribute, "dash");
+        PlayerIdleState = new PlayerIdleState(this, PlayerStateMachine, unit_attribute, IDLE);
+        PlayerLandState = new PlayerLandState(this, PlayerStateMachine, unit_attribute, LAND);
+        PlayerMoveState = new PlayerMoveState(this, PlayerStateMachine, unit_attribute, MOVE);
+
+        PlayerDashState = new PlayerDashState(this, PlayerStateMachine, unit_attribute, DASH);
+        PlayerJumpState = new PlayerJumpState(this, PlayerStateMachine, unit_attribute, JUMP);
+        PlayerPunchState = new PlayerPunchState(this, PlayerStateMachine, unit_attribute, PUNCH);
     }
 
     private void Start()

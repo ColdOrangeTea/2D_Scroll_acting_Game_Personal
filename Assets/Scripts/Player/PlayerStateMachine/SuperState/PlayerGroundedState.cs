@@ -69,7 +69,7 @@ public class PlayerGroundedState : PlayerState
         else if (meleeInput)
         {
             if (yInput != -1)// on Groundand no Crouch
-                playerStateMachine.ChangeState(player.PlayerAttackState);
+                playerStateMachine.ChangeState(player.PlayerPunchState);
         }
         else if (dashInput && yInput != -1 && player.PlayerDashState.CheckIfCanDash())
         {

@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackState : PlayerAbilityState
+public class PlayerPunchState : PlayerAbilityState
 {
     //public bool CanSlash { get; private set; }
     private bool is_holding;
 
-    private bool slash_used;
-    private Vector2 slash_direction;
-    private bool slash_stop_input;
-    private Vector2 slash_direction_input;
-    private float last_slash_time;
-    public PlayerAttackState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    private bool punch_used;
+    private Vector2 punch_direction;
+    private bool punch_stop_input;
+    private Vector2 punch_direction_input;
+    private float last_punch_time;
+
+    public PlayerPunchState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
     {
     }
     public override void Enter()
@@ -23,7 +24,7 @@ public class PlayerAttackState : PlayerAbilityState
         player.InputHandler.UseMeleeInput();
 
         is_holding = true;
-        slash_used = false;
+        punch_used = false;
 
         // playerMovement.AimPivot.gameObject.SetActive(true);
         Time.timeScale = unitAttribute.slashHoldtimeScale;
@@ -42,20 +43,20 @@ public class PlayerAttackState : PlayerAbilityState
                 // 動畫先保留
                 // playerMovement.Anim.speed = 0;
 
-                slash_stop_input = player.InputHandler.SlashAimStopInput;
-                slash_direction_input = player.InputHandler.PointerDirectionInput;
+                punch_stop_input = player.InputHandler.SlashAimStopInput;
+                punch_direction_input = player.InputHandler.PointerDirectionInput;
                 xInput = player.InputHandler.XInput;
 
                 player.RotateAimPivot();
 
-                if (slash_direction_input != Vector2.zero)
+                if (punch_direction_input != Vector2.zero)
                 {
-                    slash_direction = slash_direction_input;
+                    punch_direction = punch_direction_input;
                 }
 
                 AimFacingDirection();
 
-                if (slash_stop_input || Time.unscaledTime >= startTime + unitAttribute.maxHoldTime)
+                if (punch_stop_input || Time.unscaledTime >= startTime + unitAttribute.maxHoldTime)
                 {
                     // 動畫先保留
                     //按住(瞄準時間結束)
@@ -70,7 +71,7 @@ public class PlayerAttackState : PlayerAbilityState
 
                 }
 
-                float angle = Mathf.Atan2(slash_direction.y, slash_direction.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(punch_direction.y, punch_direction.x) * Mathf.Rad2Deg;
 
                 if (player.RB.transform.localScale.x == -1)
                     angle -= 90;
@@ -80,18 +81,18 @@ public class PlayerAttackState : PlayerAbilityState
             }
             else
             {
-                if (!slash_used)
+                if (!punch_used)
                 {
                     //Debug.Log("Slashed!boom");
                     player.AirSlash();
-                    slash_used = true;
+                    punch_used = true;
                 }
                 //執行Slash
                 //Slash時間
                 if (Time.time >= startTime + unitAttribute.fireballDuration)
                 {
                     isAbilityDone = true;
-                    last_slash_time = Time.time;
+                    last_punch_time = Time.time;
                     player.RB.drag = 0f;
                 }
             }
@@ -112,11 +113,11 @@ public class PlayerAttackState : PlayerAbilityState
     }
     public bool CheckIfCanSlash()
     {
-        return Time.time >= last_slash_time + unitAttribute.SlashCooldown;
+        return Time.time >= last_punch_time + unitAttribute.SlashCooldown;
     }
     void AimFacingDirection()
     {
-        player.CheckDirectionToFace(slash_direction.x > 0 && slash_direction.x != 0);
+        player.CheckDirectionToFace(punch_direction.x > 0 && punch_direction.x != 0);
     }
 
 }
