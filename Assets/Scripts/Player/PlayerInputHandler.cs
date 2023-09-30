@@ -19,7 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 RawPointerDirectionInput { get; private set; }
     public Vector2 PointerDirectionInput { get; private set; }
 
-    [SerializeField] private UnitAttribute unit_attribute;
+    [SerializeField] private PlayerAttribute player_attribute;
 
     // Update is called once per frame
     void Update()
@@ -81,11 +81,11 @@ public class PlayerInputHandler : MonoBehaviour
     public bool MeleeInput() => LastPressedMeleeTime > 0;
     public bool DashInput() => LastPressedDashTime > 0;
 
-    public void OnJumpInput() => LastPressedJumpTime = unit_attribute.jumpInputBufferTime;
+    public void OnJumpInput() => LastPressedJumpTime = player_attribute.jumpInputBufferTime;
     // public void OnFireballInput() => LastPressedFireballTime = unitAttribute.fireballInputBufferTime;
     // public void OnAirPushInput() => LastPressedAirPushTime = unitAttribute.airPushInputBufferTime;
-    public void OnMeleeInput() => LastPressedMeleeTime = unit_attribute.meleeInputBufferTime;
-    public void OnDashInput() => LastPressedDashTime = unit_attribute.dashInputBufferTime;
+    public void OnMeleeInput() => LastPressedMeleeTime = player_attribute.meleeInputBufferTime;
+    public void OnDashInput() => LastPressedDashTime = player_attribute.dashInputBufferTime;
     // void OnPointerDirectionInput()
     // {
     //     RawPointerDirectionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerIdleState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
 
@@ -46,6 +46,6 @@ public class PlayerIdleState : PlayerGroundedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.GroundMove(1, 0, 0, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
+        player.GroundMove(1, 0, 0, playerAttribute.runAccelAmount, playerAttribute.runDeccelAmount);
     }
 }

@@ -13,7 +13,7 @@ public class PlayerGroundedState : PlayerState
     protected bool dashInput;
     protected bool isGrounded;
 
-    public PlayerGroundedState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerGroundedState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
 

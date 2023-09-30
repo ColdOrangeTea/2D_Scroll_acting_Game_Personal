@@ -13,7 +13,7 @@ public class PlayerPunchState : PlayerAbilityState
     private Vector2 punch_direction_input;
     private float last_punch_time;
 
-    public PlayerPunchState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerPunchState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
     public override void Enter()
@@ -27,8 +27,8 @@ public class PlayerPunchState : PlayerAbilityState
         punch_used = false;
 
         // playerMovement.AimPivot.gameObject.SetActive(true);
-        Time.timeScale = unitAttribute.slashHoldtimeScale;
-        player.RB.drag = unitAttribute.SlashDrag;
+        Time.timeScale = playerAttribute.slashHoldtimeScale;
+        player.RB.drag = playerAttribute.SlashDrag;
 
         startTime = Time.unscaledTime;
     }
@@ -56,7 +56,7 @@ public class PlayerPunchState : PlayerAbilityState
 
                 AimFacingDirection();
 
-                if (punch_stop_input || Time.unscaledTime >= startTime + unitAttribute.maxHoldTime)
+                if (punch_stop_input || Time.unscaledTime >= startTime + playerAttribute.maxHoldTime)
                 {
                     // 動畫先保留
                     //按住(瞄準時間結束)
@@ -89,7 +89,7 @@ public class PlayerPunchState : PlayerAbilityState
                 }
                 //執行Slash
                 //Slash時間
-                if (Time.time >= startTime + unitAttribute.fireballDuration)
+                if (Time.time >= startTime + playerAttribute.fireballDuration)
                 {
                     isAbilityDone = true;
                     last_punch_time = Time.time;
@@ -104,16 +104,16 @@ public class PlayerPunchState : PlayerAbilityState
 
         if (isGrounded)
         {
-            player.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
+            player.GroundMove(1, xInput, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount, playerAttribute.runDeccelAmount);
         }
         else
-            player.InAirMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
-            unitAttribute.runDeccelAmount * unitAttribute.deccelInAir, unitAttribute.jumpHangTimeThreshold,
-            unitAttribute.jumpHangAccelerationMult, unitAttribute.jumpHangMaxSpeedMult, unitAttribute.doConserveMomentum, false);
+            player.InAirMove(1, xInput, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount * playerAttribute.accelInAir,
+            playerAttribute.runDeccelAmount * playerAttribute.deccelInAir, playerAttribute.jumpHangTimeThreshold,
+            playerAttribute.jumpHangAccelerationMult, playerAttribute.jumpHangMaxSpeedMult, playerAttribute.doConserveMomentum, false);
     }
     public bool CheckIfCanSlash()
     {
-        return Time.time >= last_punch_time + unitAttribute.SlashCooldown;
+        return Time.time >= last_punch_time + playerAttribute.SlashCooldown;
     }
     void AimFacingDirection()
     {

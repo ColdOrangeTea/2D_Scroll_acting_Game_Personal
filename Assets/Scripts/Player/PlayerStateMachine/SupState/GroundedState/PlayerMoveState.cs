@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerMoveState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
 
@@ -53,6 +53,6 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.PhysicsUpdate();
 
-        player.GroundMove(1, xInput, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount, unitAttribute.runDeccelAmount);
+        player.GroundMove(1, xInput, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount, playerAttribute.runDeccelAmount);
     }
 }

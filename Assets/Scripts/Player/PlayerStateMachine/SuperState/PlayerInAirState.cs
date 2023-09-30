@@ -16,7 +16,7 @@ public class PlayerInAirState : PlayerState
     public bool IsJumping { get; private set; }
     public bool IsJumpCut { get; private set; }
     private bool can_grab;
-    public PlayerInAirState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerInAirState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
 
@@ -104,9 +104,9 @@ public class PlayerInAirState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.InAirMove(1, x_Input, unitAttribute.runMaxSpeed, unitAttribute.runAccelAmount * unitAttribute.accelInAir,
-        unitAttribute.runDeccelAmount * unitAttribute.deccelInAir, unitAttribute.jumpHangTimeThreshold, unitAttribute.jumpHangAccelerationMult,
-        unitAttribute.jumpHangMaxSpeedMult, unitAttribute.doConserveMomentum, IsJumping);
+        player.InAirMove(1, x_Input, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount * playerAttribute.accelInAir,
+        playerAttribute.runDeccelAmount * playerAttribute.deccelInAir, playerAttribute.jumpHangTimeThreshold, playerAttribute.jumpHangAccelerationMult,
+        playerAttribute.jumpHangMaxSpeedMult, playerAttribute.doConserveMomentum, IsJumping);
     }
 
     private void CheckJumping()

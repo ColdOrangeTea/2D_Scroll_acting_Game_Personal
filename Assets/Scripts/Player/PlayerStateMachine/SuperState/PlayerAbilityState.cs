@@ -7,7 +7,7 @@ public class PlayerAbilityState : PlayerState
     protected bool isAbilityDone;
     protected bool isGrounded;
     protected float xInput;
-    public PlayerAbilityState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name) : base(player, playerStateMachine, unitAttribute, anim_bool_name)
+    public PlayerAbilityState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
     }
 

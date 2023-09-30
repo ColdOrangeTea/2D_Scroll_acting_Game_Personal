@@ -9,7 +9,7 @@ public class PlayerState
 
     protected Player player;
     protected PlayerStateMachine playerStateMachine;
-    protected UnitAttribute unitAttribute;
+    protected PlayerAttribute playerAttribute;
 
     protected bool isAnimationFinished;
     protected bool isExitingState;
@@ -19,11 +19,11 @@ public class PlayerState
     private string anim_bool_name;
 
 
-    public PlayerState(Player player, PlayerStateMachine playerStateMachine, UnitAttribute unitAttribute, string anim_bool_name)
+    public PlayerState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name)
     {
         this.player = player;
         this.playerStateMachine = playerStateMachine;
-        this.unitAttribute = unitAttribute;
+        this.playerAttribute = playerAttribute;
         this.anim_bool_name = anim_bool_name;
         core = player.Core;
     }
