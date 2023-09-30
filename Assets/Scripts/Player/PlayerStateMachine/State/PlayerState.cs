@@ -51,6 +51,7 @@ public class PlayerState
 
     public virtual void LogicUpdate() //Update
     {
+
     }
 
     public virtual void PhysicsUpdate() //FixedUpdate

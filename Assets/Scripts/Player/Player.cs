@@ -467,7 +467,7 @@ public class Player : MonoBehaviour
         if (Physics2D.OverlapBox(ground_checkpoint.position, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
         {
             //Debug.Log("ground");
-            //if so sets the lastGrounded to coyoteTime
+            //if so sets the lastGrounded to coyoteTime  coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令。
             LastOnGroundTime = unit_attribute.coyoteTime;
         }
     }

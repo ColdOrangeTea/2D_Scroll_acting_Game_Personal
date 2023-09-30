@@ -56,7 +56,7 @@ MonoBehaviour:
   deccelOnGround: 0.8
   crouchSlideDoConserveMomentum: 1
   coyoteTime: 0.1
-  jumpInputBufferTime: 0.1
+  jumpInputBufferTime: 0.2
   dashAmount: 1
   dashSpeed: 30
   dashSleepTime: 0.05

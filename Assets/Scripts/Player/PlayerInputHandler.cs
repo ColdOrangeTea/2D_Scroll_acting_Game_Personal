@@ -35,14 +35,12 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("jjjjjjj");
             OnJumpInput();
-            Debug.Log(LastPressedJumpTime);
+            Debug.Log("LastPressedJumpTime: " + LastPressedJumpTime);
             JumpCutInput = false;
         }
         if (Input.GetButtonUp("Jump"))
         {
-            Debug.Log("jjjjjjjnnnnnnnnnnnnnnnn");
             JumpCutInput = true;
         }
         // if (Input.GetButtonDown("Fire"))
@@ -58,7 +56,7 @@ public class PlayerInputHandler : MonoBehaviour
         // }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("Qpressed");
+            Debug.Log("Q is pressed");
             OnMeleeInput();
             SlashAimStopInput = false;
         }
@@ -68,7 +66,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log("suppressed");
+            Debug.Log("C is ppressed");
             OnDashInput();
         }
         // OnPointerDirectionInput();
