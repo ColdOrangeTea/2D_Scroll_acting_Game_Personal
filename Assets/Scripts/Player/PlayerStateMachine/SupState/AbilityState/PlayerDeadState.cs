@@ -26,7 +26,7 @@ public class PlayerDeadState : PlayerState
 
     public override void PhysicsUpdate() //FixedUpdate
     {
-        DoChecks();
+
     }
 
     public override void AnimationTrigger()

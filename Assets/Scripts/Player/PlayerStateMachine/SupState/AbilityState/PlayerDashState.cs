@@ -30,7 +30,7 @@ public class PlayerDashState : PlayerAbilityState
         {
             if (!dash_used && dashes_left > 0)
                 //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
-                player.Sleep(playerAttribute.dashSleepTime);
+                player.Sleep(playerAttribute.DashSleepTime);
             //If not direction pressed, dash forward
             if ((player.InputHandler.XInput, player.InputHandler.YInput) != (0, 0))
             {
@@ -50,5 +50,5 @@ public class PlayerDashState : PlayerAbilityState
     {
         return dashes_left > 0;
     }
-    public void ResetDashesLeft() => dashes_left = playerAttribute.dashAmount;
+    public void ResetDashesLeft() => dashes_left = playerAttribute.DashAmount;
 }

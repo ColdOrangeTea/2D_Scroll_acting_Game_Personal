@@ -46,6 +46,6 @@ public class PlayerIdleState : PlayerGroundedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.GroundMove(1, 0, 0, playerAttribute.runAccelAmount, playerAttribute.runDeccelAmount);
+        player.GroundMove(1, 0, 0, playerAttribute.RunAccelAmount, playerAttribute.RunDeccelAmount);
     }
 }

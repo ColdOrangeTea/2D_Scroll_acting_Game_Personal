@@ -53,6 +53,6 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.PhysicsUpdate();
 
-        player.GroundMove(1, xInput, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount, playerAttribute.runDeccelAmount);
+        player.GroundMove(1, xInput, playerAttribute.RunMaxSpeed, playerAttribute.RunAccelAmount, playerAttribute.RunDeccelAmount);
     }
 }

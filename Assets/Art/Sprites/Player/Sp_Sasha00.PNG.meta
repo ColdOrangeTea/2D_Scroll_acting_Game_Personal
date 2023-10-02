@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7a8529d29155fa499eb77858ca55ab5
+guid: 6d2b05cbbc496b14d9aa5e9645e117ae
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SP_Sasha2.0_0
+      name: Sp_Sasha00_Idle00
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16e11a3a1ee90124d87b038baf740d61
-      internalID: 1352569639
+      spriteID: accb677a9ad87d944a88cee3b6b7e33c
+      internalID: 1847025060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_1
+      name: Sp_Sasha00_Idle01
       rect:
         serializedVersion: 2
         x: 128
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4806123e718b2cb42a7c516bdd0b12c4
-      internalID: -1371043972
+      spriteID: 0f978a5eeed6b024a9bc9cf705bc05cc
+      internalID: 791325564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_2
+      name: Sp_Sasha00_Idle02
       rect:
         serializedVersion: 2
         x: 256
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0385bbfa3c1ebc4d901244dbf251828
-      internalID: 630263852
+      spriteID: b5fddf85340cee646b6266c63b1b97d5
+      internalID: 449290721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_3
+      name: Sp_Sasha00_Move00
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0275e4398708c1f43aa199310faafb40
-      internalID: -2081912849
+      spriteID: 2b5ff50d1d3f7f54cb99e970d2ee2dd5
+      internalID: -1258803094
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_4
+      name: Sp_Sasha00_Move01
       rect:
         serializedVersion: 2
         x: 128
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25b6cc9f109374e48a72bdd6ea8d64b0
-      internalID: -914336651
+      spriteID: 7c3118b751588a94c909a712b728141e
+      internalID: -523451431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_5
+      name: Sp_Sasha00_Move02
       rect:
         serializedVersion: 2
         x: 256
@@ -236,14 +236,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f580648d2020d04bbab53287a66fbdb
-      internalID: -1182123376
+      spriteID: f5857a89b250e6f4ebeb3da0fad62995
+      internalID: 1853692609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_6
+      name: Sp_Sasha00_Move03
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4ac4e4d835672f40b370ff8a2b0041d
+      internalID: 2058181859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sp_Sasha00_Move04
       rect:
         serializedVersion: 2
         x: 0
@@ -257,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa74c55b214359644ae7e5a7f93efea1
-      internalID: 1897652186
+      spriteID: 8274f79f2f3cb414abaee2946eb3a44c
+      internalID: -226622322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_7
+      name: Sp_Sasha00_Move05
       rect:
         serializedVersion: 2
         x: 128
@@ -278,14 +299,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63fc5b728ba0ab147911a0f8943ce144
-      internalID: 269838284
+      spriteID: bee531b65cc6e3f45b3e8334b24fc624
+      internalID: -1617851008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_8
+      name: Sp_Sasha00_Move06
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d6d7c237cd76c346bc108798b23fd8a
+      internalID: -449314843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sp_Sasha00_Move07
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19f08773aab50324d942788a1efec497
+      internalID: -1906349569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sp_Sasha00_Punch00
       rect:
         serializedVersion: 2
         x: 0
@@ -299,14 +362,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e49ab22d7f7efa469db534665f24e71
-      internalID: -1279753214
+      spriteID: 62340c7ce87a9984e857b93b83d4770a
+      internalID: 796203182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_9
+      name: Sp_Sasha00_Punch01
       rect:
         serializedVersion: 2
         x: 128
@@ -320,14 +383,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 779e7e3bb3b23c748a2777d0afef77cb
-      internalID: -651666814
+      spriteID: 1be64ea9d82632c45bed6840955889b1
+      internalID: 1775932184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SP_Sasha2.0_10
+      name: Sp_Sasha00_Punch02
       rect:
         serializedVersion: 2
         x: 256
@@ -341,8 +404,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62da0cda9c267d64085b616fe1fd73ac
-      internalID: 774024737
+      spriteID: 509640c74da73d9438eba64c05e73ea1
+      internalID: 1362228666
       vertices: []
       indices: 
       edges: []
@@ -350,7 +413,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a65ebbf9ddb64cf4b9906fc73d58ff86
+    spriteID: 6b3538af6048ffb45af6dfc55c3bc3b4
     internalID: 0
     vertices: []
     indices: 
@@ -358,17 +421,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SP_Sasha2.0_3: -2081912849
-      SP_Sasha2.0_8: -1279753214
-      SP_Sasha2.0_1: -1371043972
-      SP_Sasha2.0_6: 1897652186
-      SP_Sasha2.0_4: -914336651
-      SP_Sasha2.0_5: -1182123376
-      SP_Sasha2.0_9: -651666814
-      SP_Sasha2.0_10: 774024737
-      SP_Sasha2.0_0: 1352569639
-      SP_Sasha2.0_2: 630263852
-      SP_Sasha2.0_7: 269838284
+      Sp_Sasha00_Idle01: 791325564
+      Sp_Sasha00_Move06: -449314843
+      Sp_Sasha00_Move02: 1853692609
+      Sp_Sasha00_Punch00: 796203182
+      Sp_Sasha00_Move04: -226622322
+      Sp_Sasha00_Punch02: 1362228666
+      Sp_Sasha00_Move01: -523451431
+      Sp_Sasha00_Move07: -1906349569
+      Sp_Sasha00_Idle00: 1847025060
+      Sp_Sasha00_Idle02: 449290721
+      Sp_Sasha00_Move03: 2058181859
+      Sp_Sasha00_Punch01: 1775932184
+      Sp_Sasha00_Move00: -1258803094
+      Sp_Sasha00_Move05: -1617851008
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -15,7 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
     public float LastPressedDashTime { get; private set; }
     public bool JumpCutInput { get; private set; }
     public bool FireballStopInput { get; private set; }
-    public bool SlashAimStopInput { get; private set; }
+    public bool MeleeStopInput { get; private set; }
     public Vector2 RawPointerDirectionInput { get; private set; }
     public Vector2 PointerDirectionInput { get; private set; }
 
@@ -58,18 +58,18 @@ public class PlayerInputHandler : MonoBehaviour
         {
             Debug.Log("Q is pressed");
             OnMeleeInput();
-            SlashAimStopInput = false;
+            MeleeStopInput = false;
         }
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            SlashAimStopInput = true;
+            MeleeStopInput = true;
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
             Debug.Log("C is ppressed");
             OnDashInput();
         }
-        // OnPointerDirectionInput();
+        OnPointerDirectionInput();
 
         //Debug.Log(JumpCutInput);
     }
@@ -81,16 +81,16 @@ public class PlayerInputHandler : MonoBehaviour
     public bool MeleeInput() => LastPressedMeleeTime > 0;
     public bool DashInput() => LastPressedDashTime > 0;
 
-    public void OnJumpInput() => LastPressedJumpTime = player_attribute.jumpInputBufferTime;
+    public void OnJumpInput() => LastPressedJumpTime = player_attribute.JumpInputBufferTime;
     // public void OnFireballInput() => LastPressedFireballTime = unitAttribute.fireballInputBufferTime;
     // public void OnAirPushInput() => LastPressedAirPushTime = unitAttribute.airPushInputBufferTime;
-    public void OnMeleeInput() => LastPressedMeleeTime = player_attribute.meleeInputBufferTime;
-    public void OnDashInput() => LastPressedDashTime = player_attribute.dashInputBufferTime;
-    // void OnPointerDirectionInput()
-    // {
-    //     RawPointerDirectionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-    //     PointerDirectionInput = RawPointerDirectionInput.normalized;
-    // }
+    public void OnMeleeInput() => LastPressedMeleeTime = player_attribute.MeleeInputBufferTime;
+    public void OnDashInput() => LastPressedDashTime = player_attribute.DashInputBufferTime;
+    void OnPointerDirectionInput()
+    {
+        RawPointerDirectionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        PointerDirectionInput = RawPointerDirectionInput.normalized;
+    }
 
     public void UseJumpInput() => LastPressedJumpTime = 0;
     // public void UseFireballInput() => LastPressedFireballTime = 0;

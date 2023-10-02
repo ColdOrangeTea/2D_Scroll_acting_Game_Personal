@@ -86,7 +86,7 @@ public class PlayerInAirState : PlayerState
         // {
         //     stateMachine.ChangeState(playerMovement.AirPushState);
         // }
-        else if (melee_input && player.PlayerPunchState.CheckIfCanSlash())
+        else if (melee_input && player.PlayerPunchState.CheckIfCanPunch())
         {
             playerStateMachine.ChangeState(player.PlayerPunchState);
         }
@@ -104,9 +104,9 @@ public class PlayerInAirState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.InAirMove(1, x_Input, playerAttribute.runMaxSpeed, playerAttribute.runAccelAmount * playerAttribute.accelInAir,
-        playerAttribute.runDeccelAmount * playerAttribute.deccelInAir, playerAttribute.jumpHangTimeThreshold, playerAttribute.jumpHangAccelerationMult,
-        playerAttribute.jumpHangMaxSpeedMult, playerAttribute.doConserveMomentum, IsJumping);
+        player.InAirMove(1, x_Input, playerAttribute.RunMaxSpeed, playerAttribute.RunAccelAmount * playerAttribute.AccelInAir,
+        playerAttribute.RunDeccelAmount * playerAttribute.DeccelInAir, playerAttribute.JumpHangTimeThreshold, playerAttribute.JumpHangAccelerationMult,
+        playerAttribute.JumpHangMaxSpeedMult, playerAttribute.DoConserveMomentum, IsJumping);
     }
 
     private void CheckJumping()

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865377955bc75f44eaf7c10018d685f1, type: 3}
+  m_Name: MeleeMachineAttribute
+  m_EditorClassIdentifier: 
+  gravityStrength: -40
+  gravityScale: 4.0774717
+  fallGravityMult: 1.5
+  maxFallSpeed: 25
+  fastFallGravityMult: 2
+  maxFastFallSpeed: 30
+  MoveSpeed: 11
+  MoveMaxSpeed: 11
+  MoveAcceleration: 2.5
+  MoveAccelAmount: 11.363636
+  MoveDecceleration: 0.4
+  MoveDeccelAmount: 1.8181819
+  accelInAir: 0.65
+  deccelInAir: 0.65
+  doConserveMomentum: 1
+  jumpHeight: 5
+  jumpTimeToApex: 0.5
+  jumpForce: 20
+  jumpHangGravityMult: 0.5
+  jumpHangTimeThreshold: 1
+  jumpHangAccelerationMult: 1.1
+  jumpHangMaxSpeedMult: 1.3
+  MeleeCooldown: 0.5
+  maxMeleeHoldTime: 1
+  MeleeHoldtimeScale: 0.25
+  MeleeDuration: 0.5
+  MeleeDrag: 2

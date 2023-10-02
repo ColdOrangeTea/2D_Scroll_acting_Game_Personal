@@ -31,19 +31,18 @@ public class PlayerState
     {
         DoChecks();
 
-        // 動畫先保留
         player.Anim.SetBool(anim_bool_name, true);
 
         startTime = Time.time;
 
-        Debug.Log(anim_bool_name);
+        // Debug.Log(anim_bool_name);
         isAnimationFinished = false;
         isExitingState = false;
     }
 
     public virtual void Exit()
     {
-        // 動畫先保留
+
         player.Anim.SetBool(anim_bool_name, false);
 
         isExitingState = true;

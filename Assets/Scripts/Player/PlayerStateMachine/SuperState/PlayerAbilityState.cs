@@ -18,7 +18,7 @@ public class PlayerAbilityState : PlayerState
         player.OnGroundCheck();
         isGrounded = player.CheckIfGrounded();
         //Debug.Log(isGrounded);
-        //Debug.Log(Time.time);
+        // Debug.Log(Time.time);
     }
 
     public override void Enter()
@@ -44,6 +44,10 @@ public class PlayerAbilityState : PlayerState
             // if (isGrounded && playerMovement.inputHandler.YInput == -1)
             // {
             //     stateMachine.ChangeState(playerMovement.CrouchIdleState);
+            // }
+            // if (isGrounded)
+            // {
+            //     playerStateMachine.ChangeState(player.PlayerIdleState);
             // }
             if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {

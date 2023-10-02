@@ -16,215 +16,220 @@ public class PlayerAttribute : ScriptableObject
     // [Header("Gravity")]
 
     //Downwards force (gravity) needed for the desired jumpHeight and jumpTimeToApex.
-    [HideInInspector] public float gravityStrength;
+    [HideInInspector] public float GravityStrength;
 
     // Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
     // Also the value the player's rigidbody2D.gravityScale is set to.
-    [HideInInspector] public float gravityScale;
+    [HideInInspector] public float GravityScale;
     [Space(20)]
     [Header("Gravity")]
 
-    [Tooltip("Multiplier to the player's gravityScale when falling.")]
-    public float fallGravityMult;
+    [Tooltip("Multiplier to the player's gravityScale when falling. 建議數值: 1.5")]
+    public float FallGravityMult;
 
-    [Tooltip("Maximum fall speed (terminal velocity) of the player when falling.")]
-    public float maxFallSpeed;
+    [Tooltip("Maximum fall speed (terminal velocity) of the player when falling.建議數值: 25")]
+    public float MaxFallSpeed;
 
-    [Tooltip("Larger multiplier to the player's gravityScale when they are falling and a downwards input is pressed. Seen in games such as Celeste, lets the player fall extra fast if they wish.")]
-    public float fastFallGravityMult;
+    [Tooltip("Larger multiplier to the player's gravityScale when they are falling and a downwards input is pressed. Seen in games such as Celeste, lets the player fall extra fast if they wish. 建議數值: 2")]
+    public float FastFallGravityMult;
 
-    [Tooltip("Maximum fall speed(terminal velocity) of the player when performing a faster fall.")]
-    public float maxFastFallSpeed;
+    [Tooltip("Maximum fall speed(terminal velocity) of the player when performing a faster fall. 建議數值: 30")]
+    public float MaxFastFallSpeed;
 
 
     [Space(20)]
 
     [Header("Run")]
-    [Tooltip("Target speed we want the player to reach.")]
-    public float runMaxSpeed;
+    [Tooltip("Target speed we want the player to reach. 建議數值: 11")]
+    public float RunMaxSpeed;
 
-    [Tooltip("The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all")]
-    public float runAcceleration;
+    [Tooltip("The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all. 建議數值: 2.5")]
+    public float RunAcceleration;
 
-    [Tooltip("//The actual force (multiplied with speedDiff) applied to the player.")]
-    [HideInInspector] public float runAccelAmount;
+    [Tooltip("The actual force (multiplied with speedDiff) applied to the player.")]
+    [HideInInspector] public float RunAccelAmount;
 
-    [Tooltip("The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all")]
-    public float runDecceleration;
+    [Tooltip("The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all. 建議數值: 5")]
+    public float RunDecceleration;
 
-    [Tooltip("//Actual force (multiplied with speedDiff) applied to the player .")]
-    [HideInInspector] public float runDeccelAmount;
+    [Tooltip("//Actual force (multiplied with speedDiff) applied to the player.")]
+    [HideInInspector] public float RunDeccelAmount;
 
     [Space(5)]
-    [Tooltip("Multipliers applied to acceleration rate when airborne.")]
-    [Range(0f, 1)] public float accelInAir;
+    [Tooltip("Multipliers applied to acceleration rate when airborne. 建議數值: 0.65、0.65")]
+    [Range(0f, 1)] public float AccelInAir;
 
-    [Range(0f, 1)] public float deccelInAir;
+    [Range(0f, 1)] public float DeccelInAir;
     [Space(5)]
-    public bool doConserveMomentum = true;
+    public bool DoConserveMomentum = true; // 動量守恆定律
 
     [Space(20)]
 
     [Header("Jump")]
 
-    [Tooltip("Height of the player's jump")]
-    public float jumpHeight;
+    [Tooltip("Height of the player's jump 建議數值: 3.5")]
+    public float JumpHeight;
 
-    [Tooltip("Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.")]
-    public float jumpTimeToApex;
+    [Tooltip("Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force. 建議數值: 0.3")]
+    public float JumpTimeToApex;
 
     [Tooltip("//The actual force applied (upwards) to the player when they jump.")]
-    [HideInInspector] public float jumpForce;
+    [HideInInspector] public float JumpForce;
 
     [Header("Both Jumps")]
 
-    [Tooltip("Multiplier to increase gravity if the player releases thje jump button while still jumping")]
-    public float jumpCutGravityMult;
+    [Tooltip("Multiplier to increase gravity if the player releases thje jump button while still jumping. 建議數值: 2")]
+    public float JumpCutGravityMult;
 
-    [Tooltip("Reduces gravity while close to the apex (desired max height) of the jump")]
-    [Range(0f, 1)] public float jumpHangGravityMult;
+    [Tooltip("Reduces gravity while close to the apex (desired max height) of the jump. 建議數值: 0.5")]
+    [Range(0f, 1)] public float JumpHangGravityMult;
 
-    [Tooltip("Speeds (close to 0) where the player will experience extra ''jump hang''. The player's velocity.y is closest to 0 at the jump's apex (think of the gradient of a parabola or quadratic function)")]
-    public float jumpHangTimeThreshold;
+    [Tooltip("Speeds (close to 0) where the player will experience extra ''jump hang''. The player's velocity.y is closest to 0 at the jump's apex (think of the gradient of a parabola or quadratic function) 建議數值: 1")]
+    public float JumpHangTimeThreshold;
     [Space(0.5f)]
-    public float jumpHangAccelerationMult;
-    public float jumpHangMaxSpeedMult;
+    [Tooltip("建議數值: 1.1")]
+    public float JumpHangAccelerationMult;
+    [Tooltip("建議數值: 1.3")]
+    public float JumpHangMaxSpeedMult;
 
     [Header("Wall Jump")]
-    [Tooltip("The actual force (this time set by us) applied to the player when wall jumping.")]
-    public Vector2 wallJumpForce;
+    [Tooltip("The actual force (this time set by us) applied to the player when wall jumping. 建議數值: 15,25")]
+    public Vector2 WallJumpForce;
     [Space(5)]
 
-    [Tooltip("Reduces the effect of player's movement while wall jumping.")]
-    [Range(0f, 1f)] public float wallJumpRunLerp;
+    [Tooltip("Reduces the effect of player's movement while wall jumping.建議數值: 0.5")]
+    [Range(0f, 1f)] public float WallJumpRunLerp;
 
-    [Tooltip("Time after wall jumping the player's movement is slowed for.")]
-    [Range(0f, 1.5f)] public float wallJumpTime;
+    [Tooltip("Time after wall jumping the player's movement is slowed for. 建議數值: 0.15")]
+    [Range(0f, 1.5f)] public float WallJumpTime;
 
-    [Tooltip("Player will rotate to face wall jumping direction")]
-    public bool doTurnOnWallJump;
+    [Tooltip("Player will rotate to face wall jumping direction. ")]
+    public bool DoTurnOnWallJump;
 
     [Space(20)]
 
     [Header("Slide")]
-    public float slideSpeed;
-    public float slideAccel;
+    public float SlideSpeed;
+    public float SlideAccel;
 
     [Space(20)]
 
-    [Header("CrouchSlide")]
-    public float crouchSlideLerp;
-    public float crouchSlideSlopeLerp;
+    [Header("CrouchSlide 建議數值: 0.4 、建議數值: 0")]
+    public float CrouchSlideLerp;
+    public float CrouchSlideSlopeLerp;
 
     [Space(5)]
-    [Tooltip("Target speed we want the player to reach.")]
-    public float slopeSlideMaxSpeed;
+    [Tooltip("Target speed we want the player to reach. 建議數值: 18")]
+    public float SlopeSlideMaxSpeed;
 
-    [Tooltip("The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all")]
-    public float crouchSlideAcceleration;
+    [Tooltip("The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all. 建議數值: 3")]
+    public float CrouchSlideAcceleration;
 
-    [HideInInspector] public float crouchSlideAccelAmount; //The actual force (multiplied with speedDiff) applied to the player.
+    [HideInInspector] public float CrouchSlideAccelAmount; //The actual force (multiplied with speedDiff) applied to the player.
 
-    [Tooltip("The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all")]
-    public float crouchSlideDecceleration;
+    [Tooltip("The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all. 建議數值: 5")]
+    public float CrouchSlideDecceleration;
 
-    [Tooltip("//Actual force (multiplied with speedDiff) applied to the player .")]
-    [HideInInspector] public float crouchSlideDeccelAmount;
+    [Tooltip("Actual force (multiplied with speedDiff) applied to the player. ")]
+    [HideInInspector] public float CrouchSlideDeccelAmount;
     [Space(5)]
 
-    [Tooltip("//Multipliers applied to acceleration rate when airborne.")]
-    [Range(0f, 1)] public float accelOnGround;
-    [Range(0f, 1)] public float deccelOnGround;
+    [Tooltip("Multipliers applied to acceleration rate when airborne. 建議數值: 0.8 、建議數值: 0.8")]
+    [Range(0f, 1)] public float AccelOnGround;
+    [Range(0f, 1)] public float DeccelOnGround;
     [Space(5)]
-    public bool crouchSlideDoConserveMomentum = true;
+    public bool CrouchSlideDoConserveMomentum = true;
 
     [Space(20)]
 
     [Header("Assists")]
 
-    [Tooltip("Grace period after falling off a platform, where you can still jump. coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令")]
-    [Range(0.01f, 0.5f)] public float coyoteTime;
+    [Tooltip("Grace period after falling off a platform, where you can still jump. coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令 建議數值: 0.1")]
+    [Range(0.01f, 0.5f)] public float CoyoteTime;
 
-    [Tooltip("Grace period after pressing jump where a jump will be automatically performed once the requirements (eg. being grounded) are met.")]
-    [Range(0.01f, 0.5f)] public float jumpInputBufferTime;
-
-    [Space(20)]
-
-    [Header("Dash")]
-    public int dashAmount;
-    public float dashSpeed;
-
-    [Tooltip("Duration for which the game freezes when we press dash but before we read directional input and apply a force")]
-    public float dashSleepTime;
-
-    [Space(5)]
-    public float dashAttackTime;
-    [Space(5)]
-
-    [Tooltip("Time after you finish the inital drag phase, smoothing the transition back to idle (or any standard state)")]
-    public float dashEndTime;
-
-    [Tooltip("Slows down player, makes dash feel more responsive (used in Celeste)")]
-    public Vector2 dashEndSpeed;
-
-    [Tooltip("Unused,Slows the affect of player movement while dashing")]
-    [Range(0f, 1f)] public float dashEndRunLerp;
-
-    [Space(5)]
-    public float dashRefillTime;
-    [Space(5)]
-    [Range(0.01f, 0.5f)] public float dashInputBufferTime;
+    [Tooltip("Grace period after pressing jump where a jump will be automatically performed once the requirements (eg. being grounded) are met. 建議數值: 0.1")]
+    [Range(0.01f, 0.5f)] public float JumpInputBufferTime;
 
     [Space(20)]
 
-    [Header("Push")]
-    public int pushAmount;
-    public int pushForce;
-    public int pushKnockbackForce;
+    [Header("Dash 建議數值: 1 、 建議數值: 30")]
+    public int DashAmount;
+    public float DashSpeed;
+
+    [Tooltip("Duration for which the game freezes when we press dash but before we read directional input and apply a force. 建議數值: 0.05")]
+    public float DashSleepTime;
+
     [Space(5)]
-    public float pushRefillTime;
-    [Range(0.01f, 0.1f)] public float pushInputBufferTime;
+    [Tooltip("建議數值: 0.15")]
+    public float DashAttackTime;
+    [Space(5)]
+
+    [Tooltip("Time after you finish the inital drag phase, smoothing the transition back to idle (or any standard state) 建議數值: 0.15")]
+    public float DashEndTime;
+
+    [Tooltip("Slows down player, makes dash feel more responsive (used in Celeste) 建議數值: 15 、建議數值: 15")]
+    public Vector2 DashEndSpeed;
+
+    [Tooltip("Unused,Slows the affect of player movement while dashing. 建議數值: 0.5")]
+    [Range(0f, 1f)] public float DashEndRunLerp;
+
+    [Space(5)]
+    [Tooltip("建議數值:  0.1")]
+    public float DashRefillTime;
+    [Space(5)]
+    [Tooltip("建議數值: 0.1")]
+    [Range(0.01f, 0.5f)] public float DashInputBufferTime;
 
     [Space(20)]
 
-    [Header("Fireball State")]
-    [Range(0.01f, 0.1f)] public float fireballInputBufferTime;
-    public float fireballCooldown;
-    public float maxHoldTime;
-    public float fireballHoldtimeScale;
-    public float fireballDuration;
-    public float fireballDrag;
+    [Header("Push 建議數值: 1 、建議數值: 150 、建議數值: 20 、建議數值: 0.1 、建議數值: 0.1")]
+    public int PushAmount;
+    public int PushForce;
+    public int PushKnockbackForce;
+    [Space(5)]
+    public float PushRefillTime;
+    [Range(0.01f, 0.1f)] public float PushInputBufferTime;
 
     [Space(20)]
 
-    [Header("Air Push State")]
-    [Range(0.01f, 0.1f)] public float airPushInputBufferTime;
-    public float airPushCooldown;
-    public float airPushTime;
-    public float airPushDuration;
-    public float airPushDrag;
+    [Header("Fireball State 建議數值: 0.1 、建議數值: 0.5 、建議數值: 2 、建議數值: 0.25 、建議數值: 0.28 、建議數值: 3")]
+    [Range(0.01f, 0.1f)] public float FireballInputBufferTime;
+    public float FireballCooldown;
+    public float MaxHoldTime;
+    public float FireballHoldtimeScale;
+    public float FireballDuration;
+    public float FireballDrag;
 
     [Space(20)]
 
-    [Header("Melee")]
-    [Range(0.01f, 0.1f)] public float meleeInputBufferTime;
+    [Header("Air Push State 建議數值: 0.1 、建議數值: 0.5 、建議數值: 0.12 、建議數值: 0.28 、建議數值: 8")]
+    [Range(0.01f, 0.1f)] public float AirPushInputBufferTime;
+    public float AirPushCooldown;
+    public float AirPushTime;
+    public float AirPushDuration;
+    public float AirPushDrag;
 
-    [Header("Sneak Strike State")]
+    [Space(20)]
+
+    [Header("Melee 建議數值: 0.1")]
+    [Range(0.01f, 0.1f)] public float MeleeInputBufferTime;
+
+    [Header("Sneak Strike State 建議數值: 0.3 、建議數值: 0.1 、建議數值: 0.1 、建議數值: 5")]
     /// <summary>
     /// CD:
     /// </summary>
-    public float sneakStrikeCooldown;
-    public float sneakStrikeTime;
-    public float sneakStrikeDuration;
-    public float sneakStrikeDrag;
+    public float SneakStrikeCooldown;
+    public float SneakStrikeTime;
+    public float SneakStrikeDuration;
+    public float SneakStrikeDrag;
     [Space(20)]
 
-    [Header("Slash State")]
-    public float SlashCooldown;
-    public float maxSlashHoldTime;
-    public float slashHoldtimeScale;
-    public float SlashDuration;
-    public float SlashDrag;
+    [Header("Punch State 建議數值: 0.5、 建議數值: 1 、建議數值: 0.25 、建議數值: 0.5 、建議數值: 2")]
+    public float PunchCooldown;
+    public float MaxPunchHoldTime;
+    public float PunchHoldtimeScale;
+    public float PunchDuration;
+    public float PunchDrag;
 
 
 
@@ -232,27 +237,27 @@ public class PlayerAttribute : ScriptableObject
     private void OnValidate()
     {
         //Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
-        gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+        GravityStrength = -(2 * JumpHeight) / (JumpTimeToApex * JumpTimeToApex);
 
         //Calculate the rigidbody's gravity scale (ie: gravity strength relative to unity's gravity value, see project settings/Physics2D)
-        gravityScale = gravityStrength / Physics2D.gravity.y;
+        GravityScale = GravityStrength / Physics2D.gravity.y;
 
         //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
-        runAccelAmount = (50 * runAcceleration) / runMaxSpeed;
-        runDeccelAmount = (50 * runDecceleration) / runMaxSpeed;
+        RunAccelAmount = (50 * RunAcceleration) / RunMaxSpeed;
+        RunDeccelAmount = (50 * RunDecceleration) / RunMaxSpeed;
 
-        crouchSlideAccelAmount = (50 * crouchSlideAcceleration) / slopeSlideMaxSpeed;
-        crouchSlideDeccelAmount = (50 * crouchSlideDecceleration) / slopeSlideMaxSpeed;
+        CrouchSlideAccelAmount = (50 * CrouchSlideAcceleration) / SlopeSlideMaxSpeed;
+        CrouchSlideDeccelAmount = (50 * CrouchSlideDecceleration) / SlopeSlideMaxSpeed;
 
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
-        jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
+        JumpForce = Mathf.Abs(GravityStrength) * JumpTimeToApex;
 
         #region Variable Ranges
-        runAcceleration = Mathf.Clamp(runAcceleration, 0.01f, runMaxSpeed);
-        runDecceleration = Mathf.Clamp(runDecceleration, 0.01f, runMaxSpeed);
+        RunAcceleration = Mathf.Clamp(RunAcceleration, 0.01f, RunMaxSpeed);
+        RunDecceleration = Mathf.Clamp(RunDecceleration, 0.01f, RunMaxSpeed);
 
-        crouchSlideAcceleration = Mathf.Clamp(crouchSlideAcceleration, 0.01f, slopeSlideMaxSpeed);
-        crouchSlideDecceleration = Mathf.Clamp(crouchSlideDecceleration, 0.01f, slopeSlideMaxSpeed);
+        CrouchSlideAcceleration = Mathf.Clamp(CrouchSlideAcceleration, 0.01f, SlopeSlideMaxSpeed);
+        CrouchSlideDecceleration = Mathf.Clamp(CrouchSlideDecceleration, 0.01f, SlopeSlideMaxSpeed);
         #endregion
     }
 }
