@@ -69,7 +69,8 @@ public class PlayerInputHandler : MonoBehaviour
             Debug.Log("C is ppressed");
             OnDashInput();
         }
-        OnPointerDirectionInput();
+
+        // OnPointerDirectionInput();
 
         //Debug.Log(JumpCutInput);
     }
@@ -86,11 +87,11 @@ public class PlayerInputHandler : MonoBehaviour
     // public void OnAirPushInput() => LastPressedAirPushTime = unitAttribute.airPushInputBufferTime;
     public void OnMeleeInput() => LastPressedMeleeTime = player_attribute.MeleeInputBufferTime;
     public void OnDashInput() => LastPressedDashTime = player_attribute.DashInputBufferTime;
-    void OnPointerDirectionInput()
-    {
-        RawPointerDirectionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        PointerDirectionInput = RawPointerDirectionInput.normalized;
-    }
+    // void OnPointerDirectionInput()
+    // {
+    //     RawPointerDirectionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+    //     PointerDirectionInput = RawPointerDirectionInput.normalized;
+    // }
 
     public void UseJumpInput() => LastPressedJumpTime = 0;
     // public void UseFireballInput() => LastPressedFireballTime = 0;

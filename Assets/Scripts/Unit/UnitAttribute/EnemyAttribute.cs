@@ -30,8 +30,9 @@ public class EnemyAttribute : ScriptableObject
 
     [Space(20)]
     [Header("Move")]
-    public float MoveSpeed = 10;
-    public float MoveMaxSpeed = 10;
+    public float MoveDuration = 2;
+    public float MoveSpeed = 0.2f;
+    public float MoveMaxSpeed = 1;
     public float MoveAcceleration;
     [HideInInspector] public float MoveAccelAmount; // 用來儲存(50 * MoveAcceleration) / MoveMaxSpeed 的值
     public float MoveDecceleration;
@@ -79,6 +80,11 @@ public class EnemyAttribute : ScriptableObject
     public float MeleeHoldtimeScale;
     public float MeleeDuration;
     public float MeleeDrag;
+
+    [Space(20)]
+    [Header("Idle State")]
+
+    public float IdleWaitTime = 2;
 
 
 

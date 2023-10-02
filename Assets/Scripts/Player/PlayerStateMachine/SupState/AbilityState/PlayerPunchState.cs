@@ -38,85 +38,27 @@ public class PlayerPunchState : PlayerAbilityState
         base.LogicUpdate();
         if (!isExitingState)
         {
-            // if (is_holding)
-            // {
-            //     // 動畫先保留
-            //     // playerMovement.Anim.speed = 0;
-
-            //     punch_stop_input = player.InputHandler.SlashAimStopInput;
-            //     punch_direction_input = player.InputHandler.PointerDirectionInput;
-            //     xInput = player.InputHandler.XInput;
-
-            //     player.RotateAimPivot();
-
-            //     if (punch_direction_input != Vector2.zero)
-            //     {
-            //         punch_direction = punch_direction_input;
-            //     }
-
-            //     AimFacingDirection();
-
-            //     if (punch_stop_input || Time.unscaledTime >= startTime + playerAttribute.maxHoldTime)
-            //     {
-            //         // 動畫先保留
-            //         //按住(瞄準時間結束)
-            //         // playerMovement.Anim.speed = 1;
-
-            //         is_holding = false;
-            //         Time.timeScale = 1f;
-            //         startTime = Time.time;
-
-            //         // playerMovement.AimPivot.gameObject.SetActive(false);
-            //         //trun
-
-            //     }
-
-            //     float angle = Mathf.Atan2(punch_direction.y, punch_direction.x) * Mathf.Rad2Deg;
-
-            //     if (player.RB.transform.localScale.x == -1)
-            //         angle -= 90;
-
-            //     Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //     // playerMovement.AimPivot.rotation = rotation;
-            // }
-            // else
-            // {
 
             player.Anim.speed = 0;
             punch_stop_input = player.InputHandler.MeleeStopInput;
             punch_direction_input = player.InputHandler.PointerDirectionInput;
 
+            // 動作結束
             if (punch_stop_input || Time.unscaledTime >= startTime + playerAttribute.MaxHoldTime)
             {
-                // 動畫先保留
-                //按住(瞄準時間結束)
                 player.Anim.speed = 1;
-                Debug.Log("毆打結束!!!");
+                Debug.Log("毆打動畫結束!!!");
                 Time.timeScale = 1f;
                 startTime = Time.time;
                 isAbilityDone = true;
-                //trun
-
             }
-
+            // 動作開始
             if (!punch_used)
             {
-                //Debug.Log("Slashed!boom");
+
                 player.Punch();
                 punch_used = true;
             }
-
-            // 執行Punch
-            // Punch時間
-            if (Time.time >= startTime + playerAttribute.FireballDuration)
-            {
-                Debug.Log("火球結束!!!");
-                isAbilityDone = true;
-                last_punch_time = Time.time;
-                player.RB.drag = 0f;
-            }
-
-            // }
         }
     }
     public override void PhysicsUpdate()

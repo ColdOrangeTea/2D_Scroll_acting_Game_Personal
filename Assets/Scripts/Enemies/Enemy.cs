@@ -32,25 +32,33 @@ public class Enemy : MonoBehaviour
     #region CHECK PARAMETERS
     //Set all of these up in the inspector
     [Header("Checks")]
-    public Vector2 ButtomOffset;
-    public float CheckRadius;
     [SerializeField] private Transform ground_checkpoint;
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
     [SerializeField] private Vector2 ground_checkSize = new Vector2(1.8f, 0.06f);
+    [Space(5)]
     [SerializeField] private Transform roof_checkpoint;
     [SerializeField] private Vector2 roof_checkSize = new Vector2(1.8f, 0.06f);
     [Space(5)]
-    [SerializeField] private Transform attack_point;
-    [SerializeField] private float slash_radius = 3f;
 
+    [SerializeField] private Transform wall_checkpoint;
+    [SerializeField] private Vector2 wall_checkSize = new Vector2(0.06f, 1.8f);
     [Space(5)]
+
+    [SerializeField] private Transform player_checkpoint;
+    [SerializeField] private Vector2 player_checkSize = new Vector2(1.8f, 0.06f);
+    [Space(5)]
+
+    [SerializeField] private Transform attack_point;
+    [SerializeField] private float attack_radius = 3f;
+    [Space(5)]
+
 
     #endregion
 
     #region LAYERS
     [Header("Layers")]
     [SerializeField] private LayerMask ground_layer;
-    [SerializeField] private LayerMask enemy_layer;
+    [SerializeField] private LayerMask attackable_layer;
 
     #endregion
 
@@ -110,14 +118,30 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        EnemyStateMachine.CurrentState.LogicUpdate();
+        CurrentVelocity = RB.velocity;
+        FacingDirection = (int)transform.localScale.x;
 
+        LastOnGroundTime -= Time.deltaTime;
+        // LastOnWallTime -= Time.deltaTime;
+        // LastOnWallRightTime -= Time.deltaTime;
+        // LastOnWallLeftTime -= Time.deltaTime;
+
+        // Gravity();
     }
+
+    private void FixedUpdate()
+    {
+        EnemyStateMachine.CurrentState.PhysicsUpdate();
+    }
+
     #region MOVE METHOD
 
     public void GroundMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel)
     {
+        Vector3 scale = transform.localScale;
         //Calculate the direction we want to move in and our desired velocity
-        float targetSpeed = xInput * maxSpeed;
+        float targetSpeed = scale.x * enemy_attribute.MoveSpeed * maxSpeed;
 
         targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
 
@@ -280,6 +304,36 @@ public class Enemy : MonoBehaviour
 
     #endregion
 
+    #region ROOFED METHOD
+    public bool CheckIfRoofed()
+    {
+        if (Physics2D.OverlapBox(roof_checkpoint.position, roof_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+            return true;
+        else
+            return false;
+    }
+    #endregion
+
+    #region TOUCHINGWALL METHOD
+    public bool CheckIfTouchingWall()
+    {
+        if (Physics2D.OverlapBox(wall_checkpoint.position, wall_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+            return true;
+        else
+            return false;
+    }
+    #endregion
+
+    #region PLAYERCHECK METHOD
+    public bool CheckIfSawPlayer()
+    {
+        if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer)) //checks if set box overlaps with ground
+            return true;
+        else
+            return false;
+    }
+    #endregion
+
     #region SLOPE
 
     #endregion
@@ -287,8 +341,36 @@ public class Enemy : MonoBehaviour
 
     public void CheckDirectionToFace(bool isMovingRight)
     {
-        if (isMovingRight != IsFacingRight)
-            Turn();
+        // if (isMovingRight != IsFacingRight)
+        // {
+        Turn();
+        Debug.Log("CheckDirectionToFace ");
+        // }
+
+    }
+
+    #endregion
+
+    #region GRAVITY
+
+    private void Gravity()
+    {
+        if ((InAirState.IsJumping) && Mathf.Abs(RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
+        {
+            SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.JumpHangGravityMult);
+        }
+        else if (RB.velocity.y < 0f && LastOnGroundTime < 0)
+        {
+            //Higher gravity if falling
+            SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.FallGravityMult);
+            //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
+            RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -enemy_attribute.MaxFallSpeed));
+        }
+        else
+        {
+            //Debug.Log("normal");
+            SetGravityScale(enemy_attribute.GravityScale);
+        }
     }
 
     #endregion
@@ -301,8 +383,8 @@ public class Enemy : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
-
-        IsFacingRight = !IsFacingRight;
+        Debug.Log("轉身 ");
+        // IsFacingRight = !IsFacingRight;
 
         /*
         if(!IsDashing)
@@ -328,9 +410,14 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(ground_checkpoint.position, ground_checkSize);
-        Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(roof_checkpoint.position, roof_checkSize);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(wall_checkpoint.position, wall_checkSize);
+        Gizmos.DrawWireCube(player_checkpoint.position, player_checkSize);
+
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attack_point.position, attack_radius);
 
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!

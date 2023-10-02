@@ -32,8 +32,8 @@ public class EnemyState
         enemy.Anim.SetBool(anim_bool_name, true);
 
         startTime = Time.time;
-
-        Debug.Log(anim_bool_name);
+        // Debug.Log("開始計時時間: " + startTime);
+        // Debug.Log(anim_bool_name);
         isAnimationFinished = false;
         isExitingState = false;
     }

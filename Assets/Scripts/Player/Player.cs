@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform roof_checkpoint;
     [SerializeField] private Vector2 roof_checkSize = new Vector2(1.8f, 0.06f);
     [Space(5)]
-    [SerializeField] private Transform attack_point;
+    [SerializeField] private Transform punch_point;
     [SerializeField] private float punch_radius = 3f;
 
     [Space(5)]
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     #region LAYERS
     [Header("Layers")]
     [SerializeField] private LayerMask ground_layer;
-    [SerializeField] private LayerMask enemy_layer;
+    [SerializeField] private LayerMask attackable_layer;
 
     #endregion
 
@@ -94,10 +94,7 @@ public class Player : MonoBehaviour
     public int FacingDirection { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
 
-
     #endregion
-
-
 
     #region UNITY CALLBACK FUNCTIONS
 
@@ -120,7 +117,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Anim = GetComponentInChildren<Animator>();
-        Debug.Log(Anim);
+        // Debug.Log(Anim);
 
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
@@ -573,6 +570,7 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(roof_checkpoint.position, roof_checkSize);
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(punch_point.position, punch_radius);
 
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
@@ -592,7 +590,7 @@ public class Player : MonoBehaviour
 
     public void Punch()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attack_point.position, punch_radius, enemy_layer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(punch_point.position, punch_radius, attackable_layer);
         foreach (Collider2D Enemy in hitEnemies)
         {
             Debug.Log(Enemy.name);

@@ -10,12 +10,13 @@ public class EnemyStateMachine
     {
         CurrentState = startingState;
         CurrentState.Enter();
+        Debug.Log(CurrentState);
     }
 
     public void ChangeState(EnemyState newState)
     {
         CurrentState.Exit();
-        Debug.Log(CurrentState + " Changeinto" + " " + newState);
+        Debug.Log("敵人 " + CurrentState + " Changeinto" + " " + newState);
         CurrentState = newState;
         CurrentState.Enter();
 

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IdleState : GroundState
 {
+
+
     public IdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, EnemyAttribute enemyAttribute, string anim_bool_name) : base(enemy, enemyStateMachine, enemyAttribute, anim_bool_name)
     {
     }
@@ -26,16 +29,9 @@ public class IdleState : GroundState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (xInput != 0)
-            enemy.CheckDirectionToFace(xInput > 0);
-
-        if (!isExitingState)
+        if (Time.time > startTime + enemyAttribute.IdleWaitTime)
         {
-            if (xInput != 0)
-            {
-                enemyStateMachine.ChangeState(enemy.MoveState);
-            }
+            enemyStateMachine.ChangeState(enemy.MoveState);
         }
     }
 
