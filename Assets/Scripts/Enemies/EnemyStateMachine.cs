@@ -10,7 +10,7 @@ public class EnemyStateMachine
     {
         CurrentState = startingState;
         CurrentState.Enter();
-        Debug.Log(CurrentState);
+        // Debug.Log(CurrentState);
     }
 
     public void ChangeState(EnemyState newState)

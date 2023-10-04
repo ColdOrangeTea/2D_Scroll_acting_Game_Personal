@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     #region STATE VARIABLES
     public Core Core { get; private set; }
     public EnemyStateMachine EnemyStateMachine { get; private set; }
+    public EnemyPhysicCheck EnemyPhysicCheck { get; private set; }
     public IdleState IdleState { get; private set; }
     public MoveState MoveState { get; private set; }
     public JumpState JumpState { get; private set; }
@@ -26,47 +27,15 @@ public class Enemy : MonoBehaviour
     // public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
 
-    #endregion
 
-
-    #region CHECK PARAMETERS
-    //Set all of these up in the inspector
-    [Header("Checks")]
-    [SerializeField] private Transform ground_checkpoint;
-    //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
-    [SerializeField] private Vector2 ground_checkSize = new Vector2(1.8f, 0.06f);
-    [Space(5)]
-    [SerializeField] private Transform roof_checkpoint;
-    [SerializeField] private Vector2 roof_checkSize = new Vector2(1.8f, 0.06f);
-    [Space(5)]
-
-    [SerializeField] private Transform wall_checkpoint;
-    [SerializeField] private Vector2 wall_checkSize = new Vector2(0.06f, 1.8f);
-    [Space(5)]
-
-    [SerializeField] private Transform player_checkpoint;
-    [SerializeField] private Vector2 player_checkSize = new Vector2(1.8f, 0.06f);
-    [Space(5)]
-
-    [SerializeField] private Transform attack_point;
-    [SerializeField] private float attack_radius = 3f;
-    [Space(5)]
-
-
-    #endregion
-
-    #region LAYERS
-    [Header("Layers")]
-    [SerializeField] private LayerMask ground_layer;
-    [SerializeField] private LayerMask attackable_layer;
 
     #endregion
 
     #region TIMERS
     public float LastOnGroundTime { get; private set; }
-    // public float LastOnWallLeftTime { get; private set; }
-    // public float LastOnWallRightTime { get; private set; }
-    // public float LastOnWallTime { get; private set; }
+    // // public float LastOnWallLeftTime { get; private set; }
+    // // public float LastOnWallRightTime { get; private set; }
+    // // public float LastOnWallTime { get; private set; }
 
     #endregion
 
@@ -83,13 +52,18 @@ public class Enemy : MonoBehaviour
     public const string MELEE = "melee";
 
     #endregion
-
     #region OTHER VARIABLES
-    public bool IsFacingRight { get; private set; }
-    public int FacingDirection { get; private set; }
-    public Vector2 CurrentVelocity { get; private set; }
+    // private bool is_facingRight;
+    private int facing_direction;
+    // private Vector2 current_velocity;
 
     #endregion
+    // #region OTHER VARIABLES
+    // public bool IsFacingRight { get; private set; }
+    // public int FacingDirection { get; private set; }
+    // public Vector2 CurrentVelocity { get; private set; }
+
+    // #endregion
     private void Awake()
     {
         Core = GetComponent<Core>();
@@ -102,16 +76,18 @@ public class Enemy : MonoBehaviour
         InAirState = new InAirState(this, EnemyStateMachine, enemy_attribute, INAIR);
         LandState = new LandState(this, EnemyStateMachine, enemy_attribute, LAND);
     }
+
     private void Start()
     {
         Anim = GetComponentInChildren<Animator>();
-        Debug.Log(Anim);
-
+        EnemyPhysicCheck = GetComponent<EnemyPhysicCheck>();
         RB = GetComponent<Rigidbody2D>();
 
         EnemyStateMachine.Initialize(IdleState);
-        IsFacingRight = true;
-        FacingDirection = 1;
+
+        // is_facingRight = EnemyPhysicCheck.IsFacingRight;
+        facing_direction = EnemyPhysicCheck.FacingDirection;
+
         SetGravityScale(enemy_attribute.GravityScale);
     }
 
@@ -119,15 +95,13 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         EnemyStateMachine.CurrentState.LogicUpdate();
-        CurrentVelocity = RB.velocity;
-        FacingDirection = (int)transform.localScale.x;
 
         LastOnGroundTime -= Time.deltaTime;
         // LastOnWallTime -= Time.deltaTime;
         // LastOnWallRightTime -= Time.deltaTime;
         // LastOnWallLeftTime -= Time.deltaTime;
 
-        // Gravity();
+        Gravity();
     }
 
     private void FixedUpdate()
@@ -215,8 +189,9 @@ public class Enemy : MonoBehaviour
     }
     public void Move(float lerpAmount)
     {
+        facing_direction = EnemyPhysicCheck.FacingDirection;
         // 計算我們想要移動的方向和所需的速度
-        float targetSpeed = FacingDirection * enemy_attribute.MoveMaxSpeed;
+        float targetSpeed = facing_direction * enemy_attribute.MoveMaxSpeed;
 
 
         //Debug.Log(targetSpeed);
@@ -288,67 +263,6 @@ public class Enemy : MonoBehaviour
         RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
     }
 
-
-    #endregion
-
-    #region CHECK METHODS
-
-    #region GROUND METHOD
-    public bool CheckIfGrounded()
-    {
-        if (Physics2D.OverlapBox(ground_checkpoint.position, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
-            return true;
-        else
-            return false;
-    }
-
-    #endregion
-
-    #region ROOFED METHOD
-    public bool CheckIfRoofed()
-    {
-        if (Physics2D.OverlapBox(roof_checkpoint.position, roof_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
-            return true;
-        else
-            return false;
-    }
-    #endregion
-
-    #region TOUCHINGWALL METHOD
-    public bool CheckIfTouchingWall()
-    {
-        if (Physics2D.OverlapBox(wall_checkpoint.position, wall_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
-            return true;
-        else
-            return false;
-    }
-    #endregion
-
-    #region PLAYERCHECK METHOD
-    public bool CheckIfSawPlayer()
-    {
-        if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer)) //checks if set box overlaps with ground
-            return true;
-        else
-            return false;
-    }
-    #endregion
-
-    #region SLOPE
-
-    #endregion
-
-
-    public void CheckDirectionToFace(bool isMovingRight)
-    {
-        // if (isMovingRight != IsFacingRight)
-        // {
-        Turn();
-        Debug.Log("CheckDirectionToFace ");
-        // }
-
-    }
-
     #endregion
 
     #region GRAVITY
@@ -379,13 +293,10 @@ public class Enemy : MonoBehaviour
     public void Turn()
     {
         //stores scale and flips the player along the x axis, 
-
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
         Debug.Log("轉身 ");
-        // IsFacingRight = !IsFacingRight;
-
         /*
         if(!IsDashing)
         {
@@ -405,25 +316,41 @@ public class Enemy : MonoBehaviour
 
     #endregion
 
-    #region EDITOR METHODS
-    private void OnDrawGizmosSelected()
+
+    #region PLAYER Functions
+    [Space(5)][Range(0, 50)] public float ProjectileSpeed = 20f;
+    public void FireProjectile()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(ground_checkpoint.position, ground_checkSize);
-        Gizmos.DrawWireCube(roof_checkpoint.position, roof_checkSize);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(wall_checkpoint.position, wall_checkSize);
-        Gizmos.DrawWireCube(player_checkpoint.position, player_checkSize);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attack_point.position, attack_radius);
-
-        //Gizmos.color=Color.white;
-        //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
-        //Gizmos.DrawWireCube(_barrelCheckPoint.position, _pushCheckSize);
-        //Gizmos.DrawRay(_groundCheckPoint.position , Vector2.down * slopeRaycastDistance);
+        // GameObject BulletIns = Instantiate(BulletPreFab, FirePoint.position, AimPivot.transform.rotation);
+        // BulletIns.GetComponent<Rigidbody2D>().velocity = AimPivot.right * ProjectileSpeed;
     }
+
+
+    public void MeleeAttack()
+    {
+
+        List<Collider2D> hitEnemies = EnemyPhysicCheck.CheckHittedUnit();
+        foreach (Collider2D Enemy in hitEnemies)
+        {
+            Debug.Log(Enemy.name);
+            //doDMG
+        }
+    }
+
+    public void Sleep(float duration)
+    {
+        //Method used so we don't need to call StartCoroutine everywhere
+        //nameof() notation means we don't need to input a string directly.
+        //Removes chance of spelling mistakes and will improve error messages if any
+        StartCoroutine(nameof(PerformSleep), duration);
+    }
+    private IEnumerator PerformSleep(float duration)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(duration); //Must be Realtime since timeScale with be 0 
+        Time.timeScale = 1;
+    }
+
     #endregion
 
 }

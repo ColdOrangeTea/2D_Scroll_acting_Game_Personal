@@ -15,7 +15,7 @@ public class AbilityState : EnemyState
     {
         base.DoChecks();
 
-        isGrounded = enemy.CheckIfGrounded();
+        isGrounded = enemy.EnemyPhysicCheck.CheckIfGrounded();
         //Debug.Log(isGrounded);
         //Debug.Log(Time.time);
     }
@@ -44,7 +44,10 @@ public class AbilityState : EnemyState
             // {
             //     stateMachine.ChangeState(playerMovement.CrouchIdleState);
             // }
-            if (isGrounded && enemy.CurrentVelocity.y < 0.01f)
+
+
+
+            if (isGrounded)
             {
                 enemyStateMachine.ChangeState(enemy.IdleState);
             }
@@ -52,6 +55,16 @@ public class AbilityState : EnemyState
             {
                 enemyStateMachine.ChangeState(enemy.InAirState);
             }
+
+
+            // if (isGrounded && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0.01f)
+            // {
+            //     enemyStateMachine.ChangeState(enemy.IdleState);
+            // }
+            // else
+            // {
+            //     enemyStateMachine.ChangeState(enemy.InAirState);
+            // }
         }
     }
 

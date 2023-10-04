@@ -76,8 +76,8 @@ public class EnemyAttribute : ScriptableObject
     [Space(20)]
     [Header("Melee State")]
     public float MeleeCooldown;
-    public float MaxMeleeHoldTime;
-    public float MeleeHoldtimeScale;
+    // public float MaxMeleeHoldTime;
+    // public float MeleeHoldtimeScale;
     public float MeleeDuration;
     public float MeleeDrag;
 

@@ -29,10 +29,14 @@ public class IdleState : GroundState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (Time.time > startTime + enemyAttribute.IdleWaitTime)
+        if (!isExitingState)
         {
-            enemyStateMachine.ChangeState(enemy.MoveState);
+            if (Time.time > startTime + enemyAttribute.IdleWaitTime)
+            {
+                enemyStateMachine.ChangeState(enemy.MoveState);
+            }
         }
+
     }
 
     public override void PhysicsUpdate()

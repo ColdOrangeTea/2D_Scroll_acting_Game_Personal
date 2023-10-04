@@ -1,39 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleeAttackState : AbilityState
 {
     private bool is_holding;
-
-    private bool punch_used;
+    private float last_melee_attack_time;
+    private bool melee_attack_used;
+    private int melee_attack_counts;
     private Vector2 punch_direction;
-    private bool punch_stop_input;
-    private Vector2 punch_direction_input;
-    private float last_punch_time;
 
     public MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, EnemyAttribute enemyAttribute, string anim_bool_name) : base(enemy, enemyStateMachine, enemyAttribute, anim_bool_name)
     {
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        enemy.EnemyPhysicCheck.CheckHittedUnit();
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        //CanSlash = true;
-        // enemy.InputHandler.UseMeleeInput();
+        melee_attack_used = false;
+        melee_attack_counts = 0;
 
 
-
-
-        is_holding = true;
-        punch_used = false;
-
-        // playerMovement.AimPivot.gameObject.SetActive(true);
-        Time.timeScale = enemyAttribute.MeleeHoldtimeScale;
-        enemy.RB.drag = enemyAttribute.MeleeDrag;
-
-        startTime = Time.unscaledTime;
+        // enemy.RB.drag = enemyAttribute.MeleeDrag;
     }
 
     public override void LogicUpdate()
@@ -41,26 +37,21 @@ public class MeleeAttackState : AbilityState
         base.LogicUpdate();
         if (!isExitingState)
         {
-            if (!punch_used)
+            if (CheckIfCanAttack())
             {
-                //Debug.Log("Slashed!boom");
-                // enemy.AirSlash();
-
-
-
-                punch_used = true;
+                if (melee_attack_used)
+                {
+                    Debug.Log("攻擊結束                  !!!!!!!!!");
+                    isAbilityDone = true;
+                }
+                if (!melee_attack_used)
+                {
+                    Debug.Log("攻擊!!!!!!!!!");
+                    enemy.MeleeAttack();
+                    melee_attack_used = true;
+                    last_melee_attack_time = Time.time;
+                }
             }
-            //執行Slash
-            //Slash時間
-            // if (Time.time >= startTime + enemyAttribute.fireballDuration)
-            // {
-            //     isAbilityDone = true;
-            //     last_punch_time = Time.time;
-            //     enemy.RB.drag = 0f;
-            // }
-
-
-
 
         }
     }
@@ -68,22 +59,19 @@ public class MeleeAttackState : AbilityState
     {
         base.PhysicsUpdate();
 
-        if (isGrounded)
-        {
-            enemy.GroundMove(1, xInput, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount, enemyAttribute.MoveDeccelAmount);
-        }
-        else
-            enemy.InAirMove(1, xInput, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount * enemyAttribute.AccelInAir,
-            enemyAttribute.MoveDeccelAmount * enemyAttribute.DeccelInAir, enemyAttribute.JumpHangTimeThreshold,
-            enemyAttribute.JumpHangAccelerationMult, enemyAttribute.jumpHangMaxSpeedMult, enemyAttribute.DoConserveMomentum, false);
+        // if (isGrounded)
+        // {
+        //     enemy.GroundMove(1, xInput, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount, enemyAttribute.MoveDeccelAmount);
+        // }
+        // else
+        //     enemy.InAirMove(1, xInput, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount * enemyAttribute.AccelInAir,
+        //     enemyAttribute.MoveDeccelAmount * enemyAttribute.DeccelInAir, enemyAttribute.JumpHangTimeThreshold,
+        //     enemyAttribute.JumpHangAccelerationMult, enemyAttribute.jumpHangMaxSpeedMult, enemyAttribute.DoConserveMomentum, false);
+
     }
-    public bool CheckIfCanSlash()
+    public bool CheckIfCanAttack()
     {
-        return Time.time >= last_punch_time + enemyAttribute.MeleeCooldown;
-    }
-    void AimFacingDirection()
-    {
-        enemy.CheckDirectionToFace(punch_direction.x > 0 && punch_direction.x != 0);
+        return Time.time >= last_melee_attack_time + enemyAttribute.MeleeCooldown;
     }
 
 }

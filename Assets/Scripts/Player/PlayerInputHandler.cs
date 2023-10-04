@@ -36,7 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             OnJumpInput();
-            Debug.Log("LastPressedJumpTime: " + LastPressedJumpTime);
+            // Debug.Log("LastPressedJumpTime: " + LastPressedJumpTime);
             JumpCutInput = false;
         }
         if (Input.GetButtonUp("Jump"))

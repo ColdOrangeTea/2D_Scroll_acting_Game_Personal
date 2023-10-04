@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class GroundState : EnemyState
 {
-    protected float xInput;
-    protected float yInput;
-    protected bool jumpInput;
-    protected bool fireballInput;
-    protected bool airPushInput;
-    protected bool meleeInput;
-    protected bool dashInput;
+    // protected float xInput;
+    // protected float yInput;
+    // protected bool jumpInput;
+    // protected bool fireballInput;
+    // protected bool airPushInput;
+    // protected bool meleeInput;
+    // protected bool dashInput;
     protected bool isGrounded;
+    protected bool isSawPlayer;
 
     public GroundState(Enemy enemy, EnemyStateMachine enemyStateMachine, EnemyAttribute enemyAttribute, string anim_bool_name) : base(enemy, enemyStateMachine, enemyAttribute, anim_bool_name)
     {
@@ -20,17 +21,14 @@ public class GroundState : EnemyState
     public override void DoChecks()
     {
         base.DoChecks();
-        isGrounded = enemy.CheckIfGrounded();
+        isGrounded = enemy.EnemyPhysicCheck.CheckIfGrounded();
+        isSawPlayer = enemy.EnemyPhysicCheck.CheckIfSawPlayer();
+        // Debug.Log("看到玩家沒: " + isSawPlayer);
     }
 
     public override void Enter()
     {
         base.Enter();
-
-        // playerMovement.FireballState.ResetCanFireball();
-        // playerMovement.AirPushState.ResetCanAirPush();
-
-        // enemy.PlayerDashState.ResetDashesLeft();
     }
 
     public override void Exit()
@@ -42,15 +40,14 @@ public class GroundState : EnemyState
     {
         base.LogicUpdate();
 
-
         if (!isGrounded)
         {
             enemyStateMachine.ChangeState(enemy.InAirState);
         }
-        else if (meleeInput)
+        if (isSawPlayer)
         {
-            if (yInput != -1)// on Groundand no Crouch
-                enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+            // Debug.Log("看到玩家了!!!!!!!!!!!!!!!!!!!! " + isSawPlayer);
+            enemyStateMachine.ChangeState(enemy.MeleeAttackState);
         }
 
     }

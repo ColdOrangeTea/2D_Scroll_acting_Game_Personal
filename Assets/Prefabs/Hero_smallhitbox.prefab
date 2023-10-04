@@ -362,7 +362,7 @@ MonoBehaviour:
   ground_layer:
     serializedVersion: 2
     m_Bits: 64
-  enemy_layer:
+  attackable_layer:
     serializedVersion: 2
     m_Bits: 128
   ProjectileSpeed: 20

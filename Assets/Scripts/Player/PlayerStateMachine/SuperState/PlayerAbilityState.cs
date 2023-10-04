@@ -48,12 +48,12 @@ public class PlayerAbilityState : PlayerState
 
             if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {
-                Debug.Log("在地狀態: " + isGrounded + " 玩家的Y合力狀態: " + player.CurrentVelocity.y);
+                // Debug.Log("在地狀態: " + isGrounded + " 玩家的Y合力: " + player.CurrentVelocity.y);
                 playerStateMachine.ChangeState(player.PlayerIdleState);
             }
             else
             {
-                Debug.Log("在地狀態: " + isGrounded + " 玩家的Y合力狀態: " + player.CurrentVelocity.y);
+                // Debug.Log("在地狀態: " + isGrounded + " 玩家的Y合力: " + player.CurrentVelocity.y);
                 playerStateMachine.ChangeState(player.PlayerInAirState);
             }
         }

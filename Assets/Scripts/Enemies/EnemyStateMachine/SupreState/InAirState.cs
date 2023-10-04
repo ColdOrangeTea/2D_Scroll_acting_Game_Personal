@@ -24,7 +24,7 @@ public class InAirState : EnemyState
     {
         base.DoChecks();
 
-        is_grounded = enemy.CheckIfGrounded();
+        is_grounded = enemy.EnemyPhysicCheck.CheckIfGrounded();
 
         // playerMovement.OnWallCheck();
         // isOnWall = playerMovement.CheckIfOnWall();
@@ -47,14 +47,14 @@ public class InAirState : EnemyState
         base.LogicUpdate();
 
         if (x_Input != 0)
-            enemy.CheckDirectionToFace(x_Input > 0);
+            enemy.EnemyPhysicCheck.CheckIfNeedToTurn(x_Input > 0);
 
-        if (is_grounded && enemy.CurrentVelocity.y < 0.01f)
+        if (is_grounded && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0.01f)
         {
             IsJumpCut = false;
             enemyStateMachine.ChangeState(enemy.LandState);
         }
-        else if (melee_input && enemy.MeleeAttackState.CheckIfCanSlash())
+        else if (melee_input && enemy.MeleeAttackState.CheckIfCanAttack())
         {
             enemyStateMachine.ChangeState(enemy.MeleeAttackState);
         }
@@ -79,7 +79,7 @@ public class InAirState : EnemyState
 
     private void CheckJumping()
     {
-        if (IsJumping && enemy.CurrentVelocity.y < 0)
+        if (IsJumping && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0)
             IsJumping = false;
     }
     private void CheckJumpCut()
@@ -91,7 +91,7 @@ public class InAirState : EnemyState
     }
 
     //public bool CanWallJumpCut() => player.WallJumpState.IsWallJumping && player.CurrentVelocity.y > 0;
-    public bool CanJumpCut() => IsJumping && enemy.CurrentVelocity.y > 0;
+    public bool CanJumpCut() => IsJumping && enemy.EnemyPhysicCheck.CurrentVelocity.y > 0;
 
     // public void SetJumping(bool setting) => IsJumping = setting;
     // public void SetJumpCut(bool setting) => IsJumpCut = setting;
