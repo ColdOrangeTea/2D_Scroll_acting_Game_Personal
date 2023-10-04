@@ -41,7 +41,7 @@ public class PlayerDashState : PlayerAbilityState
 
             player.GoDash(last_dash_dir);
             dashes_left--;
-            Debug.Log("Dashleft:" + dashes_left);
+            // Debug.Log("Dashleft:" + dashes_left);
             dash_used = true;
             isAbilityDone = true;
         }

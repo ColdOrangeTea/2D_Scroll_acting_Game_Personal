@@ -10,7 +10,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     // public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
 
-    public Collider2D Myself { get; private set; }
+    public Collider2D MyselfCollider { get; private set; }
 
     #endregion
     #region CHECK PARAMETERS
@@ -62,7 +62,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     {
         Anim = GetComponentInChildren<Animator>();
         RB = GetComponent<Rigidbody2D>();
-        Myself = GetComponent<Collider2D>();
+        MyselfCollider = GetComponent<Collider2D>();
 
         IsFacingRight = true;
         FacingDirection = 1;
@@ -71,9 +71,8 @@ public class EnemyPhysicCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CurrentVelocity = RB.velocity;
         FacingDirection = (int)transform.localScale.x;
-
+        CurrentVelocity = RB.velocity;
         LastOnGroundTime -= Time.deltaTime;
     }
 
@@ -115,7 +114,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     {
         if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer)) //checks if set box overlaps with ground
         {
-            if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer) == Myself)
+            if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer) == MyselfCollider)
             {
                 return false;
             }
@@ -146,7 +145,7 @@ public class EnemyPhysicCheck : MonoBehaviour
         {
             // Debug.Log("撞到那些人: " + Enemy.name);
             hitted_enemies.Add(Enemy);
-            if (Enemy == Myself)
+            if (Enemy == MyselfCollider)
                 hitted_enemies.Remove(Enemy);
         }
         return hitted_enemies;
@@ -162,12 +161,12 @@ public class EnemyPhysicCheck : MonoBehaviour
     {
         if (CheckIfTouchingWall())
         {
-            Debug.Log("碰牆要轉向 ");
+            // Debug.Log("碰牆要轉向 ");
             return true;
         }
         else if (!CheckIfGrounded())
         {
-            Debug.Log("前方沒地板要轉向 ");
+            // Debug.Log("前方沒地板要轉向 ");
             return true;
         }
         else

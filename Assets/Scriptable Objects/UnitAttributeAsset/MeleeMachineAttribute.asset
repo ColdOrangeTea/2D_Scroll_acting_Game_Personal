@@ -35,7 +35,7 @@ MonoBehaviour:
   JumpHangTimeThreshold: 1
   JumpHangAccelerationMult: 1.1
   jumpHangMaxSpeedMult: 1.3
-  MeleeCooldown: 1.5
-  MeleeDuration: 2
+  MeleeCooldown: 3
+  MeleeDuration: 1
   MeleeDrag: 2
   IdleWaitTime: 2

@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class InAirState : EnemyState
 {
-    private float x_Input;
-    private bool jump_cut_input;
-    private bool jump_input;
-    private bool fireball_input;
-    private bool airpush_input;
-    private bool melee_input;
-    private bool dash_input;
+    private float facing_direction;
     private bool is_grounded;
     private bool is_onwall;
     public bool IsJumping { get; private set; }
-    public bool IsJumpCut { get; private set; }
     private bool can_grab;
     public InAirState(Enemy enemy, EnemyStateMachine enemyStateMachine, EnemyAttribute enemyAttribute, string anim_bool_name) : base(enemy, enemyStateMachine, enemyAttribute, anim_bool_name)
     {
@@ -25,16 +18,12 @@ public class InAirState : EnemyState
         base.DoChecks();
 
         is_grounded = enemy.EnemyPhysicCheck.CheckIfGrounded();
-
-        // playerMovement.OnWallCheck();
-        // isOnWall = playerMovement.CheckIfOnWall();
-
-        //Debug.Log(isGrounded);
     }
 
     public override void Enter()
     {
         base.Enter();
+        facing_direction = enemy.transform.localScale.x;
     }
 
     public override void Exit()
@@ -46,48 +35,31 @@ public class InAirState : EnemyState
     {
         base.LogicUpdate();
 
-        if (x_Input != 0)
-            enemy.EnemyPhysicCheck.CheckIfNeedToTurn(x_Input > 0);
+        // if (facing_direction != 0)
+        //     enemy.EnemyPhysicCheck.CheckIfNeedToTurn(facing_direction > 0);
 
         if (is_grounded && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0.01f)
         {
-            IsJumpCut = false;
+            Debug.Log("敵人Y力: " + enemy.EnemyPhysicCheck.CurrentVelocity.y);
             enemyStateMachine.ChangeState(enemy.LandState);
         }
-        else if (melee_input && enemy.MeleeAttackState.CheckIfCanAttack())
-        {
-            enemyStateMachine.ChangeState(enemy.MeleeAttackState);
-        }
+        // else if (melee_input && enemy.MeleeAttackState.CheckIfCanAttack())
+        // {
+        //     enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+        // }
         // else if (dash_input && enemy.DashState.CheckIfCanDash())
         // {
         //     playerStateMachine.ChangeState(player.PlayerDashState);
         // }
 
-
-
-        CheckJumping();
-        CheckJumpCut();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        enemy.InAirMove(1, x_Input, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount * enemyAttribute.AccelInAir,
+        enemy.InAirMove(1, facing_direction, enemyAttribute.MoveMaxSpeed, enemyAttribute.MoveAccelAmount * enemyAttribute.AccelInAir,
         enemyAttribute.MoveDeccelAmount * enemyAttribute.DeccelInAir, enemyAttribute.JumpHangTimeThreshold, enemyAttribute.JumpHangAccelerationMult,
         enemyAttribute.jumpHangMaxSpeedMult, enemyAttribute.DoConserveMomentum, IsJumping);
-    }
-
-    private void CheckJumping()
-    {
-        if (IsJumping && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0)
-            IsJumping = false;
-    }
-    private void CheckJumpCut()
-    {
-        if (jump_cut_input && CanJumpCut())
-        {
-            IsJumpCut = true;
-        }
     }
 
     //public bool CanWallJumpCut() => player.WallJumpState.IsWallJumping && player.CurrentVelocity.y > 0;

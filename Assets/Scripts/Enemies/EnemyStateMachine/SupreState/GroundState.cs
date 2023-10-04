@@ -11,6 +11,7 @@ public class GroundState : EnemyState
     // protected bool airPushInput;
     // protected bool meleeInput;
     // protected bool dashInput;
+    protected float facing_direction;
     protected bool isGrounded;
     protected bool isSawPlayer;
 
@@ -23,12 +24,13 @@ public class GroundState : EnemyState
         base.DoChecks();
         isGrounded = enemy.EnemyPhysicCheck.CheckIfGrounded();
         isSawPlayer = enemy.EnemyPhysicCheck.CheckIfSawPlayer();
-        // Debug.Log("看到玩家沒: " + isSawPlayer);
+
     }
 
     public override void Enter()
     {
         base.Enter();
+        facing_direction = enemy.transform.localScale.x;
     }
 
     public override void Exit()
@@ -40,14 +42,20 @@ public class GroundState : EnemyState
     {
         base.LogicUpdate();
 
-        if (!isGrounded)
+        if (!isGrounded && enemy.EnemyPhysicCheck.CurrentVelocity.y < 0)
         {
             enemyStateMachine.ChangeState(enemy.InAirState);
         }
-        if (isSawPlayer)
+        if (isSawPlayer && enemy.MeleeAttackState.CheckIfCanAttack())
         {
-            // Debug.Log("看到玩家了!!!!!!!!!!!!!!!!!!!! " + isSawPlayer);
             enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+
+            // if (Time.time >= startTime + enemyAttribute.MeleeCooldown)
+            // {
+            //     Debug.Log("攻擊!!!!!!!!!時間: " + Time.time + " 攻擊完畢的時候: " + startTime + "冷卻:" + enemyAttribute.MeleeCooldown);
+            //     enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+            // }
+
         }
 
     }

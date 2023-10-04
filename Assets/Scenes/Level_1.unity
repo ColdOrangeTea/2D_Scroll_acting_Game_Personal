@@ -258,11 +258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4321583646375092998, guid: 54de2e356a581a144a1ce1ccd5691d30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -19.01
       objectReference: {fileID: 0}
     - target: {fileID: 4321583646375092998, guid: 54de2e356a581a144a1ce1ccd5691d30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 4321583646375092998, guid: 54de2e356a581a144a1ce1ccd5691d30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1239,7 +1239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419065403}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.48, y: 2.87, z: 0}
+  m_LocalPosition: {x: -13.33, y: 2.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1336,7 +1336,7 @@ Camera:
   far clip plane: 5000
   field of view: 8
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1360,7 +1360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 420997892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: 0, z: -12}
+  m_LocalPosition: {x: -19.01, y: 1.41, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Follow: {fileID: 67134042}
   m_Lens:
     FieldOfView: 8
-    OrthographicSize: 5
+    OrthographicSize: 7
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -2341,7 +2341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770810855}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: 0, z: -12}
+  m_LocalPosition: {x: -19.01, y: 1.41, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2360,13 +2360,14 @@ GameObject:
   - component: {fileID: 774456296}
   - component: {fileID: 774456298}
   - component: {fileID: 774456297}
+  - component: {fileID: 774456299}
   m_Layer: 0
   m_Name: FrontAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &774456296
 Transform:
   m_ObjectHideFlags: 0
@@ -2454,6 +2455,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &774456299
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774456295}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 758cf2fb60706694c9fb2f627b92cebb, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &786300023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7233180060493826063, guid: 7370a81b27fdf4c49a30e2c5bdd83cd7, type: 3}

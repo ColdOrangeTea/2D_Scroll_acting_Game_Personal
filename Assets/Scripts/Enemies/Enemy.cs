@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     public Animator Anim { get; private set; }
     // public PlayerInputHandler InputHandler { get; private set; }
-    public Rigidbody2D RB { get; private set; }
+    // public Rigidbody2D RB { get; private set; }
 
 
 
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     #region OTHER VARIABLES
     // private bool is_facingRight;
     private int facing_direction;
-    // private Vector2 current_velocity;
+    // public Vector2 CurrentVelocity { get; private set; }
 
     #endregion
     // #region OTHER VARIABLES
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
     {
         Anim = GetComponentInChildren<Animator>();
         EnemyPhysicCheck = GetComponent<EnemyPhysicCheck>();
-        RB = GetComponent<Rigidbody2D>();
+        // RB = GetComponent<Rigidbody2D>();
 
         EnemyStateMachine.Initialize(IdleState);
 
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = scale.x * enemy_attribute.MoveSpeed * maxSpeed;
 
-        targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
+        targetSpeed = Mathf.Lerp(EnemyPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
         #region Calculate AccelRate
 
@@ -130,13 +130,13 @@ public class Enemy : MonoBehaviour
         #endregion
 
         //Calculate difference between current velocity and desired velocity
-        float speedDif = targetSpeed - RB.velocity.x;
+        float speedDif = targetSpeed - EnemyPhysicCheck.RB.velocity.x;
 
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
 
         //Convert this to a vector and apply to rigidbody
-        RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        EnemyPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
     }
 
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
 
-        targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
+        targetSpeed = Mathf.Lerp(EnemyPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
         #region Calculate AccelRate
 
@@ -160,7 +160,7 @@ public class Enemy : MonoBehaviour
         #region Add Bonus Jump Apex Acceleration
 
         //Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if (isAnyJumping && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
+        if (isAnyJumping && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < jumpHangTimeThreshold)
         {
             accelRate *= jumpHangAccelerationMult;
             targetSpeed *= jumpHangMaxSpeedMult;
@@ -169,7 +169,7 @@ public class Enemy : MonoBehaviour
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (doConserveMomentum && Mathf.Abs(RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
+        if (doConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -178,13 +178,13 @@ public class Enemy : MonoBehaviour
         #endregion
 
         //Calculate difference between current velocity and desired velocity
-        float speedDif = targetSpeed - RB.velocity.x;
+        float speedDif = targetSpeed - EnemyPhysicCheck.RB.velocity.x;
 
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
 
         //Convert this to a vector and apply to rigidbody
-        RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        EnemyPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
     }
     public void Move(float lerpAmount)
@@ -197,7 +197,7 @@ public class Enemy : MonoBehaviour
         //Debug.Log(targetSpeed);
 
         // Lerp線性插植 以 lerpAmount 為速率，從 RB.velocity.x 加速到 targetSpeed 的過程
-        targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
+        targetSpeed = Mathf.Lerp(EnemyPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
 
         #region Calculate AccelRate
@@ -217,7 +217,7 @@ public class Enemy : MonoBehaviour
 
         #region Add Bonus Jump Apex Acceleration
         //Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if ((InAirState.IsJumping) && Mathf.Abs(RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
+        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
         {
             accelRate *= enemy_attribute.JumpHangAccelerationMult;
             targetSpeed *= enemy_attribute.jumpHangMaxSpeedMult;
@@ -227,7 +227,7 @@ public class Enemy : MonoBehaviour
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (enemy_attribute.DoConserveMomentum && Mathf.Abs(RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
+        if (enemy_attribute.DoConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -241,7 +241,7 @@ public class Enemy : MonoBehaviour
 
 
         //Calculate difference between current velocity and desired velocity
-        float speedDif = targetSpeed - RB.velocity.x;
+        float speedDif = targetSpeed - EnemyPhysicCheck.RB.velocity.x;
         //Calculate force along x-axis to apply to thr player
 
         float movement = speedDif * accelRate;
@@ -260,7 +260,7 @@ public class Enemy : MonoBehaviour
 		 * RB.velocity = new Vector2(RB.velocity.x + (Time.fixedDeltaTime  * speedDif * accelRate) / RB.mass, RB.velocity.y);
 		 * Time.fixedDeltaTime is by default in Unity 0.02 seconds equal to 50 FixedUpdate() calls per second
 		*/
-        RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        EnemyPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
     }
 
     #endregion
@@ -269,16 +269,16 @@ public class Enemy : MonoBehaviour
 
     private void Gravity()
     {
-        if ((InAirState.IsJumping) && Mathf.Abs(RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
+        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
         {
             SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.JumpHangGravityMult);
         }
-        else if (RB.velocity.y < 0f && LastOnGroundTime < 0)
+        else if (EnemyPhysicCheck.RB.velocity.y < 0f && LastOnGroundTime < 0)
         {
             //Higher gravity if falling
             SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.FallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
-            RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -enemy_attribute.MaxFallSpeed));
+            EnemyPhysicCheck.RB.velocity = new Vector2(EnemyPhysicCheck.RB.velocity.x, Mathf.Max(EnemyPhysicCheck.RB.velocity.y, -enemy_attribute.MaxFallSpeed));
         }
         else
         {
@@ -311,7 +311,7 @@ public class Enemy : MonoBehaviour
 
     public void SetGravityScale(float scale)
     {
-        RB.gravityScale = scale;
+        EnemyPhysicCheck.RB.gravityScale = scale;
     }
 
     #endregion
@@ -332,7 +332,7 @@ public class Enemy : MonoBehaviour
         List<Collider2D> hitEnemies = EnemyPhysicCheck.CheckHittedUnit();
         foreach (Collider2D Enemy in hitEnemies)
         {
-            Debug.Log(Enemy.name);
+            // Debug.Log(Enemy.name);
             //doDMG
         }
     }
