@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Musketeer : MonoBehaviour
+public class Musketeer : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private EnemyAttribute musketeer_attribute;
+    // [SerializeField] private Core core;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Awake()
     {
-        
+        // core = GetComponent<Core>();
+        // Core = core;
+        enemyAttribute = musketeer_attribute;
+        Debug.Log("賦予資料" + enemyAttribute);
+        base.Awake();
+
     }
 }

@@ -23,7 +23,7 @@ public class EnemyState
         this.enemyStateMachine = enemyStateMachine;
         this.enemyAttribute = enemyAttribute;
         this.anim_bool_name = anim_bool_name;
-        core = enemy.Core;
+        // core = enemy.Core;
     }
 
     public virtual void Enter()

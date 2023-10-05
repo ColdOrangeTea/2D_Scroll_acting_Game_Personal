@@ -19,10 +19,10 @@ public class EnemyAttribute : ScriptableObject
     [Tooltip("處在墜落狀態時，用來乘 gravityScale 的乘數")]
     public float FallGravityMult;
 
-    [Tooltip("玩家墜落時的最大墜落速度（終端速度） 等等竟然用到流體力學(?!)")]
+    [Tooltip("敵人墜落時的最大墜落速度（終端速度） 等等竟然用到流體力學(?!)")]
     public float MaxFallSpeed;
 
-    [Tooltip("當玩家處在墜落狀態時按下鍵，讓玩家掉落速度增快的乘數")]
+    [Tooltip("當敵人處在墜落狀態時按下鍵，讓玩家掉落速度增快的乘數")]
     public float FastFallGravityMult;
 
     [Tooltip("因應掉落速度增快情況的最大墜落速度（終端速度）")]
@@ -30,6 +30,8 @@ public class EnemyAttribute : ScriptableObject
 
     [Space(20)]
     [Header("Move")]
+    [Space(5)]
+    public bool ThisEnemyIsCanMove = true; // 敵人能不能動
     public float MoveDuration = 2;
     public float MoveSpeed = 0.2f;
     public float MoveMaxSpeed = 1;
@@ -48,7 +50,7 @@ public class EnemyAttribute : ScriptableObject
 
     [Space(20)]
 
-    [Header("Jump")]
+    [Header("Jump 這部分會影響重力，掉落時的速度")]
 
     [Tooltip("跳躍的高度")]
     public float JumpHeight;
@@ -67,19 +69,29 @@ public class EnemyAttribute : ScriptableObject
     [Tooltip("在接近跳躍頂點(Apex)（所需的最大高度）時減少重力")]
     [Range(0f, 1)] public float JumpHangGravityMult;
 
-    [Tooltip("玩家將經歷到額外的 ''jump hang'' (趨近於0的)速度，The player's velocity.y 在跳躍的頂點最接近0(類似拋物線或二次函數的梯度)")]
+    [Tooltip("敵人將經歷到額外的 ''jump hang'' (趨近於0的)速度，The player's velocity.y 在跳躍的頂點最接近0(類似拋物線或二次函數的梯度)")]
     public float JumpHangTimeThreshold;
     [Space(0.5f)]
     public float JumpHangAccelerationMult;
     public float jumpHangMaxSpeedMult;
+    [Space(20)]
+    [Header("Attack State")]
 
     [Space(20)]
-    [Header("Melee State")]
+    [Header("MeleeAttack State")]
+    public bool ThisEnemyIsCanMeleeAttack = true; // 敵人能不能遠攻
     public float MeleeCooldown;
     // public float MaxMeleeHoldTime;
     // public float MeleeHoldtimeScale;
     public float MeleeDuration;
-    public float MeleeDrag;
+    // public float MeleeDrag;
+
+    [Space(20)]
+    [Header("RangedAttack State")]
+    public bool ThisEnemyIsCanMoveRangedAttack = true; // 敵人能不能遠攻
+    public float RangeAttackCooldown;
+    public float RangeAttackDuration;
+    public float RangeAttackDrag;
 
     [Space(20)]
     [Header("Idle State")]
@@ -91,18 +103,40 @@ public class EnemyAttribute : ScriptableObject
     //Unity Callback, called when the inspector updates
     private void OnValidate()
     {
+        #region Gravity
         // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
         GravityStrength = -(2 * JumpHeight) / (JumpTimeToApex * JumpTimeToApex);
 
         // Calculate the rigidbody's gravity scale (ie: gravity strength relative to unity's gravity value, see project settings/Physics2D)
         GravityScale = GravityStrength / Physics2D.gravity.y;
+        #endregion
 
-        //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / MoveMaxSpeed
-        MoveAccelAmount = (50 * MoveAcceleration) / MoveMaxSpeed;
-        MoveDeccelAmount = (50 * MoveDecceleration) / MoveMaxSpeed;
+        #region Move
+        if (!ThisEnemyIsCanMove)
+        {
+            // MoveDuration = 0;
+            // MoveSpeed = 0;
+            // MoveMaxSpeed = 0;
+            // MoveAcceleration = 0;
+            // MoveDecceleration = 0;
+            //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / MoveMaxSpeed
+            MoveAccelAmount = (50 * MoveAcceleration) / MoveMaxSpeed;
+            MoveDeccelAmount = (50 * MoveDecceleration) / MoveMaxSpeed;
+        }
+        else
+        {
+            //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / MoveMaxSpeed
+            MoveAccelAmount = (50 * MoveAcceleration) / MoveMaxSpeed;
+            MoveDeccelAmount = (50 * MoveDecceleration) / MoveMaxSpeed;
+        }
 
+        #endregion
+
+        #region Jump
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         JumpForce = Mathf.Abs(GravityStrength) * JumpTimeToApex;
+        #endregion
+
 
         #region Variable Ranges
         MoveAcceleration = Mathf.Clamp(MoveAcceleration, 0.01f, MoveMaxSpeed);

@@ -31,10 +31,14 @@ public class IdleState : GroundState
         base.LogicUpdate();
         if (!isExitingState)
         {
-            if (Time.time > startTime + enemyAttribute.IdleWaitTime)
+            if (enemyAttribute.ThisEnemyIsCanMove)
             {
-                enemyStateMachine.ChangeState(enemy.MoveState);
+                if (Time.time > startTime + enemyAttribute.IdleWaitTime)
+                {
+                    enemyStateMachine.ChangeState(enemy.MoveState);
+                }
             }
+
         }
 
     }

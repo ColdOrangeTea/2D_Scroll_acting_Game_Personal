@@ -18,15 +18,16 @@ MonoBehaviour:
   MaxFallSpeed: 25
   FastFallGravityMult: 2
   MaxFastFallSpeed: 30
+  ThisEnemyIsCanMove: 1
   MoveDuration: 2
-  MoveSpeed: 1.5
+  MoveSpeed: 3.5
   MoveMaxSpeed: 1
   MoveAcceleration: 1
   MoveAccelAmount: 50
   MoveDecceleration: 0.4
   MoveDeccelAmount: 20
-  AccelInAir: 0
-  DeccelInAir: 0
+  AccelInAir: 0.65
+  DeccelInAir: 0.65
   DoConserveMomentum: 1
   JumpHeight: 4
   JumpTimeToApex: 0.3
@@ -35,7 +36,11 @@ MonoBehaviour:
   JumpHangTimeThreshold: 1
   JumpHangAccelerationMult: 1.1
   jumpHangMaxSpeedMult: 1.3
-  MeleeCooldown: 3
+  ThisEnemyIsCanMeleeAttack: 1
+  MeleeCooldown: 0.5
   MeleeDuration: 1
-  MeleeDrag: 2
+  ThisEnemyIsCanMoveRangedAttack: 0
+  RangeAttackCooldown: 0
+  RangeAttackDuration: 0
+  RangeAttackDrag: 0
   IdleWaitTime: 2

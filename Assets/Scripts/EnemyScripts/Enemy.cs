@@ -5,7 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     #region STATE VARIABLES
-    public Core Core { get; private set; }
+    // public Core Core { get; private set; }
+    // protected Core Core;
+
     public EnemyStateMachine EnemyStateMachine { get; private set; }
 
     public IdleState IdleState { get; private set; }
@@ -13,18 +15,19 @@ public class Enemy : MonoBehaviour
     public JumpState JumpState { get; private set; }
     public MeleeAttackState MeleeAttackState { get; private set; }
     // public DashState DashState { get; private set; }
+    public RangedAttackState RangedAttackState { get; private set; }
     public InAirState InAirState { get; private set; }
     public LandState LandState { get; private set; }
 
-    [SerializeField]
-    private EnemyAttribute enemy_attribute;
+    // [SerializeField]
+    protected EnemyAttribute enemyAttribute;
 
     #endregion
 
     #region COMPONENTS
 
     public Animator Anim { get; private set; }
-    public EnemyPhysicCheck EnemyPhysicCheck { get; private set; }
+    public EnemyPhysicsCheck EnemyPhysicCheck { get; private set; }
     #endregion
 
     #region ANIMATION BOOL NAME
@@ -38,31 +41,33 @@ public class Enemy : MonoBehaviour
     public const string DASH = "dash";
     public const string JUMP = "jump";
     public const string MELEE = "melee";
-
+    public const string RANGEDATTACK = "rangedAttack";
     #endregion
 
     #region UNITY CALLBACK FUNCTIONS
 
     protected virtual void Awake()
     {
-        Core = GetComponent<Core>();
+        // Core = GetComponent<Core>();
         EnemyStateMachine = new EnemyStateMachine();
-        IdleState = new IdleState(this, EnemyStateMachine, enemy_attribute, IDLE);
-        MoveState = new MoveState(this, EnemyStateMachine, enemy_attribute, MOVE);
-        JumpState = new JumpState(this, EnemyStateMachine, enemy_attribute, JUMP);
-        MeleeAttackState = new MeleeAttackState(this, EnemyStateMachine, enemy_attribute, MELEE);
+        IdleState = new IdleState(this, EnemyStateMachine, enemyAttribute, IDLE);
+        MoveState = new MoveState(this, EnemyStateMachine, enemyAttribute, MOVE);
+        JumpState = new JumpState(this, EnemyStateMachine, enemyAttribute, JUMP);
+        MeleeAttackState = new MeleeAttackState(this, EnemyStateMachine, enemyAttribute, MELEE);
+        RangedAttackState = new RangedAttackState(this, EnemyStateMachine, enemyAttribute, RANGEDATTACK);
 
-        InAirState = new InAirState(this, EnemyStateMachine, enemy_attribute, INAIR);
-        LandState = new LandState(this, EnemyStateMachine, enemy_attribute, LAND);
+        InAirState = new InAirState(this, EnemyStateMachine, enemyAttribute, INAIR);
+        LandState = new LandState(this, EnemyStateMachine, enemyAttribute, LAND);
+
     }
 
     protected virtual void Start()
     {
         Anim = GetComponentInChildren<Animator>();
-        EnemyPhysicCheck = GetComponent<EnemyPhysicCheck>();
+        EnemyPhysicCheck = GetComponent<EnemyPhysicsCheck>();
         EnemyStateMachine.Initialize(IdleState);
 
-        SetGravityScale(enemy_attribute.GravityScale);
+        SetGravityScale(enemyAttribute.GravityScale);
     }
 
     // Update is called once per frame
@@ -86,7 +91,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 scale = transform.localScale;
         //Calculate the direction we want to move in and our desired velocity
-        float targetSpeed = scale.x * enemy_attribute.MoveSpeed * maxSpeed;
+        float targetSpeed = scale.x * enemyAttribute.MoveSpeed * maxSpeed;
 
         targetSpeed = Mathf.Lerp(EnemyPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
@@ -161,7 +166,7 @@ public class Enemy : MonoBehaviour
     public virtual void Move(float lerpAmount)
     {
         // 計算我們想要移動的方向和所需的速度
-        float targetSpeed = EnemyPhysicCheck.FacingDirection * enemy_attribute.MoveMaxSpeed;
+        float targetSpeed = EnemyPhysicCheck.FacingDirection * enemyAttribute.MoveMaxSpeed;
 
 
         //Debug.Log(targetSpeed);
@@ -177,9 +182,9 @@ public class Enemy : MonoBehaviour
         //根據我們是否加速（包括轉彎）取得加速度值...或減速（停止）如果我們處在空中也會應用乘數。
 
         if (EnemyPhysicCheck.LastOnGroundTime > 0) //LastOnGroundTime > 0
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemy_attribute.MoveAccelAmount : enemy_attribute.MoveDeccelAmount;
+            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyAttribute.MoveAccelAmount : enemyAttribute.MoveDeccelAmount;
         else
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemy_attribute.MoveAccelAmount * enemy_attribute.AccelInAir : enemy_attribute.MoveDeccelAmount * enemy_attribute.DeccelInAir;
+            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyAttribute.MoveAccelAmount * enemyAttribute.AccelInAir : enemyAttribute.MoveDeccelAmount * enemyAttribute.DeccelInAir;
 
         #endregion
 
@@ -187,17 +192,17 @@ public class Enemy : MonoBehaviour
 
         #region Add Bonus Jump Apex Acceleration
         //Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
+        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemyAttribute.JumpHangTimeThreshold)
         {
-            accelRate *= enemy_attribute.JumpHangAccelerationMult;
-            targetSpeed *= enemy_attribute.jumpHangMaxSpeedMult;
+            accelRate *= enemyAttribute.JumpHangAccelerationMult;
+            targetSpeed *= enemyAttribute.jumpHangMaxSpeedMult;
         }
         #endregion
 
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (enemy_attribute.DoConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && EnemyPhysicCheck.LastOnGroundTime < 0)
+        if (enemyAttribute.DoConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && EnemyPhysicCheck.LastOnGroundTime < 0)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -239,21 +244,21 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Gravity()
     {
-        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
+        if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemyAttribute.JumpHangTimeThreshold)
         {
-            SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.JumpHangGravityMult);
+            SetGravityScale(enemyAttribute.GravityScale * enemyAttribute.JumpHangGravityMult);
         }
         else if (EnemyPhysicCheck.RB.velocity.y < 0f && EnemyPhysicCheck.LastOnGroundTime < 0)
         {
             //Higher gravity if falling
-            SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.FallGravityMult);
+            SetGravityScale(enemyAttribute.GravityScale * enemyAttribute.FallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
-            EnemyPhysicCheck.RB.velocity = new Vector2(EnemyPhysicCheck.RB.velocity.x, Mathf.Max(EnemyPhysicCheck.RB.velocity.y, -enemy_attribute.MaxFallSpeed));
+            EnemyPhysicCheck.RB.velocity = new Vector2(EnemyPhysicCheck.RB.velocity.x, Mathf.Max(EnemyPhysicCheck.RB.velocity.y, -enemyAttribute.MaxFallSpeed));
         }
         else
         {
             //Debug.Log("normal");
-            SetGravityScale(enemy_attribute.GravityScale);
+            SetGravityScale(enemyAttribute.GravityScale);
         }
     }
 

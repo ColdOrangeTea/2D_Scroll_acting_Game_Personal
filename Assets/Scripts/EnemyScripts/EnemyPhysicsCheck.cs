@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPhysicCheck : MonoBehaviour
+public class EnemyPhysicsCheck : MonoBehaviour
 {
     #region COMPONENTS
     public Rigidbody2D RB { get; private set; }
@@ -56,11 +56,13 @@ public class EnemyPhysicCheck : MonoBehaviour
     public Vector2 CurrentVelocity { get; private set; }
 
     #endregion
-    void Start()
+    void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
-
+    }
+    void Start()
+    {
         IsFacingRight = true;
         FacingDirection = 1;
     }

@@ -236,21 +236,28 @@ public class PlayerAttribute : ScriptableObject
     //Unity Callback, called when the inspector updates
     private void OnValidate()
     {
+        #region Gravity
         //Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
         GravityStrength = -(2 * JumpHeight) / (JumpTimeToApex * JumpTimeToApex);
 
         //Calculate the rigidbody's gravity scale (ie: gravity strength relative to unity's gravity value, see project settings/Physics2D)
         GravityScale = GravityStrength / Physics2D.gravity.y;
+        #endregion
 
+        #region Move
         //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
         RunAccelAmount = (50 * RunAcceleration) / RunMaxSpeed;
         RunDeccelAmount = (50 * RunDecceleration) / RunMaxSpeed;
+        #endregion
 
         CrouchSlideAccelAmount = (50 * CrouchSlideAcceleration) / SlopeSlideMaxSpeed;
         CrouchSlideDeccelAmount = (50 * CrouchSlideDecceleration) / SlopeSlideMaxSpeed;
 
+
+        #region Jump
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         JumpForce = Mathf.Abs(GravityStrength) * JumpTimeToApex;
+        #endregion
 
         #region Variable Ranges
         RunAcceleration = Mathf.Clamp(RunAcceleration, 0.01f, RunMaxSpeed);

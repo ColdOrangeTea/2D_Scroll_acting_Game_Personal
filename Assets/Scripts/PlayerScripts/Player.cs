@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    public PlayerPhysicCheck PlayerPhysicCheck { get; private set; }
+    public PlayerPhysicsCheck PlayerPhysicCheck { get; private set; }
     #endregion
 
     #region ANIMATION BOOL NAME
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     {
         Anim = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        PlayerPhysicCheck = GetComponent<PlayerPhysicCheck>();
+        PlayerPhysicCheck = GetComponent<PlayerPhysicsCheck>();
         PlayerStateMachine.Initialize(PlayerIdleState);
 
         SetGravityScale(player_attribute.GravityScale);

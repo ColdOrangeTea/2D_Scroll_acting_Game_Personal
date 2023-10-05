@@ -22,12 +22,20 @@ public class LandState : GroundState
 
         if (!isExitingState)
         {
-            if (enemy.EnemyPhysicCheck.CurrentVelocity != Vector2.zero)
+            if (enemyAttribute.ThisEnemyIsCanMove)
             {
-                enemyStateMachine.ChangeState(enemy.MoveState);
+                if (enemy.EnemyPhysicCheck.CurrentVelocity != Vector2.zero)
+                {
+                    enemyStateMachine.ChangeState(enemy.MoveState);
+                }
+                else
+                    enemyStateMachine.ChangeState(enemy.IdleState);
             }
             else
+            {
                 enemyStateMachine.ChangeState(enemy.IdleState);
+            }
+
         }
     }
     public override void PhysicsUpdate()

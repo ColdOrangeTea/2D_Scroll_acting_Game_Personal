@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPhysicCheck : MonoBehaviour
+public class PlayerPhysicsCheck : MonoBehaviour
 {
     #region STATE VARIABLES
     [SerializeField]
