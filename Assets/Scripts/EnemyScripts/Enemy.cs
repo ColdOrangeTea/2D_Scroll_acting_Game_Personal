@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
 
     #region UNITY CALLBACK FUNCTIONS
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Core = GetComponent<Core>();
         EnemyStateMachine = new EnemyStateMachine();
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         LandState = new LandState(this, EnemyStateMachine, enemy_attribute, LAND);
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         Anim = GetComponentInChildren<Animator>();
         EnemyPhysicCheck = GetComponent<EnemyPhysicCheck>();
@@ -66,14 +66,14 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    protected virtual void Update()
     {
         EnemyStateMachine.CurrentState.LogicUpdate();
 
         Gravity();
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         EnemyStateMachine.CurrentState.PhysicsUpdate();
     }
@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
 
     #region MOVE METHOD
 
-    public void GroundMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel)
+    public virtual void GroundMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel)
     {
         Vector3 scale = transform.localScale;
         //Calculate the direction we want to move in and our desired velocity
@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void InAirMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel, float jumpHangTimeThreshold, float jumpHangAccelerationMult, float jumpHangMaxSpeedMult, bool doConserveMomentum, bool isAnyJumping)
+    public virtual void InAirMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel, float jumpHangTimeThreshold, float jumpHangAccelerationMult, float jumpHangMaxSpeedMult, bool doConserveMomentum, bool isAnyJumping)
     {
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
         EnemyPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
     }
-    public void Move(float lerpAmount)
+    public virtual void Move(float lerpAmount)
     {
         // 計算我們想要移動的方向和所需的速度
         float targetSpeed = EnemyPhysicCheck.FacingDirection * enemy_attribute.MoveMaxSpeed;
@@ -237,7 +237,7 @@ public class Enemy : MonoBehaviour
 
     #region GRAVITY
 
-    private void Gravity()
+    protected virtual void Gravity()
     {
         if ((InAirState.IsJumping) && Mathf.Abs(EnemyPhysicCheck.RB.velocity.y) < enemy_attribute.JumpHangTimeThreshold)
         {
@@ -257,10 +257,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public virtual void SetGravityScale(float scale)
+    {
+        EnemyPhysicCheck.RB.gravityScale = scale;
+    }
+
     #endregion
 
     #region OTHER METHODS
-    public void Turn()
+    public virtual void Turn()
     {
         //stores scale and flips the player along the x axis, 
         Vector3 scale = transform.localScale;
@@ -279,24 +284,19 @@ public class Enemy : MonoBehaviour
         */
     }
 
-    public void SetGravityScale(float scale)
-    {
-        EnemyPhysicCheck.RB.gravityScale = scale;
-    }
-
     #endregion
 
 
-    #region PLAYER Functions
+    #region ENEMY Functions
     [Space(5)][Range(0, 50)] public float ProjectileSpeed = 20f;
-    public void FireProjectile()
+    public virtual void FireProjectile()
     {
         // GameObject BulletIns = Instantiate(BulletPreFab, FirePoint.position, AimPivot.transform.rotation);
         // BulletIns.GetComponent<Rigidbody2D>().velocity = AimPivot.right * ProjectileSpeed;
     }
 
 
-    public void MeleeAttack()
+    public virtual void MeleeAttack()
     {
 
         List<Collider2D> hitEnemies = EnemyPhysicCheck.CheckHittedUnit();
@@ -307,14 +307,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Sleep(float duration)
+    public virtual void Sleep(float duration)
     {
         //Method used so we don't need to call StartCoroutine everywhere
         //nameof() notation means we don't need to input a string directly.
         //Removes chance of spelling mistakes and will improve error messages if any
         StartCoroutine(nameof(PerformSleep), duration);
     }
-    private IEnumerator PerformSleep(float duration)
+    public virtual IEnumerator PerformSleep(float duration)
     {
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration); //Must be Realtime since timeScale with be 0 

@@ -427,19 +427,17 @@ public class Player : MonoBehaviour
             SetGravityScale(player_attribute.GravityScale);
         }
     }
+    public void SetGravityScale(float scale)
+    {
+        PlayerPhysicCheck.RB.gravityScale = scale;
+    }
 
     #endregion
 
     #region OTHER METHODS
 
     private void AnimationTrigger() => PlayerStateMachine.CurrentState.AnimationTrigger();
-
     private void AnimationFinishTrigger() => PlayerStateMachine.CurrentState.AnimationFinishTrigger();
-
-    public void SetGravityScale(float scale)
-    {
-        PlayerPhysicCheck.RB.gravityScale = scale;
-    }
 
     #endregion
 
@@ -453,16 +451,16 @@ public class Player : MonoBehaviour
         // BulletIns.GetComponent<Rigidbody2D>().velocity = AimPivot.right * ProjectileSpeed;
     }
 
+    public void Punch()
+    {
+        List<Collider2D> hitEnemies = PlayerPhysicCheck.CheckHittedUnit();
+        foreach (Collider2D Enemy in hitEnemies)
+        {
+            // Debug.Log(Enemy.name);
+            //doDMG
+        }
+    }
 
-    // public void Punch()
-    // {
-    //     Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(PlayerPhysicCheck.punch_point.position, PlayerPhysicCheck.punch_radius, PlayerPhysicCheck.attackable_layer);
-    //     foreach (Collider2D Enemy in hitEnemies)
-    //     {
-    //         Debug.Log(Enemy.name);
-    //         //doDMG
-    //     }
-    // }
     public void RotateAimPivot()
     {
         Vector2 dir = InputHandler.RawPointerDirectionInput;
