@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class MeleeAttackState : AbilityState
 {
-    private float last_melee_attack_time;
-    private float last_melee_attack_duration;
     private bool melee_attack_used;
     private int melee_attack_counts;
     private Vector2 melee_attack_direction;
-
+    private float last_melee_attack_time;
     public MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, EnemyAttribute enemyAttribute, string anim_bool_name) : base(enemy, enemyStateMachine, enemyAttribute, anim_bool_name)
     {
     }

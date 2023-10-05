@@ -66,7 +66,7 @@ public class PlayerGroundedState : PlayerState
         // {
         //     stateMachine.ChangeState(playerMovement.AirPushState);
         // }
-        else if (meleeInput)
+        else if (meleeInput && player.PlayerPunchState.CheckIfCanPunch())
         {
             if (yInput != -1)// on Groundand no Crouch
                 playerStateMachine.ChangeState(player.PlayerPunchState);
