@@ -28,7 +28,7 @@ public class PlayerPunchState : PlayerAbilityState
 
         // playerMovement.AimPivot.gameObject.SetActive(true);
         Time.timeScale = playerAttribute.PunchHoldtimeScale;
-        player.RB.drag = playerAttribute.PunchDrag;
+        player.PlayerPhysicCheck.RB.drag = playerAttribute.PunchDrag;
 
         startTime = Time.unscaledTime;
     }
@@ -56,7 +56,7 @@ public class PlayerPunchState : PlayerAbilityState
             if (!punch_used)
             {
 
-                player.Punch();
+                player.PlayerPhysicCheck.CheckHittedUnit();
                 punch_used = true;
             }
         }

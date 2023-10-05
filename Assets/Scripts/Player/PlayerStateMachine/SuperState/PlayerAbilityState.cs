@@ -15,8 +15,8 @@ public class PlayerAbilityState : PlayerState
     {
         base.DoChecks();
 
-        player.OnGroundCheck();
-        isGrounded = player.CheckIfGrounded();
+        player.PlayerPhysicCheck.OnGroundCheck();
+        isGrounded = player.PlayerPhysicCheck.CheckIfGrounded();
         //Debug.Log(isGrounded);
         // Debug.Log(Time.time);
     }
@@ -46,7 +46,7 @@ public class PlayerAbilityState : PlayerState
             //     stateMachine.ChangeState(playerMovement.CrouchIdleState);
             // }
 
-            if (isGrounded && player.CurrentVelocity.y < 0.01f)
+            if (isGrounded && player.PlayerPhysicCheck.CurrentVelocity.y < 0.01f)
             {
                 // Debug.Log("在地狀態: " + isGrounded + " 玩家的Y合力: " + player.CurrentVelocity.y);
                 playerStateMachine.ChangeState(player.PlayerIdleState);

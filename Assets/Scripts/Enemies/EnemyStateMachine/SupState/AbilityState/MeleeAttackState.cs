@@ -94,14 +94,9 @@ public class MeleeAttackState : AbilityState
     public bool CheckIfCanAttack()
     {
         if (last_melee_attack_time == 0) // 時間 = 0 代表敵人初次觸發攻擊
-        {
             return true;
-        }
         else
-        {
             return Time.time >= last_melee_attack_time + enemyAttribute.MeleeCooldown;
-        }
-
     }
 
 }

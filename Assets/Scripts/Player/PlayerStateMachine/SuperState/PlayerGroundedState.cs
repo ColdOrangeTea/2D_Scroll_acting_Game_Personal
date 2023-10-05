@@ -21,8 +21,8 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
 
-        player.OnGroundCheck();
-        isGrounded = player.CheckIfGrounded();
+        player.PlayerPhysicCheck.OnGroundCheck();
+        isGrounded = player.PlayerPhysicCheck.CheckIfGrounded();
     }
 
     public override void Enter()

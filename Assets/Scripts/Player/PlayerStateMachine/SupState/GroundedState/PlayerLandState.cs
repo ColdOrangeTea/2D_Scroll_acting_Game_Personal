@@ -14,7 +14,7 @@ public class PlayerLandState : PlayerGroundedState
         base.LogicUpdate();
 
         if (xInput != 0)
-            player.CheckDirectionToFace(xInput > 0);
+            player.PlayerPhysicCheck.CheckDirectionToFace(xInput > 0);
 
         if (!isExitingState)
         {

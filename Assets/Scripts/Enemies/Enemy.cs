@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     #region STATE VARIABLES
     public Core Core { get; private set; }
     public EnemyStateMachine EnemyStateMachine { get; private set; }
-    public EnemyPhysicCheck EnemyPhysicCheck { get; private set; }
+
     public IdleState IdleState { get; private set; }
     public MoveState MoveState { get; private set; }
     public JumpState JumpState { get; private set; }
@@ -24,19 +24,7 @@ public class Enemy : MonoBehaviour
     #region COMPONENTS
 
     public Animator Anim { get; private set; }
-    // public PlayerInputHandler InputHandler { get; private set; }
-    // public Rigidbody2D RB { get; private set; }
-
-
-
-    #endregion
-
-    #region TIMERS
-    public float LastOnGroundTime { get; private set; }
-    // // public float LastOnWallLeftTime { get; private set; }
-    // // public float LastOnWallRightTime { get; private set; }
-    // // public float LastOnWallTime { get; private set; }
-
+    public EnemyPhysicCheck EnemyPhysicCheck { get; private set; }
     #endregion
 
     #region ANIMATION BOOL NAME
@@ -52,18 +40,9 @@ public class Enemy : MonoBehaviour
     public const string MELEE = "melee";
 
     #endregion
-    #region OTHER VARIABLES
-    // private bool is_facingRight;
-    private int facing_direction;
-    // public Vector2 CurrentVelocity { get; private set; }
 
-    #endregion
-    // #region OTHER VARIABLES
-    // public bool IsFacingRight { get; private set; }
-    // public int FacingDirection { get; private set; }
-    // public Vector2 CurrentVelocity { get; private set; }
+    #region UNITY CALLBACK FUNCTIONS
 
-    // #endregion
     private void Awake()
     {
         Core = GetComponent<Core>();
@@ -81,12 +60,7 @@ public class Enemy : MonoBehaviour
     {
         Anim = GetComponentInChildren<Animator>();
         EnemyPhysicCheck = GetComponent<EnemyPhysicCheck>();
-        // RB = GetComponent<Rigidbody2D>();
-
         EnemyStateMachine.Initialize(IdleState);
-
-        // is_facingRight = EnemyPhysicCheck.IsFacingRight;
-        facing_direction = EnemyPhysicCheck.FacingDirection;
 
         SetGravityScale(enemy_attribute.GravityScale);
     }
@@ -96,11 +70,6 @@ public class Enemy : MonoBehaviour
     {
         EnemyStateMachine.CurrentState.LogicUpdate();
 
-        LastOnGroundTime -= Time.deltaTime;
-        // LastOnWallTime -= Time.deltaTime;
-        // LastOnWallRightTime -= Time.deltaTime;
-        // LastOnWallLeftTime -= Time.deltaTime;
-
         Gravity();
     }
 
@@ -108,6 +77,8 @@ public class Enemy : MonoBehaviour
     {
         EnemyStateMachine.CurrentState.PhysicsUpdate();
     }
+    #endregion
+
 
     #region MOVE METHOD
 
@@ -189,9 +160,8 @@ public class Enemy : MonoBehaviour
     }
     public void Move(float lerpAmount)
     {
-        facing_direction = EnemyPhysicCheck.FacingDirection;
         // 計算我們想要移動的方向和所需的速度
-        float targetSpeed = facing_direction * enemy_attribute.MoveMaxSpeed;
+        float targetSpeed = EnemyPhysicCheck.FacingDirection * enemy_attribute.MoveMaxSpeed;
 
 
         //Debug.Log(targetSpeed);
@@ -206,7 +176,7 @@ public class Enemy : MonoBehaviour
 
         //根據我們是否加速（包括轉彎）取得加速度值...或減速（停止）如果我們處在空中也會應用乘數。
 
-        if (LastOnGroundTime > 0) //LastOnGroundTime > 0
+        if (EnemyPhysicCheck.LastOnGroundTime > 0) //LastOnGroundTime > 0
             accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemy_attribute.MoveAccelAmount : enemy_attribute.MoveDeccelAmount;
         else
             accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemy_attribute.MoveAccelAmount * enemy_attribute.AccelInAir : enemy_attribute.MoveDeccelAmount * enemy_attribute.DeccelInAir;
@@ -227,7 +197,7 @@ public class Enemy : MonoBehaviour
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (enemy_attribute.DoConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
+        if (enemy_attribute.DoConserveMomentum && Mathf.Abs(EnemyPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(EnemyPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && EnemyPhysicCheck.LastOnGroundTime < 0)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -273,7 +243,7 @@ public class Enemy : MonoBehaviour
         {
             SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.JumpHangGravityMult);
         }
-        else if (EnemyPhysicCheck.RB.velocity.y < 0f && LastOnGroundTime < 0)
+        else if (EnemyPhysicCheck.RB.velocity.y < 0f && EnemyPhysicCheck.LastOnGroundTime < 0)
         {
             //Higher gravity if falling
             SetGravityScale(enemy_attribute.GravityScale * enemy_attribute.FallGravityMult);

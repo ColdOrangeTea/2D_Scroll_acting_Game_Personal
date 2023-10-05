@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 1525850383266939067}
   - component: {fileID: 4321583646375093000}
   - component: {fileID: 3855623547900472962}
+  - component: {fileID: 5434390425793006352}
   m_Layer: 7
   m_Name: Hero_smallhitbox
   m_TagString: Player
@@ -353,18 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
-  ground_checkpoint: {fileID: 4321583645251566811}
-  ground_checkSize: {x: 0.9, y: 0.06}
-  roof_checkpoint: {fileID: 4321583646265335941}
-  roof_checkSize: {x: 0.9, y: 0.06}
-  punch_point: {fileID: 7277994337730997007}
-  punch_radius: 1
-  ground_layer:
-    serializedVersion: 2
-    m_Bits: 64
-  attackable_layer:
-    serializedVersion: 2
-    m_Bits: 128
   ProjectileSpeed: 20
 --- !u!114 &3855623547900472962
 MonoBehaviour:
@@ -379,6 +368,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
+--- !u!114 &5434390425793006352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321583646375092999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfb68955ac6070499aee772eed0e672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
+  ground_checkpoint: {fileID: 4321583645251566811}
+  ground_checkSize: {x: 0.9, y: 0.06}
+  roof_checkpoint: {fileID: 4321583646265335941}
+  roof_checkSize: {x: 0.9, y: 0.06}
+  punch_point: {fileID: 7277994337730997007}
+  punch_radius: 1
+  ground_layer:
+    serializedVersion: 2
+    m_Bits: 64
+  attackable_layer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5116262236205637202
 GameObject:
   m_ObjectHideFlags: 0

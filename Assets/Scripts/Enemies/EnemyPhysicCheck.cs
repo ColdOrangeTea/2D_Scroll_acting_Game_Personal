@@ -4,36 +4,34 @@ using UnityEngine;
 
 public class EnemyPhysicCheck : MonoBehaviour
 {
-
     #region COMPONENTS
-    public Animator Anim { get; private set; }
-    // public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
-
     public Collider2D MyselfCollider { get; private set; }
 
     #endregion
+
     #region CHECK PARAMETERS
     //Set all of these up in the inspector
     [Header("Checks")]
-    [SerializeField] private Transform ground_checkpoint;
+    [SerializeField] private Transform ground_check_point;
 
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
-    [SerializeField] private Vector2 ground_checkSize = new Vector2(1.8f, 0.06f);
+    [SerializeField] private Vector2 ground_check_size = new Vector2(1.8f, 0.06f);
+    [SerializeField] private Vector2 ground_check_offset = new Vector2(1.8f, 0.06f);
     [Space(5)]
-    [SerializeField] private Transform roof_checkpoint;
-    [SerializeField] private Vector2 roof_checkSize = new Vector2(1.8f, 0.06f);
-    [Space(5)]
-
-    [SerializeField] private Transform wall_checkpoint;
-    [SerializeField] private Vector2 wall_checkSize = new Vector2(2, 3);
+    [SerializeField] private Transform roof_check_point;
+    [SerializeField] private Vector2 roof_check_size = new Vector2(1.8f, 0.06f);
     [Space(5)]
 
-    [SerializeField] private Transform player_checkpoint;
-    [SerializeField] private Vector2 player_checkSize = new Vector2(2, 2);
+    [SerializeField] private Transform wall_check_point;
+    [SerializeField] private Vector2 wall_check_size = new Vector2(2, 3);
     [Space(5)]
 
-    [SerializeField] private Transform melee_attack_point;
+    [SerializeField] private Transform player_check_point;
+    [SerializeField] private Vector2 player_check_size = new Vector2(2, 2);
+    [Space(5)]
+
+    [SerializeField] private Transform meleeattack_point;
     [SerializeField] private float melee_attack_radius = 1.5f;
     [Space(5)]
 
@@ -60,7 +58,6 @@ public class EnemyPhysicCheck : MonoBehaviour
     #endregion
     void Start()
     {
-        Anim = GetComponentInChildren<Animator>();
         RB = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
 
@@ -73,6 +70,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     {
         FacingDirection = (int)transform.localScale.x;
         CurrentVelocity = RB.velocity;
+
         LastOnGroundTime -= Time.deltaTime;
     }
 
@@ -81,7 +79,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     #region GROUND METHOD
     public bool CheckIfGrounded()
     {
-        if (Physics2D.OverlapBox(ground_checkpoint.position, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(ground_check_point.position, ground_check_size, 0, ground_layer)) //checks if set box overlaps with ground
             return true;
         else
             return false;
@@ -92,7 +90,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     #region ROOFED METHOD
     public bool CheckIfRoofed()
     {
-        if (Physics2D.OverlapBox(roof_checkpoint.position, roof_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(roof_check_point.position, roof_check_size, 0, ground_layer)) //checks if set box overlaps with ground
             return true;
         else
             return false;
@@ -102,7 +100,7 @@ public class EnemyPhysicCheck : MonoBehaviour
     #region TOUCHINGWALL METHOD
     public bool CheckIfTouchingWall()
     {
-        if (Physics2D.OverlapBox(wall_checkpoint.position, wall_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(wall_check_point.position, wall_check_size, 0, ground_layer)) //checks if set box overlaps with ground
             return true;
         else
             return false;
@@ -112,15 +110,15 @@ public class EnemyPhysicCheck : MonoBehaviour
     #region PLAYERCHECK METHOD
     public bool CheckIfSawPlayer()
     {
-        if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(player_check_point.position, player_check_size, 0, attackable_layer)) //checks if set box overlaps with ground
         {
-            if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer) == MyselfCollider)
+            if (Physics2D.OverlapBox(player_check_point.position, player_check_size, 0, attackable_layer) == MyselfCollider)
             {
                 return false;
             }
             else
             {
-                if (Physics2D.OverlapBox(player_checkpoint.position, player_checkSize, 0, attackable_layer).CompareTag("Player"))
+                if (Physics2D.OverlapBox(player_check_point.position, player_check_size, 0, attackable_layer).CompareTag("Player"))
                 {
                     return true;
                 }
@@ -138,7 +136,7 @@ public class EnemyPhysicCheck : MonoBehaviour
 
     public List<Collider2D> CheckHittedUnit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(melee_attack_point.position, melee_attack_radius, attackable_layer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeattack_point.position, melee_attack_radius, attackable_layer);
         List<Collider2D> hitted_enemies = new List<Collider2D>();
 
         foreach (Collider2D Enemy in hitEnemies)
@@ -184,17 +182,17 @@ public class EnemyPhysicCheck : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(ground_checkpoint.position, ground_checkSize);
-        Gizmos.DrawWireCube(roof_checkpoint.position, roof_checkSize);
+        Gizmos.DrawWireCube(ground_check_point.position, ground_check_size);
+        Gizmos.DrawWireCube(roof_check_point.position, roof_check_size);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(wall_checkpoint.position, wall_checkSize);
+        Gizmos.DrawWireCube(wall_check_point.position, wall_check_size);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(player_checkpoint.position, player_checkSize);
+        Gizmos.DrawWireCube(player_check_point.position, player_check_size);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(melee_attack_point.position, melee_attack_radius);
+        Gizmos.DrawWireSphere(meleeattack_point.position, melee_attack_radius);
 
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
