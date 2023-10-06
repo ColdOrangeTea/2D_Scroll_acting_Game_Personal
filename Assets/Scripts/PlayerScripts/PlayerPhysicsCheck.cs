@@ -4,41 +4,46 @@ using UnityEngine;
 
 public class PlayerPhysicsCheck : MonoBehaviour
 {
-    #region STATE VARIABLES
+    #region --STATE VARIABLES--
     [SerializeField]
     private PlayerAttribute player_attribute;
     #endregion
 
-    #region COMPONENTS
+    #region --COMPONENTS--
     public Rigidbody2D RB { get; private set; }
     public Collider2D MyselfCollider { get; private set; }
 
     #endregion
 
-    #region CHECK PARAMETERS
+    #region --CHECK PARAMETERS--
     //Set all of these up in the inspector
     [Header("Checks")]
+    [SerializeField] private Vector2 ground_check_offset;
     [SerializeField] private Transform ground_checkpoint;
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
     [SerializeField] private Vector2 ground_checkSize = new Vector2(0.9f, 0.06f);
+    [Space(5)]
+
+    [SerializeField] private Vector2 roof_check_offset;
     [SerializeField] private Transform roof_checkpoint;
     [SerializeField] private Vector2 roof_checkSize = new Vector2(0.9f, 0.06f);
     [Space(5)]
-    [SerializeField] private Transform punch_point;
-    [SerializeField] private float punch_radius = 1f;
 
+    [SerializeField] private Vector2 punch_check_offset;
+    [SerializeField] private Transform punch_checkpoint;
+    [SerializeField] private float punch_radius = 1f;
     [Space(5)]
 
     #endregion
 
-    #region LAYERS
+    #region --LAYERS--
     [Header("Layers")]
     [SerializeField] private LayerMask ground_layer;
     [SerializeField] private LayerMask attackable_layer;
 
     #endregion
 
-    #region TIMERS
+    #region --TIMERS--
     public float LastOnGroundTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
     public float LastOnWallRightTime { get; private set; }
@@ -53,6 +58,7 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
     #endregion
 
+    #region UNITY CALLBACK FUNCTIONS
     private void Start()
     {
         RB = GetComponent<Rigidbody2D>();
@@ -71,6 +77,7 @@ public class PlayerPhysicsCheck : MonoBehaviour
         LastOnWallLeftTime -= Time.deltaTime;
 
     }
+    #endregion
 
     #region TIMER METHODS
     public void SetLastOnGroundTimeToZero()
@@ -98,18 +105,20 @@ public class PlayerPhysicsCheck : MonoBehaviour
     }
     public void OnGroundCheck()
     {
-        if (Physics2D.OverlapBox(ground_checkpoint.position, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox((Vector2)ground_checkpoint.position + ground_check_offset, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
         {
             //Debug.Log("ground");
             //if so sets the lastGrounded to coyoteTime  coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令。
             LastOnGroundTime = player_attribute.CoyoteTime;
         }
     }
+    #endregion
+
     #region PUNCH ATTACK METHOD
 
     public List<Collider2D> CheckHittedUnit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(punch_point.position, punch_radius, attackable_layer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, attackable_layer);
         List<Collider2D> hitted_enemies = new List<Collider2D>();
 
         foreach (Collider2D Enemy in hitEnemies)
@@ -124,7 +133,7 @@ public class PlayerPhysicsCheck : MonoBehaviour
     #endregion
 
 
-    #endregion
+
 
     #region SLOPE
 
@@ -165,11 +174,11 @@ public class PlayerPhysicsCheck : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(ground_checkpoint.position, ground_checkSize);
+        Gizmos.DrawWireCube((Vector2)ground_checkpoint.position + ground_check_offset, ground_checkSize);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(roof_checkpoint.position, roof_checkSize);
+        Gizmos.DrawWireCube((Vector2)roof_checkpoint.position + roof_check_offset, roof_checkSize);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(punch_point.position, punch_radius);
+        Gizmos.DrawWireSphere((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius);
 
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
