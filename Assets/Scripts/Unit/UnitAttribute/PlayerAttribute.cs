@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // fileName：建立檔案時的預設名稱。menuName：選單工具的路徑。order：在選單清單中的順序
-[CreateAssetMenu(fileName = "New  PlayerAttribute", menuName = "DataTool/ Create  PlayerAttribute Asset", order = 1)]
+[CreateAssetMenu(fileName = "New PlayerAttribute", menuName = "DataTool/ Create  PlayerAttribute Asset", order = 1)]
 public class PlayerAttribute : ScriptableObject
 {
     public int maxHp = 0;

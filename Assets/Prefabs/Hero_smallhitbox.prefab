@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177489916579936421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4321583645251566808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4321583646265335938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -381,13 +381,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
-  ground_check_offset: {x: 0, y: -1}
+  ground_check_offset: {x: 0, y: 0}
   ground_checkpoint: {fileID: 4321583645251566811}
   ground_checkSize: {x: 0.9, y: 0.06}
-  roof_check_offset: {x: 0, y: 1}
+  roof_check_offset: {x: 0, y: 0}
   roof_checkpoint: {fileID: 4321583646265335941}
   roof_checkSize: {x: 0.9, y: 0.06}
-  punch_check_offset: {x: 1, y: 0}
+  punch_check_offset: {x: 0, y: 0}
   punch_checkpoint: {fileID: 7277994337730997007}
   punch_radius: 1
   ground_layer:

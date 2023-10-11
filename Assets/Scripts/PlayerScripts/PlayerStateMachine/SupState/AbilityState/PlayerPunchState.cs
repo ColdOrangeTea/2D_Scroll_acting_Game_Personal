@@ -9,7 +9,6 @@ public class PlayerPunchState : PlayerAbilityState
     private bool punch_stop_input;
     private Vector2 punch_direction_input;
     private float last_punch_time;
-    // private bool can_punch;
 
     public PlayerPunchState(Player player, PlayerStateMachine playerStateMachine, PlayerAttribute playerAttribute, string anim_bool_name) : base(player, playerStateMachine, playerAttribute, anim_bool_name)
     {
@@ -19,14 +18,8 @@ public class PlayerPunchState : PlayerAbilityState
         base.Enter();
         player.InputHandler.UseMeleeInput();
 
-        // is_holding = true;
         punch_used = false;
-
-        // playerMovement.AimPivot.gameObject.SetActive(true);
-        Time.timeScale = playerAttribute.PunchHoldtimeScale;
         player.PlayerPhysicCheck.RB.drag = playerAttribute.PunchDrag;
-
-        startTime = Time.unscaledTime;
     }
 
     public override void LogicUpdate()
@@ -37,27 +30,32 @@ public class PlayerPunchState : PlayerAbilityState
 
             if (CheckIfCanPunch())
             {
-                Debug.Log("可以攻擊");
-                player.Anim.speed = 0;
+                // Debug.Log("可以攻擊");
                 punch_stop_input = player.InputHandler.MeleeStopInput;
                 punch_direction_input = player.InputHandler.PointerDirectionInput;
 
                 // 動作結束
-                if (punch_stop_input || Time.unscaledTime >= startTime + playerAttribute.MaxHoldTime)
+                // if (punch_stop_input || Time.unscaledTime >= startTime + playerAttribute.MaxHoldTime)
+                if (punch_stop_input && Time.time >= startTime + playerAttribute.PunchDuration)
                 {
-                    Debug.Log("毆打動畫結束!!!");
-                    player.Anim.speed = 1;
-                    Time.timeScale = 1f;
-
-                    startTime = Time.time;
-                    last_punch_time = Time.time;
-                    isAbilityDone = true;
+                    if (punch_used)
+                    {
+                        Debug.Log("毆打動畫結束!!!");
+                        startTime = Time.time;
+                        last_punch_time = Time.time;
+                        isAbilityDone = true;
+                    }
+                }
+                else
+                {
+                    Debug.Log("毆打期間");
                 }
                 // 動作開始
                 if (!punch_used)
                 {
                     Debug.Log("毆打!!!");
-                    player.PlayerPhysicCheck.CheckHittedUnit();
+                    player.Punch();
+                    startTime = Time.time;
                     punch_used = true;
                 }
             }

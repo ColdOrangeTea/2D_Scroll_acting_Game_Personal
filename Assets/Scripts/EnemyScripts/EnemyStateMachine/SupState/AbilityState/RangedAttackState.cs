@@ -41,7 +41,7 @@ public class RangedAttackState : AbilityState
             {
                 // Debug.Log("Time.time: " + Time.time + " 經過時間: " + last_melee_attack_time + " " + enemyAttribute.MeleeCooldown);
 
-                if (Time.time >= startTime + enemyAttribute.MeleeDuration)
+                if (Time.time >= startTime + enemyAttribute.RangeAttackDuration)
                 {
                     if (ranged_attack_used)
                     {
@@ -83,7 +83,7 @@ public class RangedAttackState : AbilityState
         if (last_ranged_attack_time == 0) // 時間 = 0 代表敵人初次觸發攻擊
             return true;
         else
-            return Time.time >= last_ranged_attack_time + enemyAttribute.MeleeCooldown;
+            return Time.time >= last_ranged_attack_time + enemyAttribute.RangeAttackCooldown;
     }
 
 }

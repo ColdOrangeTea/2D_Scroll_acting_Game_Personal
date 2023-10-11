@@ -11,7 +11,7 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
     #region --COMPONENTS--
     public Rigidbody2D RB { get; private set; }
-    public Collider2D MyselfCollider { get; private set; }
+    public Collider2D OwnCollider { get; private set; }
 
     #endregion
 
@@ -62,7 +62,7 @@ public class PlayerPhysicsCheck : MonoBehaviour
     private void Start()
     {
         RB = GetComponent<Rigidbody2D>();
-        MyselfCollider = GetComponent<Collider2D>();
+        OwnCollider = GetComponent<Collider2D>();
         IsFacingRight = true;
         FacingDirection = 1;
     }
@@ -118,17 +118,19 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
     public List<Collider2D> CheckHittedUnit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, attackable_layer);
-        List<Collider2D> hitted_enemies = new List<Collider2D>();
+        Collider2D[] hit_enemies = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, attackable_layer);
+        List<Collider2D> hitted_units = new List<Collider2D>();
 
-        foreach (Collider2D Enemy in hitEnemies)
+        foreach (Collider2D hitted_unit in hit_enemies)
         {
-            // Debug.Log("撞到那些人: " + Enemy.name);
-            hitted_enemies.Add(Enemy);
-            if (Enemy == MyselfCollider)
-                hitted_enemies.Remove(Enemy);
+            hitted_units.Add(hitted_unit);
+            if (hitted_unit == OwnCollider)
+            {
+                hitted_units.Remove(hitted_unit);
+            }
+            // Debug.Log("撞到那些人: " + hitted_unit.name);
         }
-        return hitted_enemies;
+        return hitted_units;
     }
     #endregion
 
