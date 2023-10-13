@@ -92,48 +92,6 @@ public class PlayerAttribute : ScriptableObject
     [Tooltip("建議數值: 1.3")]
     public float JumpHangMaxSpeedMult;
 
-    [Header("Wall Jump")]
-    [Tooltip("The actual force (this time set by us) applied to the player when wall jumping. 建議數值: 15,25")]
-    public Vector2 WallJumpForce;
-    [Space(5)]
-
-    [Tooltip("Reduces the effect of player's movement while wall jumping.建議數值: 0.5")]
-    [Range(0f, 1f)] public float WallJumpRunLerp;
-
-    [Tooltip("Time after wall jumping the player's movement is slowed for. 建議數值: 0.15")]
-    [Range(0f, 1.5f)] public float WallJumpTime;
-
-    [Tooltip("Player will rotate to face wall jumping direction. ")]
-    public bool DoTurnOnWallJump;
-
-    [Space(20)]
-
-    [Header("Slide")]
-    public float SlideSpeed;
-    public float SlideAccel;
-
-    [Space(20)]
-
-    [Header("CrouchSlide 建議數值: 0.4 、建議數值: 0")]
-    public float CrouchSlideLerp;
-    public float CrouchSlideSlopeLerp;
-
-    [Space(5)]
-    [Tooltip("Target speed we want the player to reach. 建議數值: 18")]
-    public float SlopeSlideMaxSpeed;
-
-    [Tooltip("The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all. 建議數值: 3")]
-    public float CrouchSlideAcceleration;
-
-    [HideInInspector] public float CrouchSlideAccelAmount; //The actual force (multiplied with speedDiff) applied to the player.
-
-    [Tooltip("The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all. 建議數值: 5")]
-    public float CrouchSlideDecceleration;
-
-    [Tooltip("Actual force (multiplied with speedDiff) applied to the player. ")]
-    [HideInInspector] public float CrouchSlideDeccelAmount;
-    [Space(5)]
-
     [Tooltip("Multipliers applied to acceleration rate when airborne. 建議數值: 0.8 、建議數值: 0.8")]
     [Range(0f, 1)] public float AccelOnGround;
     [Range(0f, 1)] public float DeccelOnGround;
@@ -180,49 +138,9 @@ public class PlayerAttribute : ScriptableObject
     [Tooltip("建議數值: 0.1")]
     [Range(0.01f, 0.5f)] public float DashInputBufferTime;
 
-    [Space(20)]
-
-    [Header("Push 建議數值: 1 、建議數值: 150 、建議數值: 20 、建議數值: 0.1 、建議數值: 0.1")]
-    public int PushAmount;
-    public int PushForce;
-    public int PushKnockbackForce;
-    [Space(5)]
-    public float PushRefillTime;
-    [Range(0.01f, 0.1f)] public float PushInputBufferTime;
-
-    [Space(20)]
-
-    [Header("Fireball State 建議數值: 0.1 、建議數值: 0.5 、建議數值: 2 、建議數值: 0.25 、建議數值: 0.28 、建議數值: 3")]
-    [Range(0.01f, 0.1f)] public float FireballInputBufferTime;
-    public float FireballCooldown;
-    public float MaxHoldTime;
-    public float FireballHoldtimeScale;
-    public float FireballDuration;
-    public float FireballDrag;
-
-    [Space(20)]
-
-    [Header("Air Push State 建議數值: 0.1 、建議數值: 0.5 、建議數值: 0.12 、建議數值: 0.28 、建議數值: 8")]
-    [Range(0.01f, 0.1f)] public float AirPushInputBufferTime;
-    public float AirPushCooldown;
-    public float AirPushTime;
-    public float AirPushDuration;
-    public float AirPushDrag;
-
-    [Space(20)]
 
     [Header("Melee 建議數值: 0.1")]
     [Range(0.01f, 0.1f)] public float MeleeInputBufferTime;
-
-    [Header("Sneak Strike State 建議數值: 0.3 、建議數值: 0.1 、建議數值: 0.1 、建議數值: 5")]
-    /// <summary>
-    /// CD:
-    /// </summary>
-    public float SneakStrikeCooldown;
-    public float SneakStrikeTime;
-    public float SneakStrikeDuration;
-    public float SneakStrikeDrag;
-    [Space(20)]
 
     [Header("Punch State 建議數值: 0.5、 建議數值: 1 、建議數值: 0.25 、建議數值: 0.5 、建議數值: 2")]
     public float PunchCooldown;
@@ -246,13 +164,9 @@ public class PlayerAttribute : ScriptableObject
 
         #region Move
         //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
-        RunAccelAmount = (50 * RunAcceleration) / RunMaxSpeed;
-        RunDeccelAmount = (50 * RunDecceleration) / RunMaxSpeed;
+        RunAccelAmount = (100 * RunAcceleration) / RunMaxSpeed;
+        RunDeccelAmount = -(100 * RunDecceleration) / RunMaxSpeed;
         #endregion
-
-        CrouchSlideAccelAmount = (50 * CrouchSlideAcceleration) / SlopeSlideMaxSpeed;
-        CrouchSlideDeccelAmount = (50 * CrouchSlideDecceleration) / SlopeSlideMaxSpeed;
-
 
         #region Jump
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
@@ -261,10 +175,7 @@ public class PlayerAttribute : ScriptableObject
 
         #region Variable Ranges
         RunAcceleration = Mathf.Clamp(RunAcceleration, 0.01f, RunMaxSpeed);
-        RunDecceleration = Mathf.Clamp(RunDecceleration, 0.01f, RunMaxSpeed);
-
-        CrouchSlideAcceleration = Mathf.Clamp(CrouchSlideAcceleration, 0.01f, SlopeSlideMaxSpeed);
-        CrouchSlideDecceleration = Mathf.Clamp(CrouchSlideDecceleration, 0.01f, SlopeSlideMaxSpeed);
+        RunDecceleration = Mathf.Clamp(RunDecceleration, -10f, RunMaxSpeed);
         #endregion
     }
 }

@@ -10,5 +10,7 @@ public class ThingAnimation : MonoBehaviour
     {
         Sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         Effect = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        Effect.gameObject.SetActive(false);
+
     }
 }

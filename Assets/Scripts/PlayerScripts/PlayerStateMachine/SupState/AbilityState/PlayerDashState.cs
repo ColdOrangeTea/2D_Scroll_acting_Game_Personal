@@ -37,7 +37,7 @@ public class PlayerDashState : PlayerAbilityState
                 last_dash_dir = new Vector2(player.InputHandler.XInput, player.InputHandler.YInput).normalized;
             }
             else
-                last_dash_dir = new Vector2(player.PlayerPhysicCheck.FacingDirection, 0);
+                last_dash_dir = new Vector2(player.PhysicsCheck.FacingDirection, 0);
 
             player.GoDash(last_dash_dir);
             dashes_left--;

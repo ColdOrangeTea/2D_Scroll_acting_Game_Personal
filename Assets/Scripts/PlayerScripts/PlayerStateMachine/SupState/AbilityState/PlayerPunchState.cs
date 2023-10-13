@@ -19,7 +19,7 @@ public class PlayerPunchState : PlayerAbilityState
         player.InputHandler.UseMeleeInput();
 
         punch_used = false;
-        player.PlayerPhysicCheck.RB.drag = playerAttribute.PunchDrag;
+        player.PhysicsCheck.RB.drag = playerAttribute.PunchDrag;
     }
 
     public override void LogicUpdate()

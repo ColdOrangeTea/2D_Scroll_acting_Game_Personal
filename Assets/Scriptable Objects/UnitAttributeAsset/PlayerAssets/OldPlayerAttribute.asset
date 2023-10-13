@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e5245a1104a45c4db556d07ad41fbdb, type: 3}
-  m_Name: PlayerAttribute
+  m_Name: OldPlayerAttribute
   m_EditorClassIdentifier: 
   maxHp: 20
   hp: 19
@@ -25,9 +25,9 @@ MonoBehaviour:
   MaxFastFallSpeed: 30
   RunMaxSpeed: 11
   RunAcceleration: 2.5
-  RunAccelAmount: 11.363636
-  RunDecceleration: 5
-  RunDeccelAmount: 22.727272
+  RunAccelAmount: 22.727272
+  RunDecceleration: 0.01
+  RunDeccelAmount: -0.090909086
   AccelInAir: 0.65
   DeccelInAir: 0.65
   DoConserveMomentum: 1
@@ -39,19 +39,6 @@ MonoBehaviour:
   JumpHangTimeThreshold: 1
   JumpHangAccelerationMult: 1.1
   JumpHangMaxSpeedMult: 1.3
-  WallJumpForce: {x: 15, y: 25}
-  WallJumpRunLerp: 0.5
-  WallJumpTime: 0.15
-  DoTurnOnWallJump: 0
-  SlideSpeed: 0
-  SlideAccel: 0
-  CrouchSlideLerp: 0.4
-  CrouchSlideSlopeLerp: 0
-  SlopeSlideMaxSpeed: 18
-  CrouchSlideAcceleration: 3
-  CrouchSlideAccelAmount: 8.333333
-  CrouchSlideDecceleration: 5
-  CrouchSlideDeccelAmount: 13.888889
   AccelOnGround: 0.8
   DeccelOnGround: 0.8
   CrouchSlideDoConserveMomentum: 1
@@ -66,27 +53,7 @@ MonoBehaviour:
   DashEndRunLerp: 0.5
   DashRefillTime: 0.1
   DashInputBufferTime: 0.1
-  PushAmount: 1
-  PushForce: 150
-  PushKnockbackForce: 20
-  PushRefillTime: 0.1
-  PushInputBufferTime: 0.1
-  FireballInputBufferTime: 0.1
-  FireballCooldown: 0.5
-  MaxHoldTime: 2
-  FireballHoldtimeScale: 0.25
-  FireballDuration: 0.28
-  FireballDrag: 3
-  AirPushInputBufferTime: 0.1
-  AirPushCooldown: 0.5
-  AirPushTime: 0.12
-  AirPushDuration: 0.28
-  AirPushDrag: 8
   MeleeInputBufferTime: 0.1
-  SneakStrikeCooldown: 0.3
-  SneakStrikeTime: 0.1
-  SneakStrikeDuration: 0.1
-  SneakStrikeDrag: 5
   PunchCooldown: 0.5
   MaxPunchHoldTime: 1
   PunchHoldtimeScale: 0.25

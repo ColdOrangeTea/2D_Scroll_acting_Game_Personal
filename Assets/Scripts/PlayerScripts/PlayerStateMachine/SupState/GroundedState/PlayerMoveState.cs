@@ -28,9 +28,9 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        Debug.Log("走路");
         if (xInput != 0)
-            player.PlayerPhysicCheck.CheckDirectionToFace(xInput > 0);
+            player.PhysicsCheck.CheckDirectionToFace(xInput > 0);
 
         if (!isExitingState)
         {
@@ -38,14 +38,6 @@ public class PlayerMoveState : PlayerGroundedState
             {
                 playerStateMachine.ChangeState(player.PlayerIdleState);
             }
-            // else if (yInput == -1 && Mathf.Abs(playerMovement.CurrentVelocity.x) >= unitAttribute.runMaxSpeed * 0.9f)
-            // {
-            //     stateMachine.ChangeState(playerMovement.CrouchSlideState);
-            // }
-            // else if (yInput == -1 && Mathf.Abs(playerMovement.CurrentVelocity.x) < unitAttribute.runMaxSpeed * 0.9f)
-            // {
-            //     stateMachine.ChangeState(playerMovement.CrouchIdleState);
-            // }
         }
     }
 

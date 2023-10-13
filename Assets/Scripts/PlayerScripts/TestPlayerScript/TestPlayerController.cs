@@ -10,9 +10,9 @@ public class TestPlayerController : MonoBehaviour
 
     #region  COMPONENT
     [SerializeField]
-    public PlayerInputHandler InputHandler; //{ get; private set; }
+    public TestPlayerInputHandler InputHandler; //{ get; private set; }
     [SerializeField]
-    public PlayerPhysicsCheck PhysicsCheck; //{ get; private set; }
+    public TestPlayerPhysicsCheck PhysicsCheck; //{ get; private set; }
     [SerializeField]
     public TestMovement Movement;
     [SerializeField]
@@ -20,72 +20,99 @@ public class TestPlayerController : MonoBehaviour
     #endregion
 
     #region INPUT PARAMETERS
-    public float XInput { get; set; }
-    public float YInput { get; set; }
-    private bool jump_cut_input;
-    public bool IsJumping { get; set; }
-    public bool IsJumpCut { get; private set; }
-
+    private int dashes_left = 0;
     #endregion
 
     #region STATE NAME
     const string ExtractIntel = "ExtractIntel";
     const string Idle = "Idle";
-    const string Move = "Move";
+    const string Walk = "Walk";
     const string Jump = "Jump";
-    const string InAir = "InAir";
-
+    const string Fall = "Fall";
+    const string Ground = "Ground";
     #endregion
 
-    public float playerScanningRange = 4f;
-    public float ownScanningRange = 6f;
-    void ThereIsNoInput()
+    void GetComponents()
     {
-        XInput = InputHandler.XInput;
-        YInput = InputHandler.YInput;
-    }
-    public bool CanJumpCut() => IsJumping && PhysicsCheck.CurrentVelocity.y > 0;
-    public void SetJumping(bool setting) => IsJumping = setting;
-    public void SetJumpCut(bool setting) => IsJumpCut = setting;
-
-    private void CheckJumping()
-    {
-        if (IsJumping && PhysicsCheck.CurrentVelocity.y < 0)
-            IsJumping = false;
-    }
-    private void CheckJumpCut()
-    {
-        if (jump_cut_input && CanJumpCut())
-        {
-            IsJumpCut = true;
-        }
-    }
-    void Start()
-    {
-        InputHandler = GetComponent<PlayerInputHandler>();
-        PhysicsCheck = GetComponent<PlayerPhysicsCheck>();
+        InputHandler = GetComponent<TestPlayerInputHandler>();
+        PhysicsCheck = GetComponent<TestPlayerPhysicsCheck>();
         Movement = GetComponent<TestMovement>();
 
         SendUnitAttribute sendUnitAttribute = new SendUnitAttribute(); // publisher
 
         sendUnitAttribute.AttributeDelegated += Movement.GetPlayerAttribute;
+        sendUnitAttribute.AttributeDelegated += PhysicsCheck.GetPlayerAttribute;
+        sendUnitAttribute.AttributeDelegated += InputHandler.GetPlayerAttribute;
         sendUnitAttribute.SendPlayerAttribute(this);
+    }
+    void Start()
+    {
+        GetComponents();
 
         fsm = new StateMachine();
+        var groundFsm = new HybridStateMachine();
 
         fsm.AddState(ExtractIntel);  // Empty state without any logic.
 
-        fsm.AddState(Idle, new State(onLogic: state => Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount)));
+        groundFsm.AddState(Idle,
+        onEnter: state => { dashes_left = Attribute.DashAmount; },
+            onLogic: state =>
+            {
+                Debug.Log("IdleonLogic");
+                PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
+            });
 
-        fsm.AddState(Move, new State(onLogic: state => Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount)));
+        groundFsm.AddState(Walk, // onEnter: state => ,
+        onLogic: state =>
+        {
+            Debug.Log("WalkonLogic");
+            PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); PhysicsCheck.CheckDirectionToFace_Test();
+            Movement.GroundMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
+            // Debug.Log(Attribute.GravityScale + " *" + Attribute.FallGravityMult + ": " + Attribute.GravityScale * Attribute.FallGravityMult);
+            if (PhysicsCheck.RB.velocity.y < 0.1f && !PhysicsCheck.onGround)
+            {
+                Movement.SetGravityScale(Attribute.GravityScale * Attribute.FallGravityMult);
+                PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
+            }
+        });
 
-        fsm.AddState(Jump, new State(onLogic: state => SetJumping(true)));
+        groundFsm.AddTransition(Idle, Walk, transition => Mathf.Abs(InputHandler.XInput) >= Mathf.Epsilon);
+        groundFsm.AddTransition(Walk, Idle, transition => InputHandler.XInput == 0 && InputHandler.YInput == 0);
 
-        fsm.AddState(InAir, new State(onLogic: state => Movement.InAirMove(
-            1, XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir,
-            Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold,
-            Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, IsJumping)));
+        fsm.AddState(Ground, groundFsm);
+        fsm.SetStartState(Ground);
+        fsm.AddState(Jump,
+        onEnter: state => { Movement.Jump(); },
+        onLogic =>
+        {
+            Debug.Log("JumponLogic");
+            PhysicsCheck.CheckDirectionToFace_Test();
+            Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
+            if (InputHandler.JumpCutInput)
+            {
+                Movement.SetGravityScale(Attribute.GravityScale * Attribute.JumpCutGravityMult);
+                PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
+            }
+        },
+        onExit: state => { InputHandler.IsJumping = false; Movement.SetGravityScale(Attribute.GravityScale); });
 
-        // fsm.AddTransition(new Transition(ExtractIntel, Idle, transition =>XInput==null))
+        fsm.AddTransition(Ground, Jump, transition => PhysicsCheck.onGround && InputHandler.IsJumping == true);
+        fsm.AddTransitionFromAny(Ground, transition => PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f);
+        // fsm.AddState(Fall, onEnter: state => { },
+        // onLogic =>
+        // {
+        //     Debug.Log("FallonLogic");
+        //     PhysicsCheck.CheckDirectionToFace_Test();
+        //     Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir,
+        //     Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult,
+        //     Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
+        // });
+        // fsm.AddTransitionFromAny(Fall, transition => !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y > 0.01f);
+
+        fsm.Init();
+    }
+    private void Update()
+    {
+        fsm.OnLogic();
     }
 }

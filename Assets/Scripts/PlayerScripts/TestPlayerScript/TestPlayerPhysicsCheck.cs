@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPhysicsCheck : MonoBehaviour
+public class TestPlayerPhysicsCheck : MonoBehaviour
 {
-    #region --STATE VARIABLES--
+    #region --COMPONENTS--
     [SerializeField]
-    private PlayerInputHandler inputHandler;
+    private TestPlayerInputHandler inputHandler;
     [SerializeField]
     private PlayerAttribute attribute;
-    #endregion
-
-    #region --COMPONENTS--
     public Rigidbody2D RB { get; private set; }
     public Collider2D OwnCollider { get; private set; }
 
@@ -56,8 +53,14 @@ public class PlayerPhysicsCheck : MonoBehaviour
     public bool IsFacingRight { get; private set; }
     public int FacingDirection { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
-    #endregion
+    public bool onGround { get; private set; }
 
+    #endregion
+    public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
+    {
+        this.inputHandler = args.Player.InputHandler;
+        this.attribute = args.Player.Attribute;
+    }
     #region UNITY CALLBACK FUNCTIONS
     private void Start()
     {
@@ -108,10 +111,15 @@ public class PlayerPhysicsCheck : MonoBehaviour
     {
         if (Physics2D.OverlapBox((Vector2)ground_checkpoint.position + ground_check_offset, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
         {
-            // Debug.Log("ground" + attribute.CoyoteTime);
             //if so sets the lastGrounded to coyoteTime  coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令。
             LastOnGroundTime = attribute.CoyoteTime;
+            onGround = true;
         }
+        else
+        {
+            onGround = false;
+        }
+        // Debug.Log("OnGroundCheck: " + onGround);
     }
     #endregion
 
@@ -142,6 +150,12 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
     #endregion
 
+    public void CheckDirectionToFace_Test()
+    {
+        bool isMovingRight = inputHandler.XInput > 0;
+        if (isMovingRight != IsFacingRight)
+            Turn();
+    }
     public void CheckDirectionToFace(bool isMovingRight)
     {
         if (isMovingRight != IsFacingRight)

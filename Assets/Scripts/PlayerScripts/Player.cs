@@ -7,7 +7,6 @@ using UnityEngine.ProBuilder;
 public class Player : MonoBehaviour
 {
     #region STATE VARIABLES
-    public Core Core { get; private set; }
     public PlayerStateMachine PlayerStateMachine { get; private set; }
     public PlayerIdleState PlayerIdleState { get; private set; }
     public PlayerMoveState PlayerMoveState { get; private set; }
@@ -25,7 +24,7 @@ public class Player : MonoBehaviour
 
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    public PlayerPhysicsCheck PlayerPhysicCheck { get; private set; }
+    public PlayerPhysicsCheck PhysicsCheck { get; private set; }
     #endregion
 
     #region ANIMATION BOOL NAME
@@ -46,7 +45,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Core = GetComponentInChildren<Core>();
         PlayerStateMachine = new PlayerStateMachine();
 
         PlayerInAirState = new PlayerInAirState(this, PlayerStateMachine, player_attribute, INAIR);
@@ -64,7 +62,7 @@ public class Player : MonoBehaviour
     {
         Anim = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        PlayerPhysicCheck = GetComponent<PlayerPhysicsCheck>();
+        PhysicsCheck = GetComponent<PlayerPhysicsCheck>();
         PlayerStateMachine.Initialize(PlayerIdleState);
 
         SetGravityScale(player_attribute.GravityScale);
@@ -86,10 +84,12 @@ public class Player : MonoBehaviour
 
     public void GroundMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel)
     {
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
-
-        targetSpeed = Mathf.Lerp(PlayerPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
+        // Debug.Log("targetSpeed: " + targetSpeed);
+        targetSpeed = Mathf.Lerp(physicsCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
         #region Calculate AccelRate
 
@@ -102,21 +102,27 @@ public class Player : MonoBehaviour
         #endregion
 
         //Calculate difference between current velocity and desired velocity
-        float speedDif = targetSpeed - PlayerPhysicCheck.RB.velocity.x;
+        float speedDif = targetSpeed - physicsCheck.RB.velocity.x;
+        // Debug.Log("speedDif: " + speedDif);
 
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
+        // Debug.Log("movement: " + movement);
 
         //Convert this to a vector and apply to rigidbody
-        PlayerPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        physicsCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        // Debug.Log("movement * Vector2.right = physicsCheck.RB.velocity. " + movement * Vector2.right + " = " + physicsCheck.RB.velocity);
     }
 
     public void InAirMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel, float jumpHangTimeThreshold, float jumpHangAccelerationMult, float jumpHangMaxSpeedMult, bool doConserveMomentum, bool isAnyJumping)
     {
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
+        // Debug.Log("targetSpeed: " + targetSpeed);
 
-        targetSpeed = Mathf.Lerp(PlayerPhysicCheck.RB.velocity.x, targetSpeed, lerpAmount);
+        targetSpeed = Mathf.Lerp(physicsCheck.RB.velocity.x, targetSpeed, lerpAmount);
 
         #region Calculate AccelRate
 
@@ -131,7 +137,7 @@ public class Player : MonoBehaviour
         #region Add Bonus Jump Apex Acceleration
 
         //Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if (isAnyJumping && Mathf.Abs(PlayerPhysicCheck.RB.velocity.y) < jumpHangTimeThreshold)
+        if (isAnyJumping && Mathf.Abs(physicsCheck.RB.velocity.y) < jumpHangTimeThreshold)
         {
             accelRate *= jumpHangAccelerationMult;
             targetSpeed *= jumpHangMaxSpeedMult;
@@ -140,7 +146,7 @@ public class Player : MonoBehaviour
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (doConserveMomentum && Mathf.Abs(PlayerPhysicCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(PlayerPhysicCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
+        if (doConserveMomentum && Mathf.Abs(physicsCheck.RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(physicsCheck.RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -149,13 +155,13 @@ public class Player : MonoBehaviour
         #endregion
 
         //Calculate difference between current velocity and desired velocity
-        float speedDif = targetSpeed - PlayerPhysicCheck.RB.velocity.x;
+        float speedDif = targetSpeed - physicsCheck.RB.velocity.x;
 
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
 
         //Convert this to a vector and apply to rigidbody
-        PlayerPhysicCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        physicsCheck.RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
     }
 
@@ -164,8 +170,10 @@ public class Player : MonoBehaviour
     #region JUMP METHOD
     public void Jump()
     {
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+
         //Ensures we can't call Jump multiple times from one press
-        PlayerPhysicCheck.SetLastOnGroundTimeToZero();
+        physicsCheck.SetLastOnGroundTimeToZero();
 
 
         #region Perform Jump
@@ -178,14 +186,14 @@ public class Player : MonoBehaviour
 			force = Data.jumpForce / 2f;
 		*/
 
-        if (PlayerPhysicCheck.RB.velocity.y < 0)
-            force -= PlayerPhysicCheck.RB.velocity.y;
-        if (PlayerPhysicCheck.RB.velocity.y > 0)
-            PlayerPhysicCheck.RB.velocity = new Vector2(PlayerPhysicCheck.RB.velocity.x, 0);
+        if (physicsCheck.RB.velocity.y < 0)
+            force -= physicsCheck.RB.velocity.y;
+        if (physicsCheck.RB.velocity.y > 0)
+            physicsCheck.RB.velocity = new Vector2(physicsCheck.RB.velocity.x, 0);
 
         //CreateJumpDust();
 
-        PlayerPhysicCheck.RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        physicsCheck.RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         #endregion
     }
     #endregion
@@ -194,23 +202,24 @@ public class Player : MonoBehaviour
 
     private void Gravity()
     {
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
         if (PlayerInAirState.IsJumpCut)
         {
             //Higher gravity if jump button released
             //Debug.Log("cutcut");
             SetGravityScale(player_attribute.GravityScale * player_attribute.JumpCutGravityMult);
-            PlayerPhysicCheck.RB.velocity = new Vector2(PlayerPhysicCheck.RB.velocity.x, Mathf.Max(PlayerPhysicCheck.RB.velocity.y, -player_attribute.MaxFallSpeed));
+            physicsCheck.RB.velocity = new Vector2(physicsCheck.RB.velocity.x, Mathf.Max(physicsCheck.RB.velocity.y, -player_attribute.MaxFallSpeed));
         }
-        else if ((PlayerInAirState.IsJumping) && Mathf.Abs(PlayerPhysicCheck.RB.velocity.y) < player_attribute.JumpHangTimeThreshold)
+        else if ((PlayerInAirState.IsJumping) && Mathf.Abs(physicsCheck.RB.velocity.y) < player_attribute.JumpHangTimeThreshold)
         {
             SetGravityScale(player_attribute.GravityScale * player_attribute.JumpHangGravityMult);
         }
-        else if (PlayerPhysicCheck.RB.velocity.y < 0f && PlayerPhysicCheck.LastOnGroundTime < 0)
+        else if (physicsCheck.RB.velocity.y < 0f && physicsCheck.LastOnGroundTime < 0)
         {
             //Higher gravity if falling
             SetGravityScale(player_attribute.GravityScale * player_attribute.FallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
-            PlayerPhysicCheck.RB.velocity = new Vector2(PlayerPhysicCheck.RB.velocity.x, Mathf.Max(PlayerPhysicCheck.RB.velocity.y, -player_attribute.MaxFallSpeed));
+            physicsCheck.RB.velocity = new Vector2(physicsCheck.RB.velocity.x, Mathf.Max(physicsCheck.RB.velocity.y, -player_attribute.MaxFallSpeed));
         }
         else
         {
@@ -220,7 +229,8 @@ public class Player : MonoBehaviour
     }
     public void SetGravityScale(float scale)
     {
-        PlayerPhysicCheck.RB.gravityScale = scale;
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+        physicsCheck.RB.gravityScale = scale;
     }
 
     #endregion
@@ -244,7 +254,9 @@ public class Player : MonoBehaviour
 
     public void Punch()
     {
-        List<Collider2D> hitted_units = PlayerPhysicCheck.CheckHittedUnit();
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+
+        List<Collider2D> hitted_units = physicsCheck.CheckHittedUnit();
         foreach (Collider2D hitted_unit in hitted_units)
         {
             Debug.Log("擊中: " + hitted_unit.name);
@@ -269,11 +281,12 @@ public class Player : MonoBehaviour
 
     public void RotateAimPivot()
     {
-        Vector2 dir = InputHandler.RawPointerDirectionInput;
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
 
+        Vector2 dir = InputHandler.RawPointerDirectionInput;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        if (PlayerPhysicCheck.RB.transform.localScale.x == -1)
+        if (physicsCheck.RB.transform.localScale.x == -1)
             angle += 180;
 
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -298,6 +311,8 @@ public class Player : MonoBehaviour
     }
     private IEnumerator StartDash(Vector2 dir)
     {
+        PlayerPhysicsCheck physicsCheck = PhysicsCheck;
+
         //Overall this method of dashing aims to mimic Celeste, if you're looking for
         // a more physics-based approach try a method similar to that used in the jump
         float startTime = Time.time;
@@ -308,7 +323,7 @@ public class Player : MonoBehaviour
         //We keep the player's velocity at the dash speed during the "attack" phase (in celeste the first 0.15s)
         while (Time.time - startTime <= player_attribute.DashAttackTime)
         {
-            PlayerPhysicCheck.RB.velocity = dir.normalized * player_attribute.DashSpeed;
+            physicsCheck.RB.velocity = dir.normalized * player_attribute.DashSpeed;
             //Pauses the loop until the next frame, creating something of a Update loop. 
             //This is a cleaner implementation opposed to multiple timers and this coroutine approach is actually what is used in Celeste :D
             yield return null;
@@ -316,7 +331,7 @@ public class Player : MonoBehaviour
         startTime = Time.time;
         //Begins the "end" of our dash where we return some control to the player but still limit run acceleration (see Update() and Run())
         SetGravityScale(player_attribute.GravityScale);
-        PlayerPhysicCheck.RB.velocity = player_attribute.DashEndSpeed * dir.normalized;
+        physicsCheck.RB.velocity = player_attribute.DashEndSpeed * dir.normalized;
         while (Time.time - startTime <= player_attribute.DashEndTime)
         {
             yield return null;

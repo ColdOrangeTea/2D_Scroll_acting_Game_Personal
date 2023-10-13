@@ -25,8 +25,8 @@ public class PlayerInAirState : PlayerState
     {
         base.DoChecks();
 
-        player.PlayerPhysicCheck.OnGroundCheck();
-        is_grounded = player.PlayerPhysicCheck.CheckIfGrounded();
+        player.PhysicsCheck.OnGroundCheck();
+        is_grounded = player.PhysicsCheck.CheckIfGrounded();
 
         // playerMovement.OnWallCheck();
         // isOnWall = playerMovement.CheckIfOnWall();
@@ -59,9 +59,9 @@ public class PlayerInAirState : PlayerState
         // canGrab = playerMovement.CanGrab();
 
         if (x_Input != 0)
-            player.PlayerPhysicCheck.CheckDirectionToFace(x_Input > 0);
+            player.PhysicsCheck.CheckDirectionToFace(x_Input > 0);
 
-        if (is_grounded && player.PlayerPhysicCheck.CurrentVelocity.y < 0.01f)
+        if (is_grounded && player.PhysicsCheck.CurrentVelocity.y < 0.01f)
         {
             IsJumpCut = false;
             playerStateMachine.ChangeState(player.PlayerLandState);
@@ -111,7 +111,7 @@ public class PlayerInAirState : PlayerState
 
     private void CheckJumping()
     {
-        if (IsJumping && player.PlayerPhysicCheck.CurrentVelocity.y < 0)
+        if (IsJumping && player.PhysicsCheck.CurrentVelocity.y < 0)
             IsJumping = false;
     }
     private void CheckJumpCut()
@@ -123,13 +123,13 @@ public class PlayerInAirState : PlayerState
     }
 
     //public bool CanWallJumpCut() => player.WallJumpState.IsWallJumping && player.CurrentVelocity.y > 0;
-    public bool CanJumpCut() => IsJumping && player.PlayerPhysicCheck.CurrentVelocity.y > 0;
+    public bool CanJumpCut() => IsJumping && player.PhysicsCheck.CurrentVelocity.y > 0;
 
     public void SetJumping(bool setting) => IsJumping = setting;
     public void SetJumpCut(bool setting) => IsJumpCut = setting;
-    public bool CanWallSlide() => !IsJumping && is_onwall && XInputAtWall() && player.PlayerPhysicCheck.CurrentVelocity.y < 0;
+    public bool CanWallSlide() => !IsJumping && is_onwall && XInputAtWall() && player.PhysicsCheck.CurrentVelocity.y < 0;
     public bool CanWallGrab() => !IsJumping && is_onwall && XInputAtWall() && can_grab;
-    public bool XInputAtWall() => (player.PlayerPhysicCheck.LastOnWallLeftTime > 0 && x_Input < 0) || (player.PlayerPhysicCheck.LastOnWallRightTime > 0 && x_Input > 0);
+    public bool XInputAtWall() => (player.PhysicsCheck.LastOnWallLeftTime > 0 && x_Input < 0) || (player.PhysicsCheck.LastOnWallRightTime > 0 && x_Input > 0);
 
 
 }

@@ -25,7 +25,6 @@ public class PlayerState
         this.playerStateMachine = playerStateMachine;
         this.playerAttribute = playerAttribute;
         this.anim_bool_name = anim_bool_name;
-        core = player.Core;
     }
     public virtual void Enter()
     {

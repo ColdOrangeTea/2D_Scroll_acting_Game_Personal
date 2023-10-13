@@ -17,7 +17,6 @@ public class Thing : MonoBehaviour
         OwnCollider = GetComponentInChildren<Collider2D>();
         Animation = GetComponentInChildren<ThingAnimation>();
         PhysicsCheck = GetComponentInChildren<ThingPhysicsCheck>();
-        Animation.Effect.gameObject.SetActive(false);
     }
 
 

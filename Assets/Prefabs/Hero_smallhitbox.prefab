@@ -310,7 +310,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 1
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: df11d4224b95f1145970fd41c0514dec, type: 2}
+  m_Material: {fileID: 6200000, guid: a9b88c53356ab1a4e95fa69c30d6707f, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -380,7 +380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfb68955ac6070499aee772eed0e672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
+  inputHandler: {fileID: 3855623547900472962}
+  attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
   ground_check_offset: {x: 0, y: 0}
   ground_checkpoint: {fileID: 4321583645251566811}
   ground_checkSize: {x: 0.9, y: 0.06}

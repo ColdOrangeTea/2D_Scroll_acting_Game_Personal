@@ -28,7 +28,7 @@ public class PlayerIdleState : PlayerGroundedState
         base.LogicUpdate();
 
         if (xInput != 0)
-            player.PlayerPhysicCheck.CheckDirectionToFace(xInput > 0);
+            player.PhysicsCheck.CheckDirectionToFace(xInput > 0);
 
         if (!isExitingState)
         {
