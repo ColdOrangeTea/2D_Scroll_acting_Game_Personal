@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
+  m_Name: PotionAttribute
+  m_EditorClassIdentifier: 
+  ThingName: "\u85E5\u6C34"
+  ThingID: 10
+  CanBeDamaged: 0
+  CanBePickUp: 1
+  EffectedDuration: 0
+  ActivatedCoolDown: 0

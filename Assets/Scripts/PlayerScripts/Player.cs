@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
             if (hitted_unit.CompareTag("Thing"))
             {
                 Debug.Log("執行 " + hitted_unit.GetComponentInParent<Thing>());
-                hitted_unit.GetComponentInParent<Thing>().TakeDamage();
+                hitted_unit.GetComponentInParent<Thing>().TriggerThing();
             }
             //doDMG
         }

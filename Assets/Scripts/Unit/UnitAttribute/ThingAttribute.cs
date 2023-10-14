@@ -6,7 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ThingAttribute", menuName = "DataTool/ Create ThingAttribute Asset", order = 3)]
 public class ThingAttribute : ScriptableObject
 {
-    public string ObjectName;
+    public string ThingName;
+    public int ThingID;
     public bool CanBeDamaged; // if it can't be damaged then it is an Interactive Object.
     public bool CanBePickUp;
     [Header("Box 掉落補血物等物品的物件")]
@@ -25,6 +26,8 @@ public class ThingAttribute : ScriptableObject
         if (CanBePickUp)
         {
             CanBeDamaged = false;
+            EffectedDuration = 0;
+            ActivatedCoolDown = 0;
         }
     }
 }
