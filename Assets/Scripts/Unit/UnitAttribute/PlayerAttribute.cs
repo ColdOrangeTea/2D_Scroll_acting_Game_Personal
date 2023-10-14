@@ -164,8 +164,8 @@ public class PlayerAttribute : ScriptableObject
 
         #region Move
         //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
-        RunAccelAmount = (100 * RunAcceleration) / RunMaxSpeed;
-        RunDeccelAmount = -(100 * RunDecceleration) / RunMaxSpeed;
+        RunAccelAmount = (50 * RunAcceleration) / RunMaxSpeed;
+        RunDeccelAmount = -(50 * RunDecceleration) / RunMaxSpeed;
         #endregion
 
         #region Jump

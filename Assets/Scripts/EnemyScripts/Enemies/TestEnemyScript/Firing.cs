@@ -21,13 +21,13 @@ public class Firing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        range = turrentData.range;
-        fireRate = turrentData.fireRate;
-        force = turrentData.pulse;
+        // range = turrentData.range;
+        // fireRate = turrentData.fireRate;
+        // force = turrentData.pulse;
         // spriteRenderer.sprite = turrentData.artillery_Base;
         if (targetedPerson == null)
         {
-            targetedPerson = GameObject.FindGameObjectWithTag(turrentData.targetTagName).GetComponent<Transform>();
+            // targetedPerson = GameObject.FindGameObjectWithTag(turrentData.targetTagName).GetComponent<Transform>();
         }
         StartCoroutine(Detection());
     }
@@ -56,22 +56,22 @@ public class Firing : MonoBehaviour
             RaycastHit2D rayInfo = Physics2D.Raycast(transform.position, Direction, range);
             if (rayInfo)
             {
-                if (rayInfo.collider.gameObject.tag == turrentData.targetTagName)
-                {
-                    if (Detected == false)
-                    {
-                        Detected = true;
-                        Debug.Log("trueonein");
-                    }
-                }
-                else
-                {
+                // if (rayInfo.collider.gameObject.tag == turrentData.targetTagName)
+                // {
+                //     if (Detected == false)
+                //     {
+                //         Detected = true;
+                //         Debug.Log("trueonein");
+                //     }
+                // }
+                // else
+                // {
 
-                    if (Detected == true)
-                    {
-                        Detected = false;
-                    }
-                }
+                //     if (Detected == true)
+                //     {
+                //         Detected = false;
+                //     }
+                // }
                 if (Detected)
                 {
                     gun.transform.right = Direction;

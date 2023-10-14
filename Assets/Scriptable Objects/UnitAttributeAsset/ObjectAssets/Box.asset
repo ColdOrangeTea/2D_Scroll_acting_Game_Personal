@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
-  m_Name: ParalyzedMachineAttribute
+  m_Name: Box
   m_EditorClassIdentifier: 
-  ObjectName: "\u96FB\u78C1\u9EBB\u75FA\u88DD\u7F6E"
-  CanBeDamaged: 0
+  ObjectName: "\u7BB1\u5B50"
+  CanBeDamaged: 1
   CanBePickUp: 0
-  EffectedDuration: 0.3
-  ActivatedCoolDown: 2
+  ActivatedDuration: 0
+  ActivatedCoolDown: 0
