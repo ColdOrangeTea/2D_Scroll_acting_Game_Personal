@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
   m_Name: LeverAttribute
   m_EditorClassIdentifier: 
-  ThingName: "\u958B\u95DC"
-  ThingID: 1
+  ThingName: 111
+  BreakableThingID: 0
   CanBeDamaged: 0
-  CanBePickUp: 0
+  InteractiveThingID: 0
+  CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  PortableThingID: 0
+  CanBePickedUp: 0

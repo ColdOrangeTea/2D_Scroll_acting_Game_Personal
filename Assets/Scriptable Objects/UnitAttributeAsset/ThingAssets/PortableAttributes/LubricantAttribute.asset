@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: LubricantAttribute
   m_EditorClassIdentifier: 
   ThingName: 
-  ThingID: 11
+  BreakableThingID: 0
   CanBeDamaged: 0
-  CanBePickUp: 1
+  InteractiveThingID: 0
+  CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  PortableThingID: 1
+  CanBePickedUp: 0

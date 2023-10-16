@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: ParalyzedMachineAttribute
   m_EditorClassIdentifier: 
   ThingName: "\u96FB\u78C1\u9EBB\u75FA\u88DD\u7F6E"
-  ThingID: 2
+  BreakableThingID: 0
   CanBeDamaged: 0
-  CanBePickUp: 0
+  InteractiveThingID: 1
+  CanBeOperated: 1
   EffectedDuration: 0.3
   ActivatedCoolDown: 2
+  PortableThingID: 0
+  CanBePickedUp: 0

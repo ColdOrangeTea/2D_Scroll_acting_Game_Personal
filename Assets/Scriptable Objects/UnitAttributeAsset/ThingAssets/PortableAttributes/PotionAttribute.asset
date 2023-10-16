@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: PotionAttribute
   m_EditorClassIdentifier: 
   ThingName: "\u85E5\u6C34"
-  ThingID: 10
+  BreakableThingID: 0
   CanBeDamaged: 0
-  CanBePickUp: 1
+  InteractiveThingID: 0
+  CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  PortableThingID: 2
+  CanBePickedUp: 0
