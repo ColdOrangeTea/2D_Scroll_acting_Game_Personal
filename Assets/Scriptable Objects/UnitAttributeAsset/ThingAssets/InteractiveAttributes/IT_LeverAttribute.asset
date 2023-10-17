@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
-  m_Name: ParalyzedMachineAttribute
+  m_Name: IT_LeverAttribute
   m_EditorClassIdentifier: 
-  ThingName: "\u96FB\u78C1\u9EBB\u75FA\u88DD\u7F6E"
+  ThingName: 111
   BreakableThingID: 0
   CanBeDamaged: 0
-  InteractiveThingID: 1
+  InteractiveThingID: 0
   CanBeOperated: 1
-  EffectedDuration: 0.3
-  ActivatedCoolDown: 2
+  EffectedDuration: 0
+  ActivatedCoolDown: 0
   PortableThingID: 0
   CanBePickedUp: 0

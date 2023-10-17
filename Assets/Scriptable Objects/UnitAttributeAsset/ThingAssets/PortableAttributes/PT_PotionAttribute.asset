@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
-  m_Name: LubricantAttribute
+  m_Name: PT_PotionAttribute
   m_EditorClassIdentifier: 
-  ThingName: 
+  ThingName: "\u85E5\u6C34"
   BreakableThingID: 0
   CanBeDamaged: 0
   InteractiveThingID: 0
   CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
-  PortableThingID: 1
+  PortableThingID: 2
   CanBePickedUp: 0

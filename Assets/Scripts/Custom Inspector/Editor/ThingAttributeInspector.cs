@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
 [CustomEditor(typeof(ThingAttribute))]
 public class ThingAttributeInspector : Editor
 {
@@ -9,95 +10,80 @@ public class ThingAttributeInspector : Editor
     private ThingAttribute attribute;
 
     #region  BOOL 
-    private bool e_is_breakable_thing;
-    private bool e_is_interactive_thing;
-    private bool e_is_portable_thing;
+    private bool e_is_show_up_CanBeDamaged;
+    private bool e_is_show_up_CanBeOperated;
+    private bool e_is_show_up_CanBePickedUp;
     #endregion
-
-    private string e_thing_name;
 
     public void Awake()
     {
         attribute = (ThingAttribute)target;
+        if (attribute.CanBeDamaged)
+        {
+            e_is_show_up_CanBeDamaged = true;
+        }
+        if (attribute.CanBeOperated)
+        {
+            e_is_show_up_CanBeOperated = true;
+        }
+        if(attribute.CanBePickedUp)
+        {
+            e_is_show_up_CanBePickedUp = true;
+        }
     }
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        // DrawDefaultInspector();
         #region  NAME
-        e_thing_name = attribute.ThingName = EditorGUILayout.TextField("物品的名字", attribute.ThingName);
-        attribute.ThingName = e_thing_name;
+        attribute.ThingName = attribute.ThingName = EditorGUILayout.TextField("物品的名字", attribute.ThingName);
         #endregion
 
         #region  BREAKABLE
-        e_is_breakable_thing = EditorGUILayout.Toggle("is_breakable_thing", attribute.CanBeDamaged);
-        attribute.CanBeDamaged = e_is_breakable_thing;
-        if (e_is_breakable_thing)
+        attribute.CanBeDamaged = EditorGUILayout.Toggle("是不是可破壞物件", attribute.CanBeDamaged);
+        e_is_show_up_CanBeDamaged = EditorGUILayout.BeginFoldoutHeaderGroup(e_is_show_up_CanBeDamaged, "可破壞物的物件資料");
+        EditorGUI.BeginDisabledGroup(attribute.CanBeDamaged == false);
+
+        if (e_is_show_up_CanBeDamaged)
         {
-            e_is_interactive_thing = false;
-            e_is_portable_thing = false;
+            attribute.BreakableThingID = EditorGUILayout.IntField("BreakableThingID: ", attribute.BreakableThingID);
         }
-        EditorGUI.BeginDisabledGroup(e_is_breakable_thing == false);
 
-        attribute.BreakableThingID = EditorGUILayout.IntField("ID: ", attribute.BreakableThingID);
-
+        EditorGUILayout.EndFoldoutHeaderGroup();
         EditorGUI.EndDisabledGroup();
         #endregion
 
         #region  INTERACTIVE
-        e_is_interactive_thing = EditorGUILayout.Toggle("is_interactive_thing", attribute.CanBeOperated);
-        attribute.CanBeOperated = e_is_interactive_thing;
-        if (e_is_interactive_thing)
+        attribute.CanBeOperated = EditorGUILayout.Toggle("是不是可啟動的裝置物件", attribute.CanBeOperated);
+        e_is_show_up_CanBeOperated = EditorGUILayout.BeginFoldoutHeaderGroup(e_is_show_up_CanBeOperated, "可啟動物的物件資料");
+
+        EditorGUI.BeginDisabledGroup(attribute.CanBeOperated == false);
+        if (e_is_show_up_CanBeOperated)
         {
-            e_is_breakable_thing = false;
-            e_is_portable_thing = false;
+            attribute.InteractiveThingID = EditorGUILayout.IntField("InteractiveThingID: ", attribute.InteractiveThingID);
+            attribute.EffectedDuration = EditorGUILayout.FloatField("EffectedDuration: ", attribute.EffectedDuration);
+            attribute.ActivatedCoolDown = EditorGUILayout.FloatField("ActivatedCoolDown: ", attribute.ActivatedCoolDown);
         }
-        EditorGUI.BeginDisabledGroup(e_is_interactive_thing == false);
 
-        attribute.InteractiveThingID = EditorGUILayout.IntField("ID: ", attribute.InteractiveThingID);
-        attribute.EffectedDuration = EditorGUILayout.FloatField("EffectedDuration: ", attribute.InteractiveThingID);
-        attribute.ActivatedCoolDown = EditorGUILayout.FloatField("ActivatedCoolDown: ", attribute.InteractiveThingID);
-
+        EditorGUILayout.EndFoldoutHeaderGroup();
         EditorGUI.EndDisabledGroup();
         #endregion
 
         #region  PORTABLE
-        e_is_portable_thing = EditorGUILayout.Toggle("is_portable_thing", attribute.CanBePickedUp);
-        attribute.CanBePickedUp = e_is_portable_thing;
-        if (e_is_portable_thing)
+        attribute.CanBePickedUp = EditorGUILayout.Toggle("是不是可撿取物", attribute.CanBePickedUp);
+        e_is_show_up_CanBePickedUp = EditorGUILayout.BeginFoldoutHeaderGroup(e_is_show_up_CanBePickedUp, "可撿取物的物件資料");
+
+        EditorGUI.BeginDisabledGroup(attribute.CanBePickedUp == false);
+        if (e_is_show_up_CanBePickedUp)
         {
-            e_is_breakable_thing = false;
-            e_is_interactive_thing = false;
+            attribute.PortableThingID = EditorGUILayout.IntField("PortableThingID: ", attribute.PortableThingID);
+            attribute.DropChance = EditorGUILayout.IntField("DropChance", attribute.DropChance);
         }
-        EditorGUI.BeginDisabledGroup(e_is_portable_thing == false);
 
-        attribute.PortableThingID = EditorGUILayout.IntField("ID: ", attribute.InteractiveThingID);
-
+        EditorGUILayout.EndFoldoutHeaderGroup();
         EditorGUI.EndDisabledGroup();
         #endregion
-
     }
 
-    // private void OnValidate()
-    // {
-    //     if (e_is_breakable_thing)
-    //     {
-    //         e_is_interactive_thing = false;
-    //         e_is_portable_thing = false;
-    //     }
-    //     if (e_is_interactive_thing)
-    //     {
-    //         e_is_breakable_thing = false;
-    //         e_is_portable_thing = false;
-    //     }
-    //     if (e_is_portable_thing)
-    //     {
-    //         e_is_breakable_thing = false;
-    //         e_is_interactive_thing = false;
-    //         // attribute.CanBeDamaged = false;
-    //         // attribute.CanBeOperated = false;
-    //         // attribute.EffectedDuration = 0;
-    //         // attribute.ActivatedCoolDown = 0;
-    //     }
-
-    // }
 }
+
+

@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
-  m_Name: BoxAttribute
+  m_Name: PT_LubricantAttribute
   m_EditorClassIdentifier: 
-  ThingName: "\u7BB1\u5B50"
-  ThingID: 0
-  CanBeDamaged: 1
-  CanBePickUp: 0
+  ThingName: 
+  BreakableThingID: 0
+  CanBeDamaged: 0
+  InteractiveThingID: 0
+  CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  PortableThingID: 1
+  CanBePickedUp: 0
