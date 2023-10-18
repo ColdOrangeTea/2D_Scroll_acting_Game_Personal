@@ -35,12 +35,15 @@ public class PlayerPhysicsCheck : MonoBehaviour
     [SerializeField] private Transform punch_checkpoint;
     [SerializeField] private float punch_radius = 1f;
     [Space(5)]
+
     #endregion
 
     #region --LAYERS--
     [Header("Layers")]
     [SerializeField] private LayerMask ground_layer;
     [SerializeField] private LayerMask attackable_layer;
+    [SerializeField] private LayerMask thing_layer;
+    public const int NUM_OF_THINGLAYER = 8;
 
     #endregion
 
@@ -56,6 +59,12 @@ public class PlayerPhysicsCheck : MonoBehaviour
     public bool IsFacingRight { get; private set; }
     public int FacingDirection { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
+    #endregion
+
+    #region TAG NAME
+    public const string B_THING = "B_Thing";
+    public const string I_THING = "I_Thing";
+    public const string P_THING = "P_Thing";
     #endregion
 
     #region UNITY CALLBACK FUNCTIONS
@@ -96,6 +105,8 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
     #endregion
 
+
+
     #region CHECK METHODS
 
     #region GROUND METHOD
@@ -115,6 +126,41 @@ public class PlayerPhysicsCheck : MonoBehaviour
     }
     #endregion
 
+    #region GAIN THINGS METHOD
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == NUM_OF_THINGLAYER)
+        {
+            Debug.Log("Trigger");
+            if (other.gameObject.CompareTag(P_THING))
+                other.gameObject.GetComponent<Thing>().TriggerThing();
+        }
+    }
+    // private void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if (other.gameObject.layer == NUM_OF_THINGLAYER)
+    //     {
+    //         Debug.Log("Collision");
+    //         if (other.gameObject.CompareTag(P_THING))
+    //             other.gameObject.GetComponent<Thing>().TriggerThing();
+    //     }
+
+    // }
+
+    public List<Collider2D> CheckHittedThing()
+    {
+        Collider2D[] hit_things = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, thing_layer);
+        List<Collider2D> hitted_things = new List<Collider2D>();
+        Debug.Log("有沒有擊中的物件: ");
+        foreach (Collider2D hitted_thing in hit_things)
+        {
+            Debug.Log("擊中的物件是: " + hitted_thing.name);
+            hitted_things.Add(hitted_thing);
+        }
+        return hitted_things;
+    }
+    #endregion
+
     #region PUNCH ATTACK METHOD
 
     public List<Collider2D> CheckHittedUnit()
@@ -124,12 +170,12 @@ public class PlayerPhysicsCheck : MonoBehaviour
 
         foreach (Collider2D hitted_unit in hit_enemies)
         {
+            Debug.Log("擊中的敵人是: " + hitted_unit.name);
             hitted_units.Add(hitted_unit);
             if (hitted_unit == OwnCollider)
             {
                 hitted_units.Remove(hitted_unit);
             }
-            // Debug.Log("撞到那些人: " + hitted_unit.name);
         }
         return hitted_units;
     }

@@ -17,7 +17,7 @@ public class Thing : MonoBehaviour
     #region UNITY CALLBACK FUNCTIONS
     protected virtual void Start()
     {
-        OwnCollider = GetComponentInChildren<Collider2D>();
+        OwnCollider = GetComponent<Collider2D>();
         Animation = GetComponentInChildren<ThingAnimation>();
         PhysicsCheck = GetComponentInChildren<ThingPhysicsCheck>();
     }

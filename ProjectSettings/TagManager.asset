@@ -7,7 +7,9 @@ TagManager:
   - Enemy
   - MusicManager
   - Attack
-  - Thing
+  - B_Thing
+  - I_Thing
+  - P_Thing
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - groundLayer
   - attackableLayer
-  - playerLayer
+  - thingLayer
   - 
   - 
   - 

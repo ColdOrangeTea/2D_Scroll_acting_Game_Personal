@@ -14,8 +14,8 @@ public class ThingAttribute : ScriptableObject
     public int BreakableThingID;
 
     [Header("Interactive Thing 觸發類的物件")]
-    public bool CanBeOperated; 
-    
+    public bool CanBeOperated;
+
     public int InteractiveThingID;
     public float EffectedDuration;
     public float ActivatedCoolDown;

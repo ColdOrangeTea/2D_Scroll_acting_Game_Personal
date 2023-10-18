@@ -17,23 +17,23 @@ MonoBehaviour:
   maxMp: 0
   mp: 0
   attack: 3
-  GravityStrength: -62.5
-  GravityScale: 6.37105
+  GravityStrength: -75
+  GravityScale: 7.6452594
   FallGravityMult: 1.5
   MaxFallSpeed: 25
   FastFallGravityMult: 2
   MaxFastFallSpeed: 30
   RunMaxSpeed: 11
   RunAcceleration: 2.5
-  RunAccelAmount: 22.727272
+  RunAccelAmount: 11.363636
   RunDecceleration: 0.01
-  RunDeccelAmount: -0.090909086
+  RunDeccelAmount: -0.045454543
   AccelInAir: 0.65
   DeccelInAir: 0.65
   DoConserveMomentum: 1
-  JumpHeight: 5
+  JumpHeight: 6
   JumpTimeToApex: 0.4
-  JumpForce: 25
+  JumpForce: 30
   JumpCutGravityMult: 2
   JumpHangGravityMult: 0.5
   JumpHangTimeThreshold: 1

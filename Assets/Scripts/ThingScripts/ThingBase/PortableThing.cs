@@ -20,12 +20,20 @@ public class PortableThing : Thing
         Debug.Log("撿取物品");
         //Do something
     }
-    public virtual void OnTriggerEnter2D(Collider2D other)
+
+    public override void TriggerThing()
     {
-        if (other.CompareTag(PLAYER))
-        {
-            PickUp();
-            DestroyThing();
-        }
+        PickUp();
+        DestroyThing();
     }
+
+    // public virtual void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if(OwnCollider.IsTouching(other))
+    //     if (other.CompareTag(PLAYER))
+    //     {
+    //         PickUp();
+    //         DestroyThing();
+    //     }
+    // }
 }

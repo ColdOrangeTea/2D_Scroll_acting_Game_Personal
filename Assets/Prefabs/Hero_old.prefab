@@ -354,7 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
-  ProjectileSpeed: 20
 --- !u!114 &3855623547900472962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +396,9 @@ MonoBehaviour:
   attackable_layer:
     serializedVersion: 2
     m_Bits: 128
+  thing_layer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &5116262236205637202
 GameObject:
   m_ObjectHideFlags: 0

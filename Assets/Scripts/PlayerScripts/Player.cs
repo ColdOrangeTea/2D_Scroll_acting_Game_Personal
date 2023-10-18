@@ -38,7 +38,12 @@ public class Player : MonoBehaviour
     public const string DASH = "dash";
     public const string JUMP = "jump";
     public const string PUNCH = "punch";
+    #endregion
 
+    #region TAG NAME
+    public const string B_THING = "B_Thing";
+    public const string I_THING = "I_Thing";
+    public const string P_THING = "P_Thing ";
     #endregion
 
     #region UNITY CALLBACK FUNCTIONS
@@ -245,12 +250,12 @@ public class Player : MonoBehaviour
 
 
     #region PLAYER Functions
-    [Space(5)][Range(0, 50)] public float ProjectileSpeed = 20f;
-    public void FireProjectile()
-    {
-        // GameObject BulletIns = Instantiate(BulletPreFab, FirePoint.position, AimPivot.transform.rotation);
-        // BulletIns.GetComponent<Rigidbody2D>().velocity = AimPivot.right * ProjectileSpeed;
-    }
+    // [Space(5)][Range(0, 50)] public float ProjectileSpeed = 20f;
+    // public void FireProjectile()
+    // {
+    //     GameObject BulletIns = Instantiate(BulletPreFab, FirePoint.position, AimPivot.transform.rotation);
+    //     BulletIns.GetComponent<Rigidbody2D>().velocity = AimPivot.right * ProjectileSpeed;
+    // }
 
     public void Punch()
     {
@@ -260,13 +265,20 @@ public class Player : MonoBehaviour
         foreach (Collider2D hitted_unit in hitted_units)
         {
             Debug.Log("擊中: " + hitted_unit.name);
-            if (hitted_unit.CompareTag("Thing"))
-            {
-                Debug.Log("執行 " + hitted_unit.GetComponentInParent<Thing>());
-                hitted_unit.GetComponentInParent<Thing>().TriggerThing();
-            }
             //doDMG
         }
+
+        List<Collider2D> hitted_things = physicsCheck.CheckHittedThing();
+        foreach (Collider2D hitted_thing in hitted_things)
+        {
+            Debug.Log("擊中: " + hitted_thing.name);
+            if (hitted_thing.gameObject.CompareTag(B_THING))
+                hitted_thing.GetComponentInParent<Thing>().TriggerThing();
+            if (hitted_thing.gameObject.CompareTag(I_THING))
+                hitted_thing.GetComponentInParent<Thing>().TriggerThing();
+
+        }
+
     }
 
     public void DoDamage()

@@ -33,7 +33,7 @@ public class BreakableThing : Thing
     {
         Animation.Effect.gameObject.SetActive(true);
         Animation.Sprite.gameObject.SetActive(false);
-
+        OwnCollider.isTrigger = true;
         Drop();
     }
 }

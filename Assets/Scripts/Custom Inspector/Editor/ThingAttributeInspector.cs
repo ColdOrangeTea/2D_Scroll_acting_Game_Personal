@@ -26,7 +26,7 @@ public class ThingAttributeInspector : Editor
         {
             e_is_show_up_CanBeOperated = true;
         }
-        if(attribute.CanBePickedUp)
+        if (attribute.CanBePickedUp)
         {
             e_is_show_up_CanBePickedUp = true;
         }
