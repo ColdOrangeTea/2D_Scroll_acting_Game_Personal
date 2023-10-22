@@ -113,11 +113,11 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
         {
             //if so sets the lastGrounded to coyoteTime  coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令。
             LastOnGroundTime = attribute.CoyoteTime;
-            onGround = true;
+            onGround = CheckIfGrounded();
         }
         else
         {
-            onGround = false;
+            onGround = CheckIfGrounded();
         }
         // Debug.Log("OnGroundCheck: " + onGround);
     }

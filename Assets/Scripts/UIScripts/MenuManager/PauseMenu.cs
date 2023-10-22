@@ -3,31 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public const string TitleMenu = "TitleMenu";
-
     public static PauseMenu Instance;
     public static bool GameIsPaused = false;
     public bool SettingOpening;
 
-    public GameObject PauseMenuUI;
-    public GameObject SettingMenu;
+    public GameObject PauseMenuUI; // 自行拖入
+    public GameObject SettingMenuUI;
     private void Start()
     {
-        //SoundManager.Instance.getSliders();
-
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
             PauseMenuUI.SetActive(false);
-            SettingMenu.SetActive(false);
-
+            SettingMenuUI.SetActive(false);
         }
         else
         {
             Destroy(gameObject);
         }
-
     }
     void Update()
     {
@@ -39,7 +33,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                if (SceneManager.GetActiveScene().name != TitleMenu)
+                if (SceneManager.GetActiveScene().name != SceneOrder.Scene.TitleMenu.ToString())
                     Pause();
             }
         }
@@ -59,20 +53,20 @@ public class PauseMenu : MonoBehaviour
     }
     public void OpenSetting()
     {
-        SettingMenu.SetActive(true);
+        SettingMenuUI.SetActive(true);
         SettingOpening = true;
         SoundManager.Instance.getSliders();
     }
     public void CloseSetting()
     {
-        SettingMenu.SetActive(false);
+        SettingMenuUI.SetActive(false);
         SettingOpening = false;
     }
     public void BackToTitle()
     {
         Resume();
         CloseSetting();
-        SceneManager.LoadScene(TitleMenu);
+        SceneManager.LoadScene(SceneOrder.Scene.TitleMenu.ToString());
         Debug.Log("scenesLoaded");
 
     }

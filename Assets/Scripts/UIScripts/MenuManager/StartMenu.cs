@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class StartMenu : MonoBehaviour
 {
     [SerializeField] private GameObject settingMenu;
-    public const string TESTLEVEL = "TestScene1";
     private bool SettingOpen = false;
     private void Start()
     {
@@ -26,7 +25,7 @@ public class StartMenu : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(TESTLEVEL);
+        SceneManager.LoadScene(SceneOrder.Scene.Level01.ToString());
     }
     public void LoadGame()//先進存檔選單但沒有讀檔功能
     {

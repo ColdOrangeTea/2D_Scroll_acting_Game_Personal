@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
             SetGravityScale(player_attribute.GravityScale * player_attribute.JumpCutGravityMult);
             physicsCheck.RB.velocity = new Vector2(physicsCheck.RB.velocity.x, Mathf.Max(physicsCheck.RB.velocity.y, -player_attribute.MaxFallSpeed));
         }
-        else if ((PlayerInAirState.IsJumping) && Mathf.Abs(physicsCheck.RB.velocity.y) < player_attribute.JumpHangTimeThreshold)
+        else if (PlayerInAirState.IsJumping && Mathf.Abs(physicsCheck.RB.velocity.y) < player_attribute.JumpHangTimeThreshold)
         {
             SetGravityScale(player_attribute.GravityScale * player_attribute.JumpHangGravityMult);
         }

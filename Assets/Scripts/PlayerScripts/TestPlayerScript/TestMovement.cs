@@ -106,8 +106,8 @@ public class TestMovement : MonoBehaviour
 
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
-        Debug.Log("targetSpeed - physicsCheck.RB.velocity.x = speedDif: " + targetSpeed + " - " + physicsCheck.RB.velocity.x + " = " + speedDif);
-        Debug.Log("speedDif * accelRate = movement: " + speedDif + " * " + accelRate + " = " + movement);
+        // Debug.Log("targetSpeed - physicsCheck.RB.velocity.x = speedDif: " + targetSpeed + " - " + physicsCheck.RB.velocity.x + " = " + speedDif);
+        // Debug.Log("speedDif * accelRate = movement: " + speedDif + " * " + accelRate + " = " + movement);
         //Convert this to a vector and apply to rigidbody // ForceMode2D.Force 受mass影響(Force /= mass)
         physicsCheck.RB.AddForce((movement * Vector2.right) / physicsCheck.RB.gravityScale, ForceMode2D.Force);
         // Debug.Log("movement * Vector2.right: " + movement * Vector2.right);
@@ -246,7 +246,7 @@ public class TestMovement : MonoBehaviour
             SetGravityScale(attribute.GravityScale * attribute.JumpCutGravityMult);
             physicsCheck.RB.velocity = new Vector2(physicsCheck.RB.velocity.x, Mathf.Max(physicsCheck.RB.velocity.y, -attribute.MaxFallSpeed));
         }
-        else if ((isjumping) && Mathf.Abs(physicsCheck.RB.velocity.y) < attribute.JumpHangTimeThreshold)
+        else if (isjumping && Mathf.Abs(physicsCheck.RB.velocity.y) < attribute.JumpHangTimeThreshold)
         {
             SetGravityScale(attribute.GravityScale * attribute.JumpHangGravityMult);
         }

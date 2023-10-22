@@ -5,16 +5,23 @@ using UnityEngine;
 
 public class TestPlayerInputHandler : MonoBehaviour
 {
-
+    #region  INPUT
     public float XInput { get; private set; }
     public float YInput { get; private set; }
+    public bool JumpInput { get; private set; }
     public bool JumpCutInput { get; private set; }
+    public bool DoubleJumpInput { get; set; }
+    public bool MeleeStopInput { get; private set; }
+    #endregion
+
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedMeleeTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
+    public int JumpCount { get; set; }
     public bool IsJumping { get; set; }
+
     public bool IsJumpCut { get; private set; }
-    public bool MeleeStopInput { get; private set; }
+
 
     [SerializeField] private PlayerAttribute attribute;
     public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
@@ -36,18 +43,20 @@ public class TestPlayerInputHandler : MonoBehaviour
         {
             OnJumpInput();
             // Debug.Log("LastPressedJumpTime: " + LastPressedJumpTime);
+            SetJumpInput(true);
             SetJumpCutInput(true);
-            SetJumping(true);
+            if (IsJumping && PlayerAbilityManager.CanDoubleJump)
+                SetDoubleJumpInput(true);
+            // SetJumping(true);
             SetJumpCut(false);
-            // Debug.Log("IsJumping:" + IsJumping);
         }
         if (Input.GetButtonUp("Jump"))
         {
+            SetJumpInput(false);
             SetJumpCutInput(false);
+            SetDoubleJumpInput(false);
+            // SetJumping(false);
             SetJumpCut(true);
-            SetJumping(false);
-
-            // Debug.Log("IsJumping:" + IsJumping);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -66,22 +75,14 @@ public class TestPlayerInputHandler : MonoBehaviour
         }
 
     }
+
+    public void SetJumpInput(bool setting) => JumpInput = setting;
     public void SetJumpCutInput(bool setting) => JumpCutInput = setting;
+    public void SetDoubleJumpInput(bool setting) => DoubleJumpInput = setting;
     public void SetJumping(bool setting) => IsJumping = setting;
+
     public void SetJumpCut(bool setting) => IsJumpCut = setting;
 
-    // private void CheckJumping()
-    // {
-    //     if (IsJumping && PhysicsCheck.CurrentVelocity.y < 0)
-    //         IsJumping = false;
-    // }
-    // private void CheckJumpCut()
-    // {
-    //     if (jump_cut_input && CanJumpCut())
-    //     {
-    //         IsJumpCut = true;
-    //     }
-    // }
 
     // public bool JumpInput() => LastPressedJumpTime > 0;
     // public bool MeleeInput() => LastPressedMeleeTime > 0;
@@ -89,7 +90,8 @@ public class TestPlayerInputHandler : MonoBehaviour
     public void OnJumpInput() => LastPressedJumpTime = attribute.JumpInputBufferTime;
     public void OnMeleeInput() => LastPressedMeleeTime = attribute.MeleeInputBufferTime;
     public void OnDashInput() => LastPressedDashTime = attribute.DashInputBufferTime;
-    // public void UseJumpInput() => LastPressedJumpTime = 0;
+
+    public void UseJumpInput() => LastPressedJumpTime = 0;
     // public void UseMeleeInput() => LastPressedMeleeTime = 0;
     // public void UseDashInput() => LastPressedDashTime = 0;
 }

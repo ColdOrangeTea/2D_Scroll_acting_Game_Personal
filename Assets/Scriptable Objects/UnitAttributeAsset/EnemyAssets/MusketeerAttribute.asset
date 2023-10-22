@@ -42,5 +42,6 @@ MonoBehaviour:
   ThisEnemyIsCanMoveRangedAttack: 1
   RangeAttackCooldown: 0.5
   RangeAttackDuration: 1
-  RangeAttackDrag: 0
+  RangeAttackFireRange: 1.44
+  RangeAttackFireForce: 0
   IdleWaitTime: 2

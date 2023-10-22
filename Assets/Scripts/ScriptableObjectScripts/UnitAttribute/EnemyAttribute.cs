@@ -91,7 +91,10 @@ public class EnemyAttribute : ScriptableObject
     public bool ThisEnemyIsCanMoveRangedAttack = true; // 敵人能不能遠攻
     public float RangeAttackCooldown;
     public float RangeAttackDuration;
-    public float RangeAttackDrag;
+    public float RangeAttackFireRange;
+    public float RangeAttackFireForce;
+
+    // public float RangeAttackDrag;
 
     [Space(20)]
     [Header("Idle State")]

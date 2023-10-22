@@ -58,14 +58,6 @@ public class PlayerGroundedState : PlayerState
         {
             playerStateMachine.ChangeState(player.PlayerInAirState);
         }
-        // else if (fireballInput && playerMovement.FireballState.CheckIfCanFireball())
-        // {
-        //     stateMachine.ChangeState(playerMovement.FireballState);
-        // }
-        // else if (airPushInput && playerMovement.AirPushState.CheckIfCanAirPush())
-        // {
-        //     stateMachine.ChangeState(playerMovement.AirPushState);
-        // }
         else if (meleeInput && player.PlayerPunchState.CheckIfCanPunch())
         {
             if (yInput != -1)// on Groundand no Crouch
