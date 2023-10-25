@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MeleeMachineMove
+  m_Name: Animation_MeleeMachineIdle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,7 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 1558621197, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
-    - time: 0.16666667
-      value: {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
     - time: 0.33333334
-      value: {fileID: 1420823180, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
-    - time: 0.5
       value: {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
     - time: 0.6666667
       value: {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
@@ -49,8 +45,6 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 1558621197, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
-    - {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
-    - {fileID: 1420823180, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
     - {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
     - {fileID: -457989998, guid: 9b2250f50721d13498d2bbcc833e458c, type: 3}
   m_AnimationClipSettings:

@@ -6,16 +6,33 @@ using UnityEngine.SceneManagement;
 using System;
 public class ASyncLoader : MonoBehaviour
 {
+    public static ASyncLoader Instance;
+
     [Header("Screen")]
     [SerializeField] private GameObject loading_screen; // 自行拖入
-    private string loading_screen_name = "LS_BG";
+    private string loading_screen_name = "LoadingSceneCanvas";
 
     [Header("Slider")]
     [SerializeField] private Slider loading_slider;
     private string loading_slider_name = "Loading Slider";
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void LoadLevelBtn(string levelToLoad)
     {
+        // GetSlider();
+        // GetScreen();
         loading_screen.SetActive(true);
         StartCoroutine(LoadLevelASync(levelToLoad));
     }
