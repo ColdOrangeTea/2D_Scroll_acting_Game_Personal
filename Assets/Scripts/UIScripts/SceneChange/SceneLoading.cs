@@ -32,7 +32,7 @@ public class SceneLoading : MonoBehaviour
 
     void Start()
     {
-        sceneFade = GameObject.Find("FadeManager").GetComponent<SceneFade>();
+        sceneFade = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
 
         AddDelegatedEvent();
         sceneFade.FadeIn();
@@ -53,18 +53,20 @@ public class SceneLoading : MonoBehaviour
         SceneToLoad = SceneOrder.Scene.TestScene1.ToString();
         StartCoroutine(LoadScene());
     }
+
     void OnSceneFadeIn(object sender, SceneFadeEventArgs e)
     {
-        Debug.Log("淡入 " + "SceneChangeManager " + SceneLoading.SceneToLoad);
+        Debug.Log("SceneLoading " + "OnSceneFadeIn " + SceneLoading.SceneToLoad);
         StartCoroutine(LoadScene());
         CancelSendFadeIn();
     }
+
     void OnSceneFadeOut(object sender, SceneFadeEventArgs e)
     {
-        Debug.Log("傳來 " + "SceneLoading");
+        Debug.Log("SceneLoading " + "OnSceneFadeOut " + SceneChangeManager.CurrentScene.name);
         OnFadeOutComplete();
         if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.ChangeScene.ToString())
-            sceneFade.Transparent();
+            sceneFade.FadeIn();
     }
 
     public void OnFadeOutComplete()

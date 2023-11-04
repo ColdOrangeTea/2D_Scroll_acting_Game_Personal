@@ -30,7 +30,7 @@ public class SceneChangeManager : MonoBehaviour
 
     void Start()
     {
-        sceneFade = GameObject.Find("FadeManager").GetComponent<SceneFade>();
+        sceneFade = GameObject.Find("FadeCanvas").GetComponent<SceneFade>();
 
         AddDelegatedEvent();
         GetCurrentScene();
@@ -39,13 +39,13 @@ public class SceneChangeManager : MonoBehaviour
     void AddDelegatedEvent()
     {
         AddSceneManager();
-        AddSendFadeIn();
+        // AddSendFadeIn();
         AddSendFadeOut();
     }
 
     #region DELEGATE METHOD 
-    void AddSendFadeIn() => SendFading.SendSceneFadIn += OnSceneFadeIn;
-    void CancelSendFadeIn() => SendFading.SendSceneFadIn -= OnSceneFadeIn;
+    // void AddSendFadeIn() => SendFading.SendSceneFadIn += OnSceneFadeIn;
+    // void CancelSendFadeIn() => SendFading.SendSceneFadIn -= OnSceneFadeIn;
 
     void AddSendFadeOut() => SendFading.SendSceneFadOut += OnSceneFadeOut;
     void CancelSendFadeOut() => SendFading.SendSceneFadOut -= OnSceneFadeOut;
@@ -53,22 +53,23 @@ public class SceneChangeManager : MonoBehaviour
     void AddSceneManager() => SceneManager.sceneLoaded += OnSceneLoaded;
     void CancelSceneManager() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    void OnSceneFadeIn(object sender, SceneFadeEventArgs e)
-    {
-        Debug.Log("淡入 " + "SceneChangeManager " + SceneLoading.SceneToLoad);
-        CancelSendFadeIn();
-    }
+    // void OnSceneFadeIn(object sender, SceneFadeEventArgs e)
+    // {
+    //     Debug.Log("SceneChangeManager " + "OnSceneFadeIn " + SceneLoading.SceneToLoad);
+    //     CancelSendFadeIn();
+    // }
     void OnSceneFadeOut(object sender, SceneFadeEventArgs e)
     {
-        Debug.Log("傳來 " + CurrentScene.name + "SceneChangeManager " + SceneLoading.SceneToLoad);
+        Debug.Log("SceneChangeManager " + "OnSceneFadeOut " + CurrentScene.name + SceneLoading.SceneToLoad);
         if (CurrentScene.name != SceneOrder.Scene.ChangeScene.ToString())
-            SceneManager.LoadScene(SceneOrder.Scene.ChangeScene.ToString());
+            SceneManager.LoadSceneAsync(SceneOrder.Scene.ChangeScene.ToString());
+        // SceneManager.LoadSceneAsync(SceneOrder.Scene.Level01.ToString());
         //CancelSendFadeOut();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log("SceneChangeManager " + "OnSceneLoaded: " + scene.name);
         // Debug.Log(loadSceneMode);
         GetCurrentScene();
     }
