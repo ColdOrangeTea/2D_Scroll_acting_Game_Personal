@@ -383,10 +383,10 @@ MonoBehaviour:
   attribute: {fileID: 11400000, guid: 2c035332c0172a246b97521540d0c2bd, type: 2}
   ground_check_offset: {x: 0, y: 0}
   ground_checkpoint: {fileID: 4321583645251566811}
-  ground_checkSize: {x: 0.9, y: 0.06}
+  ground_checkSize: {x: 0.8, y: 0.06}
   roof_check_offset: {x: 0, y: 0}
   roof_checkpoint: {fileID: 4321583646265335941}
-  roof_checkSize: {x: 0.9, y: 0.06}
+  roof_checkSize: {x: 0.8, y: 0.06}
   punch_check_offset: {x: 0, y: 0}
   punch_checkpoint: {fileID: 7277994337730997007}
   punch_radius: 1

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPhysicsCheck : MonoBehaviour
+public class NewEnemyPhysicsCheck : MonoBehaviour
 {
     #region --COMPONENTS--
     public Rigidbody2D RB { get; private set; }
@@ -17,30 +17,34 @@ public class EnemyPhysicsCheck : MonoBehaviour
     [SerializeField] private Transform ground_checkpoint;
 
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
-    [SerializeField] private Vector2 ground_check_size = new Vector2(1.8f, 0.06f);
-    [Space(5)]
+    // [SerializeField] private Vector2 ground_check_size = new Vector2(1.8f, 0.06f);
+    [SerializeField] private float ground_check_X;
+    [SerializeField] private float ground_check_Y_length;
+    [Space(10)]
 
     [SerializeField] private Vector2 roof_check_offset;
     [SerializeField] private Transform roof_checkpoint;
     [SerializeField] private Vector2 roof_check_size = new Vector2(1.8f, 0.06f);
-    [Space(5)]
+    [Space(10)]
 
     [SerializeField] private Vector2 wall_check_offset;
     [SerializeField] private Transform wall_checkpoint;
     [SerializeField] private Vector2 wall_check_size = new Vector2(2, 3);
-    [Space(5)]
+    [Space(10)]
 
     [SerializeField] private Vector2 player_check_offset;
     [SerializeField] private Transform player_checkpoint;
-    [SerializeField] private Vector2 player_check_size = new Vector2(2, 2);
-    [Space(5)]
+    [SerializeField] private Vector2 player_check_size;
+    [Space(10)]
 
     [SerializeField] private Vector2 melee_check_offset;
     [SerializeField] private Transform melee_attackpoint;
     [SerializeField] private float melee_attack_radius = 1.5f;
-    [Space(5)]
+    [Space(10)]
+    [SerializeField] private Vector2 range_check_offset;
+    [SerializeField] private Transform range_attackpoint;
 
-
+    [Space(10)]
     #endregion
 
     #region --LAYERS--
@@ -98,7 +102,9 @@ public class EnemyPhysicsCheck : MonoBehaviour
     #region GROUND METHOD
     public bool CheckIfGrounded()
     {
-        if (Physics2D.OverlapBox((Vector2)ground_checkpoint.position + ground_check_offset, ground_check_size, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.Raycast(ground_checkpoint.position + new Vector3(ground_check_X, 0), Vector2.down, ground_check_Y_length, ground_layer) ||
+            Physics2D.Raycast(ground_checkpoint.position + new Vector3(-ground_check_X, 0), Vector2.down, ground_check_Y_length, ground_layer) ||
+            Physics2D.Raycast(ground_checkpoint.position, Vector2.down, ground_check_Y_length, ground_layer))
             return true;
         else
             return false;
@@ -109,7 +115,7 @@ public class EnemyPhysicsCheck : MonoBehaviour
     #region ROOFED METHOD
     public bool CheckIfRoofed()
     {
-        if (Physics2D.OverlapBox((Vector2)roof_checkpoint.position + roof_check_offset, roof_check_size, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox((Vector2)roof_checkpoint.position, roof_check_size, 0, ground_layer)) //checks if set box overlaps with ground
             return true;
         else
             return false;
@@ -119,7 +125,7 @@ public class EnemyPhysicsCheck : MonoBehaviour
     #region TOUCHINGWALL METHOD
     public bool CheckIfTouchingWall()
     {
-        if (Physics2D.OverlapBox((Vector2)wall_checkpoint.position + wall_check_offset, wall_check_size, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox((Vector2)wall_checkpoint.position, wall_check_size, 0, ground_layer)) //checks if set box overlaps with ground
             return true;
         else
             return false;
@@ -129,7 +135,7 @@ public class EnemyPhysicsCheck : MonoBehaviour
     #region PLAYERCHECK METHOD
     public bool CheckIfSawPlayer()
     {
-        if (Physics2D.OverlapBox((Vector2)player_checkpoint.position + player_check_offset, player_check_size, 0, attackable_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox((Vector2)player_checkpoint.position, player_check_size, 0, attackable_layer))
         {
             if (Physics2D.OverlapBox(player_checkpoint.position, player_check_size, 0, attackable_layer) == MyselfCollider)
             {
@@ -147,7 +153,6 @@ public class EnemyPhysicsCheck : MonoBehaviour
         }
         else // 沒東西
             return false;
-
     }
     #endregion
 
@@ -155,7 +160,7 @@ public class EnemyPhysicsCheck : MonoBehaviour
 
     public List<Collider2D> CheckHittedUnit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll((Vector2)melee_attackpoint.position + melee_check_offset, melee_attack_radius, attackable_layer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll((Vector2)melee_attackpoint.position, melee_attack_radius, attackable_layer);
         List<Collider2D> hitted_enemies = new List<Collider2D>();
 
         foreach (Collider2D Enemy in hitEnemies)
@@ -174,14 +179,15 @@ public class EnemyPhysicsCheck : MonoBehaviour
     #endregion
 
     #region TURN AROUND METHOD
-    public bool CheckIfNeedToTurn(bool isMovingRight)
+    public bool CheckIfNeedToTurn()
     {
-        if (CheckIfTouchingWall())
+
+        if (wall_checkpoint && CheckIfTouchingWall())
         {
             // Debug.Log("碰牆要轉向 ");
             return true;
         }
-        else if (!CheckIfGrounded())
+        else if (ground_checkpoint && !CheckIfGrounded())
         {
             // Debug.Log("前方沒地板要轉向 ");
             return true;
@@ -201,17 +207,32 @@ public class EnemyPhysicsCheck : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube((Vector2)ground_checkpoint.position + ground_check_offset, ground_check_size);
-        Gizmos.DrawWireCube((Vector2)roof_checkpoint.position + roof_check_offset, roof_check_size);
+        // Gizmos.DrawWireCube((Vector2)ground_checkpoint.position + ground_check_offset, ground_check_size);
+        if (roof_checkpoint)
+            Gizmos.DrawWireCube((Vector2)roof_checkpoint.position + roof_check_offset, roof_check_size);
+        if (ground_checkpoint)
+        {
+            Gizmos.DrawLine(ground_checkpoint.position + (Vector3)ground_check_offset + new Vector3(ground_check_X, 0), ground_checkpoint.position + (Vector3)ground_check_offset + new Vector3(ground_check_X, -ground_check_Y_length));
+            Gizmos.DrawLine(ground_checkpoint.position + (Vector3)ground_check_offset + new Vector3(-ground_check_X, 0), ground_checkpoint.position + (Vector3)ground_check_offset + new Vector3(-ground_check_X, -ground_check_Y_length));
+            Gizmos.DrawLine(ground_checkpoint.position + (Vector3)ground_check_offset, ground_checkpoint.position + (Vector3)ground_check_offset + new Vector3(0, -ground_check_Y_length));
+        }
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector2)wall_checkpoint.position + wall_check_offset, wall_check_size);
+        if (wall_checkpoint)
+            Gizmos.DrawWireCube((Vector2)wall_checkpoint.position + wall_check_offset, wall_check_size);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size);
+        if (player_checkpoint)
+        {
+            Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size);
+            Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size / 2);
+        }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)melee_attackpoint.position + melee_check_offset, melee_attack_radius);
+        if (melee_attackpoint)
+            Gizmos.DrawWireSphere((Vector2)melee_attackpoint.position + melee_check_offset, melee_attack_radius);
+        if (range_attackpoint)
+            Gizmos.DrawWireSphere((Vector2)range_attackpoint.position + range_check_offset, 0.5f);
 
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!

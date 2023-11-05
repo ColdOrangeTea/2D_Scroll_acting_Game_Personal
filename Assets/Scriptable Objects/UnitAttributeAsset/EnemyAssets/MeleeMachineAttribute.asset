@@ -39,8 +39,9 @@ MonoBehaviour:
   ThisEnemyIsCanMeleeAttack: 1
   MeleeCooldown: 0.5
   MeleeDuration: 1
-  ThisEnemyIsCanMoveRangedAttack: 0
+  ThisEnemyIsCanMoveRangedAttack: 1
   RangeAttackCooldown: 0
   RangeAttackDuration: 0
-  RangeAttackDrag: 0
+  RangeAttackFireRange: 0
+  RangeAttackFireForce: 0
   IdleWaitTime: 2

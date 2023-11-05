@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 865377955bc75f44eaf7c10018d685f1, type: 3}
-  m_Name: MusketeerAttribute
+  m_Name: MechanicHoundAttribute
   m_EditorClassIdentifier: 
   GravityStrength: -88.888885
   GravityScale: 9.0610485
@@ -18,9 +18,9 @@ MonoBehaviour:
   MaxFallSpeed: 25
   FastFallGravityMult: 2
   MaxFastFallSpeed: 30
-  ThisEnemyIsCanMove: 0
+  ThisEnemyIsCanMove: 1
   MoveDuration: 2
-  MoveSpeed: 3.5
+  MoveSpeed: 4
   MoveMaxSpeed: 1
   MoveAcceleration: 1
   MoveAccelAmount: 50
@@ -32,16 +32,16 @@ MonoBehaviour:
   JumpHeight: 4
   JumpTimeToApex: 0.3
   JumpForce: 26.666666
-  JumpHangGravityMult: 0.5
-  JumpHangTimeThreshold: 1
-  JumpHangAccelerationMult: 1.1
-  jumpHangMaxSpeedMult: 1.3
-  ThisEnemyIsCanMeleeAttack: 0
-  MeleeCooldown: 0.5
-  MeleeDuration: 1
-  ThisEnemyIsCanMoveRangedAttack: 0
-  RangeAttackCooldown: 1.5
-  RangeAttackDuration: 1
-  RangeAttackFireRange: 1.44
-  RangeAttackFireForce: 10
+  JumpHangGravityMult: 0
+  JumpHangTimeThreshold: 0
+  JumpHangAccelerationMult: 0
+  jumpHangMaxSpeedMult: 0
+  ThisEnemyIsCanMeleeAttack: 1
+  MeleeCooldown: 0
+  MeleeDuration: 0
+  ThisEnemyIsCanMoveRangedAttack: 1
+  RangeAttackCooldown: 0
+  RangeAttackDuration: 0
+  RangeAttackFireRange: 0
+  RangeAttackFireForce: 0
   IdleWaitTime: 2
