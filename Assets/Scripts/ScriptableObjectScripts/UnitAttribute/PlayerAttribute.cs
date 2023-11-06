@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PlayerAttribute", menuName = "DataTool/ Create  PlayerAttribute Asset", order = 1)]
 public class PlayerAttribute : ScriptableObject
 {
-    public int maxHp = 0;
-    public int hp = 0;
-    public int maxMp = 0;
-    public int mp = 0;
-    public int attack = 0;
+    //     public int maxHp = 0;
+    //     public int hp = 0;
+    //     public int maxMp = 0;
+    //     public int mp = 0;
+    //     public int attack = 0;
 
     // [Space(20)]
     // [Header("Gravity")]
