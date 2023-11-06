@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum State
 {
+    sleep,
     idle,
     walk,
     fall,
@@ -32,6 +33,7 @@ public class NewEnemy : MonoBehaviour
     public virtual void Start()
     {
         DoChecks();
+        DoOverLapChecks();
     }
     public virtual void Update()
     {
@@ -44,15 +46,15 @@ public class NewEnemy : MonoBehaviour
     }
     #endregion
 
-    public virtual void DoChecks()
+    public virtual void DoChecks() // FixedUpdate
+    { }
+    public virtual void DoOverLapChecks() // Update
+    { }
+    public virtual void LogicUpdate() // Update
     {
-
+        DoOverLapChecks();
     }
-    public virtual void LogicUpdate()
-    {
-
-    }
-    public virtual void PhysicsUpdate()
+    public virtual void PhysicsUpdate() // FixedUpdate
     {
         Gravity();
         DoChecks();
@@ -146,7 +148,7 @@ public class NewEnemy : MonoBehaviour
 
     protected virtual void Gravity()
     {
-        if ((curState == State.fall.ToString()))
+        if (curState == State.fall.ToString())
         {
             SetGravityScale(enemyAttribute.GravityScale * enemyAttribute.JumpHangGravityMult);
         }

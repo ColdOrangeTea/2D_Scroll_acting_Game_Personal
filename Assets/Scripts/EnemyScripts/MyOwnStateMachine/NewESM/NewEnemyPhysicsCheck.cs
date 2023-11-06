@@ -225,7 +225,7 @@ public class NewEnemyPhysicsCheck : MonoBehaviour
         if (player_checkpoint)
         {
             Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size);
-            Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size / 2);
+            // Gizmos.DrawWireCube((Vector2)player_checkpoint.position + player_check_offset, player_check_size / 2);
         }
 
         Gizmos.color = Color.red;

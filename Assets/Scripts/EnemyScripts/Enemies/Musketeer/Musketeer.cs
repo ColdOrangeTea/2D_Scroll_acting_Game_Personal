@@ -37,44 +37,51 @@ public class Musketeer : NewEnemy
         base.DoChecks();
         // facing_direction = transform.localScale.x;
         isGrounded = NewEnemyPhysicsCheck.CheckIfGrounded();
+    }
+    public override void DoOverLapChecks()
+    {
         isSawPlayer = NewEnemyPhysicsCheck.CheckIfSawPlayer();
         Debug.Log("玩家察覺: " + isSawPlayer);
     }
     public override void LogicUpdate()
     {
-        if (isGrounded && !isSawPlayer && curState != State.idle.ToString())
+        base.LogicUpdate();
+        if (isGrounded)
         {
-            curState = State.idle.ToString();
-        }
-        // else if (!isGrounded && NewEnemyPhysicsCheck.RB.velocity.y < 0 && curState != State.fall.ToString())
-        // {
-        //     curState = State.fall.ToString();
-        // }
-
-        if (isSawPlayer && curState != State.attack.ToString())
-        {
-            curState = State.attack.ToString();
-        }
-
-        if (!isChangeDirection)
-        {
-            float xTarget = target.position.x, xOwn = transform.position.x;
-            if (xOwn - xTarget < 0)
-                xScale = 1;
-            else
-                xScale = -1;
-            if (xScale != transform.localScale.x)
+            if (!isSawPlayer && curState != State.idle.ToString())
             {
-                Turn();
-                isChangeDirection = true;
                 curState = State.idle.ToString();
-                Debug.Log("轉身了");
             }
+
+            if (isSawPlayer && curState != State.attack.ToString())
+            {
+                curState = State.attack.ToString();
+            }
+
+            if (!isChangeDirection)
+            {
+                float xTarget = target.position.x, xOwn = transform.position.x;
+                if (xOwn - xTarget < 0)
+                    xScale = 1;
+                else
+                    xScale = -1;
+                if (xScale != transform.localScale.x)
+                {
+                    Turn();
+                    isChangeDirection = true;
+                    curState = State.idle.ToString();
+                    Debug.Log("轉身了");
+                }
+            }
+
+            if (isChangeDirection)
+                isChangeDirection = false;
         }
-
-        if (isChangeDirection)
-            isChangeDirection = false;
-
+        else
+        {
+            if (NewEnemyPhysicsCheck.RB.velocity.y < 0 && curState != State.fall.ToString())
+                curState = State.fall.ToString();
+        }
     }
     public override void PhysicsUpdate()
     {

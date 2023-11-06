@@ -23,8 +23,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4861297337281761593}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -214,7 +214,6 @@ MonoBehaviour:
   enemyAttribute: {fileID: 11400000, guid: 945db0522173f8f4f87a2d74dac597a5, type: 2}
   curState: 
   ProjectileSpeed: 20
-  dir: 0
   rangeAttackCoolDown: 0
   lastRangeTime: 0
   Force: 0

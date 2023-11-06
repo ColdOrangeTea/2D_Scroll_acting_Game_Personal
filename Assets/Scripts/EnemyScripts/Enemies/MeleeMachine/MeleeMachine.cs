@@ -20,6 +20,7 @@ public class MeleeMachine : NewEnemy
     }
     public override void LogicUpdate()
     {
+        base.LogicUpdate();
         if (isGrounded && curState != State.walk.ToString())
         {
             curState = State.walk.ToString();
