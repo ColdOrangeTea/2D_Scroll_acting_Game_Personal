@@ -7,10 +7,13 @@ using UnityHFSM;
 
 public class EnemyStateManager : MonoBehaviour
 {
+    #region COMPONENTS
     private Rigidbody2D rb;
     private StateMachine fsm;
     private Animator animator;
     private Text stateDisplayText;
+    #endregion
+
     public Transform playerPos;//chage to private
     [Header("Adjustment")]
     public float chaseSpeed = 10f;
@@ -44,7 +47,7 @@ public class EnemyStateManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
         fsm.AddState("Chase", onEnter: state => animator.Play("Walk"),
