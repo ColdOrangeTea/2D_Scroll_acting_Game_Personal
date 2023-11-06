@@ -52,7 +52,6 @@ public class Musketeer : NewEnemy
             {
                 curState = State.idle.ToString();
             }
-
             if (isSawPlayer && curState != State.attack.ToString())
             {
                 curState = State.attack.ToString();

@@ -53,7 +53,7 @@ public class PlayerInAirState : PlayerState
         melee_input = player.InputHandler.MeleeInput();
         dash_input = player.InputHandler.DashInput();
 
-        Debug.Log("jump: " + IsJumping);
+        // Debug.Log("jump: " + IsJumping);
         if (x_Input != 0)
             player.PhysicsCheck.CheckDirectionToFace(x_Input > 0);
         if (is_grounded && player.PhysicsCheck.CurrentVelocity.y < 0.01f)

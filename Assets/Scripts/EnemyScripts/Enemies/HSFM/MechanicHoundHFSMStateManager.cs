@@ -8,6 +8,7 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     #region COMPONENTS
     [Header("Component")]
     private Rigidbody2D rb;
+    public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
     private Text stateDisplayText;
@@ -30,11 +31,17 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     #region CHASE
     public float chaseSpeed = 10f;
     public Transform playerPos;//chage to private
+    public Vector2 playerposition;
+    #endregion
+    #region  LAYER
+    public LayerMask GroundLayer;
+    public LayerMask AttackLayer;
     #endregion
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
@@ -42,25 +49,48 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
         fsm.AddState(HFSMState.chase.ToString(), onEnter: state => animator.Play(HFSMState.chase.ToString()),
         onLogic: state =>
         {
+            Debug.Log("追逐中");
             FacingPlayer();
             rb.velocity = new Vector2(chaseSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
         });
         fsm.AddTransition(HFSMState.idle.ToString(), HFSMState.chase.ToString(), t => SawPlayer());
-        fsm.AddTransition(HFSMState.chase.ToString(), HFSMState.idle.ToString(), t => !SawPlayer());
+        // fsm.AddTransition(HFSMState.chase.ToString(), HFSMState.idle.ToString(), t => !SawPlayer());
         fsm.SetStartState(HFSMState.idle.ToString());
         fsm.Init();
     }
     void Update()
     {
+        playerposition = playerPos.position;
         fsm.OnLogic();
         stateDisplayText.text = fsm.GetActiveHierarchyPath();
+        Debug.Log("看到: " + SawPlayer());
     }
     public bool SawPlayer()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize,0))
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer).CompareTag("Player"))
+        {
             return true;
+        }
         else
             return false;
+        // if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer))
+        // {
+        //     if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer) == MyselfCollider)
+        //     {
+        //         return false;
+        //     }
+        //     else
+        //     {
+        //         if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer).CompareTag("Player"))
+        //         {
+        //             return true;
+        //         }
+        //         else // 不是自己 也不是玩家
+        //             return false;
+        //     }
+        // }
+        // else // 沒東西
+        //     return false;
     }
     public void FacingPlayer()
     {
@@ -80,9 +110,9 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-       // Gizmos.DrawWireSphere((Vector2)pivotPoint.position + combatPointOffset, combatRadius);
+        // Gizmos.DrawWireSphere((Vector2)pivotPoint.position + combatPointOffset, combatRadius);
         Gizmos.color = Color.red;
-      //  Gizmos.DrawWireSphere((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius);
+        //  Gizmos.DrawWireSphere((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius);
         Gizmos.color = Color.cyan;
         //  Gizmos.DrawWireCube((Vector2)pivotPoint.position + platformCheckPointoffset, platformChecksize);
         Gizmos.DrawWireCube((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize);

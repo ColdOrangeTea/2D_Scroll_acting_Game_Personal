@@ -28,7 +28,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        Debug.Log("走路");
+        // Debug.Log("走路");
         if (xInput != 0)
             player.PhysicsCheck.CheckDirectionToFace(xInput > 0);
 

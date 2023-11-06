@@ -25,10 +25,18 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     public Vector2 groundCheckOffset;
     public Vector2 groundCheckSize;
     public float xGroundCheck, yGroundCheck;
+    public Vector2 R_WallCheckOffset;
+    public Vector2 R_WallCheckSize;
+    public Vector2 L_WallCheckOffset;
+    public Vector2 L_WallCheckSize;
     public float walkSpeed = 10f;
     public Transform playerPos;//chage to private
     #endregion
+
+    #region  LAYER
     public LayerMask GroundLayer;
+    public LayerMask AttackLayer;
+    #endregion
 
     void Start()
     {
@@ -38,13 +46,16 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
         fsm.AddState("walk", onEnter: state => animator.Play("walk"),
             onLogic: state =>
             {
-               // rb.velocity = new Vector2(walkSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
+                // rb.velocity = new Vector2(walkSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
                 rb.velocity = new Vector2(walkSpeed * (isFacingRight ? 1 : -1), rb.velocity.y);
-                if(!GroundCheck())
-                {
+                if (isFacingRight && R_WallCheck())
                     Turn();
-                }
+                else if (!isFacingRight && L_WallCheck())
+                    Turn();
             });
+        fsm.AddState("fall", onEnter: state => animator.Play("fall"));
+        fsm.AddTransition("walk", "fall", t => rb.velocity.y < 0);
+        fsm.AddTransition("fall", "walk", t => rb.velocity.y >= 0);
         fsm.SetStartState("walk");
         fsm.Init();
     }
@@ -52,12 +63,6 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     {
         fsm.OnLogic();
     }
-
-    //public void FacingPlayer()
-    //{
-    //    if (playerPos.position.x < transform.position.x != isFacingRight)
-    //        Turn();
-    //}
     public void Turn()
     {
         //stores scale and flips the enemy along the x axis, 
@@ -67,10 +72,23 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
 
         isFacingRight = !isFacingRight;
     }
-
+    public bool R_WallCheck()
+    {
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, GroundLayer))
+            return true;
+        else
+            return false;
+    }
+    public bool L_WallCheck()
+    {
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, GroundLayer))
+            return true;
+        else
+            return false;
+    }
     public bool GroundCheck()
     {
-        if(Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck,GroundLayer))
+        if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, GroundLayer))
             return true;
         else
             return false;
@@ -79,9 +97,13 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset,(Vector2)pivotPoint.position + groundCheckOffset+new Vector2(0,-yGroundCheck)) ;
-        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset+new Vector2(xGroundCheck,0),(Vector2)pivotPoint.position + groundCheckOffset+new Vector2(xGroundCheck, -yGroundCheck)) ;
-        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck,0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, -yGroundCheck));
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset, (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(0, -yGroundCheck));
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, -yGroundCheck));
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, -yGroundCheck));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize);
 
     }
 }
