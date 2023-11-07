@@ -5330,8 +5330,8 @@ MonoBehaviour:
   ShootCooldown: 1
   ShootDuration: 3
   Force: 10
-  rangedPointoffset: {x: 0, y: 0}
-  rangedRadius: 6
+  rangedPointoffset: {x: 0, y: 0.58}
+  rangedRadius: 3
   shootPointoffset: {x: 0, y: 1.23}
   AttackLayer:
     serializedVersion: 2
