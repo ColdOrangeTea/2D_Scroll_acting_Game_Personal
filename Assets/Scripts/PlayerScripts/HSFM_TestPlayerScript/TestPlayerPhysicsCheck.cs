@@ -153,8 +153,16 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
     public void CheckDirectionToFace_Test()
     {
         bool isMovingRight = inputHandler.XInput > 0;
-        if (isMovingRight != IsFacingRight)
+
+        if (inputHandler.XInput == 0)
+        {
+
+        }
+        else if (isMovingRight != IsFacingRight)
             Turn();
+        // bool isMovingRight = inputHandler.XInput > 0;
+        // if (isMovingRight != IsFacingRight)
+        //     Turn();
     }
     public void CheckDirectionToFace(bool isMovingRight)
     {

@@ -35,7 +35,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
 
     #region ATTACK
     public Vector2 rangedPointoffset;
-    public float rangedRadius = 3f;
+    public float rangedRadius = 8f;
     public Vector2 shootPointoffset;
     float lastShootTime;
     #endregion
@@ -50,22 +50,23 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
-        fsm.AddState("idle", onEnter: state => animator.Play("idle"), 
+        fsm.AddState("idle", onEnter: state => animator.Play("idle"),
             onLogic: state =>
             {
                 FacingPlayer();
             });
 
-        fsm.AddState("rangedAttack", onEnter: state => { SetUnAbleToShoot(); animator.Play("rangedAttack");},
+        fsm.AddState("rangedAttack", onEnter: state => { SetUnAbleToShoot(); animator.Play("rangedAttack"); },
         onLogic: state =>
         {
-            if(!isShoot)
-            Shoot();
-        }, canExit: state => (!AnimatorIsPlaying("rangedAttack")), needsExitTime: true);
 
-        fsm.AddTransition("rangedAttack", "idle", t => !canShoot|| !inShootRange );
-        fsm.AddTransition( "idle","rangedAttack", t => canShoot && inShootRange);
-       // fsm.AddTransitionFromAny("rangedAttack", t => inShootRange && canShoot);
+            if (!isShoot)
+                Shoot();
+        }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
+
+        fsm.AddTransition("rangedAttack", "idle", t => !canShoot);
+        fsm.AddTransition("idle", "rangedAttack", t => canShoot && inShootRange);
+        // fsm.AddTransitionFromAny("rangedAttack", t => inShootRange && canShoot);
         fsm.SetStartState("idle");
         fsm.Init();
     }
@@ -74,7 +75,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         fsm.OnLogic();
         stateDisplayText.text = this.gameObject.name + " " + fsm.GetActiveHierarchyPath();
         inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
-        Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange+ " canShoot: "+ canShoot);
+        Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
     }
     public void FacingPlayer()
     {
@@ -102,14 +103,14 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     }
     private void SetUnAbleToShoot()
     {
-        canShoot = false; 
+        canShoot = false;
         isShoot = false;
         CancelInvoke("SetAbletoShoot");
-        Invoke("SetAbletoShoot", ShootCooldown);   
+        Invoke("SetAbletoShoot", ShootCooldown);
     }
     private void SetAbletoShoot()
     {
-        canShoot = true;    
+        canShoot = true;
     }
     bool AnyAnimatorIsPlaying()
     {

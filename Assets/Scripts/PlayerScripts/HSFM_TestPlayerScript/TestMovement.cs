@@ -289,7 +289,11 @@ public class TestMovement : MonoBehaviour
         List<Collider2D> hitEnemies = physicsCheck.CheckHittedUnit();
         foreach (Collider2D Enemy in hitEnemies)
         {
-            // Debug.Log(Enemy.name);
+            Debug.Log(Enemy.name);
+            if (Enemy.tag == "Enemy")
+            {
+                Debug.Log("打敵人");
+            }
             //doDMG
         }
     }

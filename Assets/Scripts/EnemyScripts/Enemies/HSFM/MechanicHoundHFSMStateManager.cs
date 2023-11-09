@@ -33,6 +33,7 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     public Transform playerPos;//chage to private
     public Vector2 playerposition;
     #endregion
+
     #region  LAYER
     public LayerMask GroundLayer;
     public LayerMask AttackLayer;
@@ -96,6 +97,8 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     {
         if (playerPos.position.x < transform.position.x != isFacingRight)
             Turn();
+        // if (playerPos.position.x < transform.position.x != isFacingRight)
+        //     Turn();
     }
     public void Turn()
     {
