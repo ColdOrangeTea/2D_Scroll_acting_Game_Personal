@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class BreakableThing : Thing
 {
+    [SerializeField]
+    private bool IsDropped;
     #region UNITY CALLBACK FUNCTIONS
     protected override void Start()
     {
@@ -34,6 +36,11 @@ public class BreakableThing : Thing
         Animation.Effect.gameObject.SetActive(true);
         Animation.Sprite.gameObject.SetActive(false);
         OwnCollider.isTrigger = true;
-        Drop();
+        if (!IsDropped)
+        {
+            IsDropped = true;
+            Drop();
+        }
+
     }
 }

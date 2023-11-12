@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8871607285727414847}
   - component: {fileID: 8871607285727414840}
   m_Layer: 7
-  m_Name: MeleeMachine(HSFM)
+  m_Name: MeleeMachine(HFSM)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

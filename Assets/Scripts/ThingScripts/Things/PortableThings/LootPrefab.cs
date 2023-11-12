@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : PortableThing
+public class LootPrefab : PortableThing
 {
     #region UNITY CALLBACK FUNCTIONS
     protected override void Start()

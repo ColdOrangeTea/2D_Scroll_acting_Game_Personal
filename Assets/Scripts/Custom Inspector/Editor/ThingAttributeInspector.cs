@@ -77,6 +77,8 @@ public class ThingAttributeInspector : Editor
         {
             attribute.PortableThingID = EditorGUILayout.IntField("PortableThingID: ", attribute.PortableThingID);
             attribute.DropChance = EditorGUILayout.IntField("DropChance", attribute.DropChance);
+
+            attribute.ThingSprite = (Sprite)EditorGUILayout.ObjectField("圖片:", attribute.ThingSprite, typeof(Sprite), true);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();

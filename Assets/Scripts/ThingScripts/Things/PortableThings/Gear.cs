@@ -17,7 +17,7 @@ public class Gear : PortableThing
 
     public override void PickUp()
     {
-
+        base.PickUp();
         LevelManager.NumOfGears += 1;
         Debug.Log("撿取物品: 齒輪+1 ，目前數量:" + LevelManager.NumOfGears);
     }

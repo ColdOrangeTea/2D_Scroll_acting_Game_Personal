@@ -131,7 +131,7 @@ public class TestPlayerController : MonoBehaviour
         onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); InputHandler.SetJumping(false); });
         // inAirFsm.AddTransition(Fall, Jump, t => InputHandler.JumpInput && InputHandler.JumpCount == 0);
         // inAirFsm.AddTransition(Fall, DoubleJump, t => InputHandler.JumpInput && InputHandler.JumpCount == 1);
-        inAirFsm.AddTransition(Jump, DoubleJump, t => InputHandler.JumpInput && InputHandler.JumpCount == 2);
+        inAirFsm.AddTransition(Jump, DoubleJump, t => PlayerAbilityManager.CanDoubleJump && InputHandler.JumpInput && InputHandler.JumpCount == 2);
 
         fsm.AddState(InAir, inAirFsm);
         // fsm.AddState(Jump, inAirFsm);

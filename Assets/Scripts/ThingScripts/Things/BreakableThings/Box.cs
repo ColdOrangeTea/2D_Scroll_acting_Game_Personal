@@ -17,6 +17,7 @@ public class Box : BreakableThing
     public override void Drop()
     {
         base.Drop();
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
         Debug.Log("噴掉落物");
         //Do something
     }

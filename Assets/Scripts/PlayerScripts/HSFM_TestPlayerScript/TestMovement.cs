@@ -14,9 +14,15 @@ public class TestMovement : MonoBehaviour
     private PlayerAttribute attribute;
 
     #region INPUT PARAMETERS
-    private float x_input { get; set; }
+    // private float x_input { get; set; }
     private bool isjumping { get; set; }
     private bool isjumpcut { get; set; }
+    #endregion
+
+    #region TAG NAME
+    public const string B_THING = "B_Thing";
+    public const string I_THING = "I_Thing";
+    public const string P_THING = "P_Thing";
     #endregion
     public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
     {
@@ -289,12 +295,21 @@ public class TestMovement : MonoBehaviour
         List<Collider2D> hitEnemies = physicsCheck.CheckHittedUnit();
         foreach (Collider2D Enemy in hitEnemies)
         {
-            Debug.Log(Enemy.name);
             if (Enemy.tag == "Enemy")
             {
-                Debug.Log("打敵人");
+                Debug.Log("打的敵人是: " + Enemy.name);
             }
             //doDMG
+        }
+        List<Collider2D> hitted_things = physicsCheck.CheckHittedThing();
+        foreach (Collider2D hitted_thing in hitted_things)
+        {
+            Debug.Log("擊中的物品是: " + hitted_thing.name);
+            if (hitted_thing.gameObject.CompareTag(B_THING))
+                hitted_thing.GetComponentInParent<Thing>().TriggerThing();
+            if (hitted_thing.gameObject.CompareTag(I_THING))
+                hitted_thing.GetComponentInParent<Thing>().TriggerThing();
+
         }
     }
 

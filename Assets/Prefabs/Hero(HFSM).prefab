@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 2905200564739399064}
   - component: {fileID: 2905200564739399067}
   m_Layer: 7
-  m_Name: Hero_UnityHFSM
+  m_Name: Hero(HFSM)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1038441f473833948bfb61330eae791b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashUsed: 0
   attribute: {fileID: 0}
 --- !u!114 &2905200564739399067
 MonoBehaviour:
@@ -362,6 +363,9 @@ MonoBehaviour:
   attackable_layer:
     serializedVersion: 2
     m_Bits: 128
+  thing_layer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &6395908222404474382
 GameObject:
   m_ObjectHideFlags: 0
