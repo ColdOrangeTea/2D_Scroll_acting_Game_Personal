@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: BT_BoxAttribute
   m_EditorClassIdentifier: 
   ThingName: "\u7BB1\u5B50"
-  ThingID: 0
   CanBeDamaged: 1
-  CanBePickUp: 0
+  BreakableThingID: 1
+  CanBeOperated: 0
+  InteractiveThingID: 0
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  CanBePickedUp: 0
+  PortableThingID: 0
+  ThingSprite: {fileID: 0}
+  DropChance: 0

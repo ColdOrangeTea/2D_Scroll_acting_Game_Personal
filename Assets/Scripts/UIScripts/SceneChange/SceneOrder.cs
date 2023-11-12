@@ -11,7 +11,7 @@ public class SceneOrder
         Level02 = 2,
         Level03 = 3,
         ChangeScene = 10,
-        TestScene1 = 11,
+        ThingTest = 11,
         TestScene2 = 12
     }
     // void Start()

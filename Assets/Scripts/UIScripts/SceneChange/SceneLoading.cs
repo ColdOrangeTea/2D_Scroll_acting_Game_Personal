@@ -50,7 +50,7 @@ public class SceneLoading : MonoBehaviour
     void CancelSendFadeOut() => SendFading.SendSceneFadOut -= OnSceneFadeOut;
     public void TestButton() //test
     {
-        SceneToLoad = SceneOrder.Scene.TestScene1.ToString();
+        SceneToLoad = SceneOrder.Scene.ThingTest.ToString();
         StartCoroutine(LoadScene());
     }
 

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: PT_PotionAttribute
   m_EditorClassIdentifier: 
   ThingName: "\u85E5\u6C34"
-  BreakableThingID: 0
   CanBeDamaged: 0
+  BreakableThingID: 0
+  CanBeOperated: 0
   InteractiveThingID: 0
-  CanBeOperated: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
+  CanBePickedUp: 1
   PortableThingID: 2
-  CanBePickedUp: 0
+  ThingSprite: {fileID: 21300180, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
+  DropChance: 50

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a7b52e4084eb4468994e64b4b1889c, type: 3}
   m_Name: PT_Gear
   m_EditorClassIdentifier: 
-  ThingName: 
+  ThingName: "\u9F52\u8F2A"
   CanBeDamaged: 0
   BreakableThingID: 0
   CanBeOperated: 0
   InteractiveThingID: 0
   EffectedDuration: 0
   ActivatedCoolDown: 0
-  CanBePickedUp: 0
-  PortableThingID: 0
+  CanBePickedUp: 1
+  PortableThingID: 10
   ThingSprite: {fileID: 0}
   DropChance: 0

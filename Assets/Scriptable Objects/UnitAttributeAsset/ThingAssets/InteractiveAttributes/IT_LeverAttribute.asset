@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: IT_LeverAttribute
   m_EditorClassIdentifier: 
   ThingName: 111
-  BreakableThingID: 0
   CanBeDamaged: 0
-  InteractiveThingID: 0
+  BreakableThingID: 0
   CanBeOperated: 1
+  InteractiveThingID: 1
   EffectedDuration: 0
   ActivatedCoolDown: 0
-  PortableThingID: 0
   CanBePickedUp: 0
+  PortableThingID: 0
+  ThingSprite: {fileID: 0}
+  DropChance: 0
