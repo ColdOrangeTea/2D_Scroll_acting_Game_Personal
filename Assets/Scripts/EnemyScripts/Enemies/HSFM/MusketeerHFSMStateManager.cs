@@ -8,6 +8,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     #region COMPONENTS
     [Header("Component")]
     private Rigidbody2D rb;
+    public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
     private Text stateDisplayText;
@@ -47,6 +48,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();

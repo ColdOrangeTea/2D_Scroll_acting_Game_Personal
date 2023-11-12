@@ -8,6 +8,7 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     #region COMPONENTS
     [Header("Component")]
     private Rigidbody2D rb;
+    public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
     #endregion
@@ -33,20 +34,30 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     public Transform playerPos;//chage to private
     #endregion
 
-    #region  LAYER
+    #region  LAYER   
+    enum NumOfLayer
+    {
+        Attackable = 7,
+        Thing = 8
+    }
     public LayerMask GroundLayer;
     public LayerMask AttackLayer;
     #endregion
 
+    #region TAG NAME
+    public const string PLAYER = "Player";
+    #endregion
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         fsm = new StateMachine();
         fsm.AddState("walk", onEnter: state => animator.Play("walk"),
             onLogic: state =>
             {
-                // rb.velocity = new Vector2(walkSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
                 rb.velocity = new Vector2(walkSpeed * (isFacingRight ? 1 : -1), rb.velocity.y);
                 if (isFacingRight && R_WallCheck())
                     Turn();
@@ -63,6 +74,7 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     {
         fsm.OnLogic();
     }
+
     public void Turn()
     {
         //stores scale and flips the enemy along the x axis, 

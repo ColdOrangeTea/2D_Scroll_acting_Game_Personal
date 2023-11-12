@@ -6,12 +6,13 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
 {
     #region --COMPONENTS--
     [SerializeField]
+    private TestPlayerController player;
+    [SerializeField]
     private TestPlayerInputHandler inputHandler;
     [SerializeField]
     private PlayerAttribute attribute;
     public Rigidbody2D RB { get; private set; }
     public Collider2D OwnCollider { get; private set; }
-
     #endregion
 
     #region --CHECK PARAMETERS--
@@ -39,7 +40,11 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
     [SerializeField] private LayerMask ground_layer;
     [SerializeField] private LayerMask attackable_layer;
     [SerializeField] private LayerMask thing_layer;
-    public const int NUM_OF_THINGLAYER = 8;
+    enum NumOfLayer
+    {
+        Attackable = 7,
+        Thing = 8
+    }
     #endregion
 
     #region --TIMERS--
@@ -58,6 +63,7 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
     #endregion   
 
     #region TAG NAME
+    public const string ENEMY = "Enemy";
     public const string B_THING = "B_Thing";
     public const string I_THING = "I_Thing";
     public const string P_THING = "P_Thing";
@@ -65,6 +71,7 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
 
     public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
     {
+        this.player = args.Player;
         this.inputHandler = args.Player.InputHandler;
         this.attribute = args.Player.Attribute;
     }
@@ -129,17 +136,32 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
         // Debug.Log("OnGroundCheck: " + onGround);
     }
     #endregion
-
-    #region GAIN THINGS METHOD
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer == NUM_OF_THINGLAYER)
+        if (other.gameObject.layer == (int)NumOfLayer.Attackable)
         {
-            Debug.Log("Trigger");
-            if (other.gameObject.CompareTag(P_THING))
-                other.gameObject.GetComponent<Thing>().TriggerThing();
+            if (other.gameObject.CompareTag(ENEMY))
+            {
+                Debug.Log("Collision Enemy");
+                EnemyStatus status = other.gameObject.GetComponent<EnemyStatus>();
+                player.TakeColliderDamage(status);
+            }
+
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == (int)NumOfLayer.Thing)
+        {
+            if (other.gameObject.CompareTag(P_THING))
+            {
+                Debug.Log("Trigger P_THING");
+                other.gameObject.GetComponent<Thing>().TriggerThing();
+            }
+        }
+    }
+
+    #region GAIN THINGS METHOD
     public List<Collider2D> CheckHittedThing()
     {
         Collider2D[] hit_things = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, thing_layer);

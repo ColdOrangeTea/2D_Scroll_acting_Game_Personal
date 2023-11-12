@@ -111,6 +111,7 @@ MonoBehaviour:
   Animation: {fileID: 0}
   PhysicsCheck: {fileID: 0}
   Attribute: {fileID: 11400000, guid: 1c790d6db2c87ec4e96779deddc947e9, type: 2}
+  IsDropped: 0
 --- !u!114 &4410772759360991854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,8 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72e50b7f4ca5814e85b905d3d14c5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootlist: []
-  Prefab: {fileID: 0}
+  lootlist:
+  - {fileID: 11400000, guid: f443626d3cd57ef408c642748d9b92fe, type: 2}
+  - {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
+  droppedThingPrefab: {fileID: 8647208237704486864, guid: facb02c5aba5b784e9a5ad0bb6a97c74, type: 3}
 --- !u!1 &4410772759642171746
 GameObject:
   m_ObjectHideFlags: 0

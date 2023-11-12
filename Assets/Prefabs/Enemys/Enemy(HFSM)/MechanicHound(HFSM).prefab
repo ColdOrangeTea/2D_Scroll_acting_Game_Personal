@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 2882242988598484593}
   - component: {fileID: 2882242988598484590}
   - component: {fileID: 2882242988598484591}
+  - component: {fileID: 8678653642675959841}
   m_Layer: 7
   m_Name: MechanicHound(HFSM)
   m_TagString: Enemy
@@ -246,6 +247,22 @@ MonoBehaviour:
   AttackLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &8678653642675959841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882242988598484588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0466f2d46d4b14f9ce7e605bc9e982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  hp: 0
+  colliderDamage: 3
+  damage: 3
 --- !u!1 &2882242989148029230
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31b5e620de385e49b8104fcd3c24a8e, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  maxHp: 20
-  hp: 20
-  attack: 3
+  MaxHp: 20
+  Hp: 20
+  ColliderDamage: 3
+  Damage: 3

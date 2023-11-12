@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Transactions;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityHFSM;
 public class TestPlayerController : MonoBehaviour
 {
@@ -10,17 +10,17 @@ public class TestPlayerController : MonoBehaviour
 
     #region  COMPONENT
     [SerializeField]
+    public Animator animator;
+    [SerializeField]
     public TestPlayerInputHandler InputHandler; //{ get; private set; }
     [SerializeField]
     public TestPlayerPhysicsCheck PhysicsCheck; //{ get; private set; }
     [SerializeField]
     public TestMovement Movement;
     [SerializeField]
+    public PlayerStatus Status;
+    [SerializeField]
     public PlayerAttribute Attribute; //{ get; private set; }
-    #endregion
-
-    #region INPUT PARAMETERS
-    private int dashes_left = 0;
     #endregion
 
     #region STATE NAME
@@ -36,8 +36,19 @@ public class TestPlayerController : MonoBehaviour
 
     #endregion
 
+    #region  DAMAGE PARAMETER
+    [Header("TakeDamage")]
+    [SerializeField] private int maxHp;
+    [SerializeField] private int hp;
+    public float InvulnerableDuration;
+    private float invulnerableCounter;
+    public bool IsInvulnerable;
+    public UnityEvent<Transform> OnTakeDamage;
+    #endregion
+
     void GetComponents()
     {
+        animator = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<TestPlayerInputHandler>();
         PhysicsCheck = GetComponent<TestPlayerPhysicsCheck>();
         Movement = GetComponent<TestMovement>();
@@ -52,21 +63,23 @@ public class TestPlayerController : MonoBehaviour
     void Start()
     {
         GetComponents();
+        maxHp = Status.MaxHp;
+        hp = Status.Hp;
 
         fsm = new StateMachine();
         #region GROUND
         var groundFsm = new HybridStateMachine();
 
         groundFsm.AddState(Idle,
-        onEnter: state => { dashes_left = Attribute.DashAmount; InputHandler.dashUsed = false; InputHandler.JumpCount = 0; },
+        onEnter: state => { InputHandler.dashUsed = false; InputHandler.JumpCount = 0; animator.SetBool(Idle, true); },
             onLogic: state =>
             {
                 Debug.Log("Idle");
                 PhysicsCheck.RB.velocity = new Vector2(0, PhysicsCheck.RB.velocity.y);
                 PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
-            });
+            }, onExit: state => animator.SetBool(Idle, false));
 
-        groundFsm.AddState(Walk, // onEnter: state => ,
+        groundFsm.AddState(Walk, onEnter: state => animator.SetBool(Walk, true),
         onLogic: state =>
         {
             Debug.Log("Walk");
@@ -78,7 +91,7 @@ public class TestPlayerController : MonoBehaviour
                 Movement.SetGravityScale(Attribute.GravityScale * Attribute.FallGravityMult);
                 PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
             }
-        });
+        }, onExit: state => animator.SetBool(Walk, false));
 
         groundFsm.AddTransition(Idle, Walk, transition => Mathf.Abs(InputHandler.XInput) >= Mathf.Epsilon);
         groundFsm.AddTransition(Walk, Idle, transition => InputHandler.XInput == 0 && InputHandler.YInput == 0);
@@ -100,7 +113,7 @@ public class TestPlayerController : MonoBehaviour
         // },
         // onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); });
 
-        inAirFsm.AddState(Jump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); },
+        inAirFsm.AddState(Jump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); animator.SetBool(Jump, true); },
         onLogic =>
         {
             Debug.Log("Jump");
@@ -113,9 +126,9 @@ public class TestPlayerController : MonoBehaviour
                 PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
             }
         },
-        onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); InputHandler.SetJumping(false); });
+        onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); InputHandler.SetJumping(false); animator.SetBool(Jump, false); });
 
-        inAirFsm.AddState(DoubleJump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); },
+        inAirFsm.AddState(DoubleJump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); animator.SetBool(Jump, true); },
          onLogic =>
         {
             Debug.Log("DoubleJump");
@@ -128,7 +141,7 @@ public class TestPlayerController : MonoBehaviour
                 PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
             }
         },
-        onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); InputHandler.SetJumping(false); });
+        onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); InputHandler.SetJumping(false); animator.SetBool(Jump, false); });
         // inAirFsm.AddTransition(Fall, Jump, t => InputHandler.JumpInput && InputHandler.JumpCount == 0);
         // inAirFsm.AddTransition(Fall, DoubleJump, t => InputHandler.JumpInput && InputHandler.JumpCount == 1);
         inAirFsm.AddTransition(Jump, DoubleJump, t => PlayerAbilityManager.CanDoubleJump && InputHandler.JumpInput && InputHandler.JumpCount == 2);
@@ -139,17 +152,17 @@ public class TestPlayerController : MonoBehaviour
         #endregion
 
         #region  PUNCH
-        fsm.AddState(Punch, onEnter: state => { Movement.Punch(); },
+        fsm.AddState(Punch, onEnter: state => { Movement.Punch(); animator.SetBool(Punch, true); },
         onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); },
-        onExit: state => { }, canExit: state => InputHandler.IfMeleeTimeIsOver(), needsExitTime: true);
+        onExit: state => { animator.SetBool(Punch, false); }, canExit: state => InputHandler.IfMeleeTimeIsOver(), needsExitTime: true);
 
         fsm.AddTransition(Ground, Punch, t => !InputHandler.IfMeleeTimeIsOver());
         fsm.AddTransition(InAir, Punch, t => !InputHandler.IfMeleeTimeIsOver());
         fsm.AddTransition(Punch, InAir, t => InputHandler.IfMeleeTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
         #endregion
 
-        fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = SetDashDir(); Movement.GoDash(lastDashDir); },
-        onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); },
+        fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
+        onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false); },
         canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
 
         #region DASH
@@ -164,21 +177,49 @@ public class TestPlayerController : MonoBehaviour
     {
         fsm.OnLogic();
         Debug.Log("玩家目前狀態: " + fsm.ActiveStateName + " " + InputHandler.JumpCount);
+        if (IsInvulnerable)
+        {
+            invulnerableCounter -= Time.deltaTime;
+            if (invulnerableCounter <= 0)
+            {
+                IsInvulnerable = false;
+            }
+        }
     }
 
-    Vector2 SetDashDir()
+    #region  DAMAGE
+    public void TakeColliderDamage(EnemyStatus attackerStatus)
     {
-        // if (!dash_used && dashes_left > 0)
-        //     //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
-        //     player.Sleep(playerAttribute.DashSleepTime);
-        //If not direction pressed, dash forward
-        Vector2 dir;
-        if ((InputHandler.XInput, InputHandler.YInput) != (0, 0))
+        if (IsInvulnerable) return;
+
+        int damage = attackerStatus.GetColliderDamage();
+
+        if (hp - damage > 0)
         {
-            dir = new Vector2(InputHandler.XInput, InputHandler.YInput).normalized;
+            hp -= damage;
+            TriggerInvulnerable();
+            OnTakeDamage?.Invoke(attackerStatus.transform);
         }
         else
-            dir = new Vector2(PhysicsCheck.FacingDirection, 0);
-        return dir;
+        {
+            hp = 0;
+        }
     }
+
+    private void TriggerInvulnerable()
+    {
+        if (!IsInvulnerable)
+        {
+            Debug.Log("觸發無敵");
+            IsInvulnerable = true;
+            invulnerableCounter = InvulnerableDuration;
+        }
+    }
+    #endregion
+    public void HurtAnimator()
+    {
+        animator.SetTrigger("Hurt");
+        Debug.Log(" animator.SetTrigger");
+    }
+
 }

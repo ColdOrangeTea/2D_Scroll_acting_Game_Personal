@@ -288,6 +288,7 @@ public class TestMovement : MonoBehaviour
 
     #region PLAYER Functions
 
+    #region  PUNCH
     public void Punch()
     {
         TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
@@ -312,6 +313,7 @@ public class TestMovement : MonoBehaviour
 
         }
     }
+    #endregion
 
     public void Sleep(float duration)
     {
@@ -326,6 +328,23 @@ public class TestMovement : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration); //Must be Realtime since timeScale with be 0 
         Time.timeScale = 1;
     }
+    #region  DASH
+    public Vector2 SetDashDir()
+    {
+        // if (!dash_used && dashes_left > 0)
+        //     //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
+        //     player.Sleep(playerAttribute.DashSleepTime);
+        //If not direction pressed, dash forward
+        Vector2 dir;
+        if ((inputHandler.XInput, inputHandler.YInput) != (0, 0))
+        {
+            dir = new Vector2(inputHandler.XInput, inputHandler.YInput).normalized;
+        }
+        else
+            dir = new Vector2(physicsCheck.FacingDirection, 0);
+        return dir;
+    }
+
     public void GoDash(Vector2 dir)
     {
         StartCoroutine(nameof(StartDash), dir);
@@ -358,5 +377,7 @@ public class TestMovement : MonoBehaviour
             yield return null;
         }
     }
+    #endregion
+
     #endregion
 }

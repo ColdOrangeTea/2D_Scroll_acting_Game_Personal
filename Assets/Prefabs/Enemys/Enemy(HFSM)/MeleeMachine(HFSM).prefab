@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 8871607285727414844}
   - component: {fileID: 8871607285727414847}
   - component: {fileID: 8871607285727414840}
+  - component: {fileID: 5076754075505151697}
   m_Layer: 7
   m_Name: MeleeMachine(HFSM)
   m_TagString: Enemy
@@ -126,16 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6da61b1d13521439520efcb1f55b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyselfCollider: {fileID: 0}
   pivotPoint: {fileID: 6137527577822067711}
   isFacingRight: 1
   groundCheckOffset: {x: 0, y: -1.2}
   groundCheckSize: {x: 0.8, y: 1}
   xGroundCheck: 0.5
   yGroundCheck: 0.2
-  R_WallCheckOffset: {x: 0.6, y: -0.05}
-  R_WallCheckSize: {x: 0.1, y: 2.3}
-  L_WallCheckOffset: {x: -0.5, y: -0.05}
-  L_WallCheckSize: {x: 0.1, y: 2.3}
+  R_WallCheckOffset: {x: 0.54, y: -0.2}
+  R_WallCheckSize: {x: 0.1, y: 2}
+  L_WallCheckOffset: {x: -0.56, y: -0.2}
+  L_WallCheckSize: {x: 0.1, y: 2}
   walkSpeed: 10
   playerPos: {fileID: 0}
   GroundLayer:
@@ -144,6 +146,22 @@ MonoBehaviour:
   AttackLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &5076754075505151697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8871607285727414784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0466f2d46d4b14f9ce7e605bc9e982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  hp: 20
+  colliderDamage: 3
+  damage: 3
 --- !u!1 &8871607286346678298
 GameObject:
   m_ObjectHideFlags: 0
