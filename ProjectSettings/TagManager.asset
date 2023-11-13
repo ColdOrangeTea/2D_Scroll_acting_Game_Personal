@@ -6,10 +6,11 @@ TagManager:
   tags:
   - Enemy
   - MusicManager
-  - Attack
   - B_Thing
   - I_Thing
   - P_Thing
+  - Bullet
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - Water
   - UI
   - groundLayer
-  - attackableLayer
+  - attackableUnitLayer
   - thingLayer
-  - 
+  - attackLayer
   - 
   - 
   - 

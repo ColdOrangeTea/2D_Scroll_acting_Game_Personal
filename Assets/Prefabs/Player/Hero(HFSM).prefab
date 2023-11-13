@@ -308,7 +308,8 @@ MonoBehaviour:
   Attribute: {fileID: 11400000, guid: 8be75417456d3e241a7d5aacea42c904, type: 2}
   maxHp: 0
   hp: 0
-  InvulnerableDuration: 1
+  hurtForce: 10
+  InvulnerableDuration: 2
   IsInvulnerable: 0
   OnTakeDamage:
     m_PersistentCalls:
@@ -317,6 +318,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: TestPlayerController, Assembly-CSharp
         m_MethodName: HurtAnimator
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2905200564739399069}
+        m_TargetAssemblyTypeName: TestPlayerController, Assembly-CSharp
+        m_MethodName: HurtForce
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

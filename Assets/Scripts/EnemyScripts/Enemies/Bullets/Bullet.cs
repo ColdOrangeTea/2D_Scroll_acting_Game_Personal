@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private int colliderDamage = 3;
+    enum NumOfLayer
+    {
+        AttackableUnit = 7,
+        Thing = 8,
+        Attack = 9
+    }
+    public const string PLAYER = "Player";
+
     void Start()
     {
-        Destroy(gameObject, 1);
+        Destroy(gameObject,1);
     }
-
-    // Update is called once per frame
-    void Update()
+    public int GetColliderDamage()
     {
-
+        return colliderDamage;
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == (int)NumOfLayer.AttackableUnit)
+        {
+            if (other.gameObject.CompareTag(PLAYER))
+            {
+                this.gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+        }
     }
 }

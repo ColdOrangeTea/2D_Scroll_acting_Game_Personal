@@ -40,6 +40,7 @@ public class TestPlayerController : MonoBehaviour
     [Header("TakeDamage")]
     [SerializeField] private int maxHp;
     [SerializeField] private int hp;
+    [SerializeField] private int hurtForce=10;
     public float InvulnerableDuration;
     private float invulnerableCounter;
     public bool IsInvulnerable;
@@ -60,6 +61,7 @@ public class TestPlayerController : MonoBehaviour
         sendUnitAttribute.AttributeDelegated += InputHandler.GetPlayerAttribute;
         sendUnitAttribute.SendPlayerAttribute(this);
     }
+
     void Start()
     {
         GetComponents();
@@ -97,7 +99,6 @@ public class TestPlayerController : MonoBehaviour
         groundFsm.AddTransition(Walk, Idle, transition => InputHandler.XInput == 0 && InputHandler.YInput == 0);
 
         fsm.AddState(Ground, groundFsm);
-        fsm.SetStartState(Ground);
         #endregion
 
         #region  INAIR
@@ -161,18 +162,21 @@ public class TestPlayerController : MonoBehaviour
         fsm.AddTransition(Punch, InAir, t => InputHandler.IfMeleeTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
         #endregion
 
+        #region DASH  
         fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
         onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false); },
         canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
-
-        #region DASH
+        
         fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
         fsm.AddTransition(Dash, InAir, t => InputHandler.IfDashTimeIsOver() && !PhysicsCheck.onGround && InputHandler.JumpInput);
         #endregion
 
         fsm.AddTransitionFromAny(Ground, transition => PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f);
+
+        fsm.SetStartState(Ground);
         fsm.Init();
     }
+
     private void Update()
     {
         fsm.OnLogic();
@@ -188,6 +192,23 @@ public class TestPlayerController : MonoBehaviour
     }
 
     #region  DAMAGE
+    public void TakeColliderDamage(Bullet bullet)
+    {
+        if (IsInvulnerable) return;
+
+        int damage = bullet.GetColliderDamage();
+
+        if (hp - damage > 0)
+        {
+            hp -= damage;
+            TriggerInvulnerable();
+            OnTakeDamage?.Invoke(bullet.transform);
+        }
+        else
+        {
+            hp = 0;
+        }
+    }
     public void TakeColliderDamage(EnemyStatus attackerStatus)
     {
         if (IsInvulnerable) return;
@@ -206,7 +227,7 @@ public class TestPlayerController : MonoBehaviour
         }
     }
 
-    private void TriggerInvulnerable()
+    void TriggerInvulnerable()
     {
         if (!IsInvulnerable)
         {
@@ -214,12 +235,23 @@ public class TestPlayerController : MonoBehaviour
             IsInvulnerable = true;
             invulnerableCounter = InvulnerableDuration;
         }
+    }    
+    public void HurtForce(Transform attackPosition)
+    {
+        float jumpHeight = 5f,gs = PhysicsCheck.RB.gravityScale;
+        Vector2 dir = new Vector2((transform.position.x-attackPosition.position.x)*10, jumpHeight).normalized;
+
+        PhysicsCheck.RB.velocity = Vector2.zero;
+
+        PhysicsCheck.RB.AddForce(dir * hurtForce, ForceMode2D.Impulse);
+        Debug.Log("HurtForce "+ dir+" "+dir*hurtForce);
     }
-    #endregion
     public void HurtAnimator()
     {
         animator.SetTrigger("Hurt");
-        Debug.Log(" animator.SetTrigger");
+       // Debug.Log(" animator.SetTrigger");
     }
+    #endregion
+
 
 }

@@ -42,8 +42,9 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
     [SerializeField] private LayerMask thing_layer;
     enum NumOfLayer
     {
-        Attackable = 7,
-        Thing = 8
+        AttackableUnit = 7,
+        Thing = 8,
+        Attack = 9
     }
     #endregion
 
@@ -64,6 +65,7 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
 
     #region TAG NAME
     public const string ENEMY = "Enemy";
+    public const string BULLET = "Bullet";
     public const string B_THING = "B_Thing";
     public const string I_THING = "I_Thing";
     public const string P_THING = "P_Thing";
@@ -138,7 +140,7 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
     #endregion
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer == (int)NumOfLayer.Attackable)
+        if (other.gameObject.layer == (int)NumOfLayer.AttackableUnit)
         {
             if (other.gameObject.CompareTag(ENEMY))
             {
@@ -146,7 +148,15 @@ public class TestPlayerPhysicsCheck : MonoBehaviour
                 EnemyStatus status = other.gameObject.GetComponent<EnemyStatus>();
                 player.TakeColliderDamage(status);
             }
-
+        }
+        if (other.gameObject.layer == (int)NumOfLayer.Attack)
+        {
+            if (other.gameObject.CompareTag(BULLET))
+            {
+                Debug.Log("Collision Bullet");
+                Bullet bullet = other.gameObject.GetComponent<Bullet>();
+                player.TakeColliderDamage(bullet);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

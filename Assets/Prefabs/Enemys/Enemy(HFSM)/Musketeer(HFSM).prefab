@@ -422,7 +422,7 @@ MonoBehaviour:
   playerPos: {fileID: 0}
   ShootCooldown: 1
   ShootDuration: 3
-  Force: 10
+  Force: 50
   rangedPointoffset: {x: 0, y: 0.58}
   rangedRadius: 8
   shootPointoffset: {x: 0, y: 1.23}

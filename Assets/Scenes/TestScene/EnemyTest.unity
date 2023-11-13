@@ -890,7 +890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8000664442723135222, guid: 9f3104fc833e72e4a9b60c18d7a1eda5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000664442723135223, guid: 9f3104fc833e72e4a9b60c18d7a1eda5, type: 3}
       propertyPath: playerPos
@@ -1313,6 +1313,14 @@ PrefabInstance:
     - target: {fileID: 2610698741328054494, guid: 9fa2f6a22a8e63e45921b1fcf28c314f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2905200564739399069, guid: 9fa2f6a22a8e63e45921b1fcf28c314f, type: 3}
+      propertyPath: hurtForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2905200564739399069, guid: 9fa2f6a22a8e63e45921b1fcf28c314f, type: 3}
+      propertyPath: InvulnerableDuration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6356484075745160238, guid: 9fa2f6a22a8e63e45921b1fcf28c314f, type: 3}
       propertyPath: m_LocalPosition.x

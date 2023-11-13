@@ -99,7 +99,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     {
         isShoot = true;
         Debug.Log("射擊");
-        Vector3 attackDir = playerPos.transform.position - transform.position;
+        Vector3 attackDir = (playerPos.transform.position - transform.position).normalized;
         GameObject BulletIns = Instantiate(Bullet, (Vector2)pivotPoint.position + shootPointoffset, transform.rotation);
         BulletIns.GetComponent<Rigidbody2D>().velocity = attackDir * Force * 0.1f;
     }
