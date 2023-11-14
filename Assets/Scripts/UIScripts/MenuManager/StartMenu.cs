@@ -7,8 +7,15 @@ public class StartMenu : MonoBehaviour
 {
     [SerializeField] private GameObject settingMenu;
     private bool SettingOpen = false;
+
+    [SerializeField] private SceneChangeManager manager; // 自行拖入
+    [SerializeField] private string scene_to_load = "[SceneName]";
+    [SerializeField] private SceneOrder.Scene scene_to_load_name; // 自行設定
     private void Start()
     {
+        manager = GameObject.Find("SceneChangeManager").GetComponent<SceneChangeManager>();
+        scene_to_load = scene_to_load_name.ToString();
+
         SoundManager.Instance.getSliders();
         settingMenu.SetActive(false);
 
@@ -25,7 +32,8 @@ public class StartMenu : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneOrder.Scene.Level01.ToString());
+        manager.GetSceneToLoad(scene_to_load);
+        // SceneManager.LoadScene(SceneOrder.Scene.Level01.ToString());
     }
     public void LoadGame()//先進存檔選單但沒有讀檔功能
     {

@@ -75,7 +75,10 @@ public class SceneChangeManager : MonoBehaviour
     }
     #endregion
 
-
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(CurrentScene.name);
+    }
 
     public void GetSceneToLoad(string sceneToLoad)
     {

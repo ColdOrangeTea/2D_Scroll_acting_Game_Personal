@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
 
-public class TestPlayerInputHandler : MonoBehaviour
+public class HSFMPlayerInputHandler : MonoBehaviour
 {
     #region  INPUT
     public float XInput { get; private set; }

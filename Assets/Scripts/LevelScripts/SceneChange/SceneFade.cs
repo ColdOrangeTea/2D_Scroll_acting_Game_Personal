@@ -1,37 +1,6 @@
 using System;
 using UnityEngine;
 
-public class SceneFadeEventArgs : EventArgs
-{
-    //可擴充
-}
-public class SendFading
-{
-    public static event EventHandler<SceneFadeEventArgs> SendSceneFadOut;
-    public static event EventHandler<SceneFadeEventArgs> SendSceneFadIn;
-
-    public void SendSceneFadeOut()
-    {
-        OnSendSceneFadeOut();
-    }
-
-    public void OnSendSceneFadeOut()
-    {
-        if (SendSceneFadOut != null)
-            SendSceneFadOut(this, new SceneFadeEventArgs());
-    }
-
-    public void SendSceneFadeIn()
-    {
-        OnSendSceneFadeIn();
-    }
-
-    public void OnSendSceneFadeIn()
-    {
-        if (SendSceneFadIn != null)
-            SendSceneFadIn(this, new SceneFadeEventArgs());
-    }
-}
 public class SceneFade : MonoBehaviour
 {
     public static SceneFade Instance;

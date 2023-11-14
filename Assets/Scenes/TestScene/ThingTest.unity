@@ -324,7 +324,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_LocalPosition.x
@@ -681,7 +681,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360708322
 GameObject:
@@ -1222,9 +1222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68560e0d8d53b845956bce832bd2d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1189233935}
+  manager: {fileID: 0}
   scene_to_load: '[Insert SceneName]'
-  scene_to_load_name: 12
+  scene_to_load_name: 1
   portal_name: {fileID: 1320327495}
 --- !u!1 &620095731
 GameObject:
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb3269f3834ff24aa1543708c440512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGameOver: 0
 --- !u!4 &968050881
 Transform:
   m_ObjectHideFlags: 0
@@ -2137,7 +2138,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &979461867
 GameObject:
@@ -3237,52 +3238,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172782656}
   m_CullTransparentMesh: 1
---- !u!1 &1189233933
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1189233936}
-  - component: {fileID: 1189233935}
-  m_Layer: 0
-  m_Name: SceneChangeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1189233935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189233933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc18601465352064aa3f3834d1163b21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneFade: {fileID: 0}
-  cur_room_name: '[SceneName]'
---- !u!4 &1189233936
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189233933}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1200858478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6395908222329320842, guid: 9fa2f6a22a8e63e45921b1fcf28c314f, type: 3}
@@ -3549,7 +3504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68560e0d8d53b845956bce832bd2d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1189233935}
+  manager: {fileID: 0}
   scene_to_load: '[Insert SceneName]'
   scene_to_load_name: 11
   portal_name: {fileID: 1172782658}
@@ -4016,7 +3971,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630065360
 GameObject:
@@ -4864,7 +4819,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5035,9 +4990,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68560e0d8d53b845956bce832bd2d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1189233935}
+  manager: {fileID: 0}
   scene_to_load: '[Insert SceneName]'
-  scene_to_load_name: 1
+  scene_to_load_name: 13
   portal_name: {fileID: 1787462039}
 --- !u!61 &2007055227
 BoxCollider2D:
@@ -5489,7 +5444,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4410772759360991853, guid: 28e003f7336f48f47a8351d351092781, type: 3}
       propertyPath: m_LocalPosition.x

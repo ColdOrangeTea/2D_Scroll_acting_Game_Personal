@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerPhysicsCheck : MonoBehaviour
+public class HSFMPlayerPhysicsCheck : MonoBehaviour
 {
     #region --COMPONENTS--
     [SerializeField]
-    private TestPlayerController player;
+    private PlayerHFSMStateManager player;
     [SerializeField]
-    private TestPlayerInputHandler inputHandler;
+    private HSFMPlayerInputHandler inputHandler;
     [SerializeField]
     private PlayerAttribute attribute;
     public Rigidbody2D RB { get; private set; }

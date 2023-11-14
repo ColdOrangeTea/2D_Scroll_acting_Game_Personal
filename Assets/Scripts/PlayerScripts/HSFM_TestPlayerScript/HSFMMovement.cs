@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestMovement : MonoBehaviour
+public class HSFMMovement : MonoBehaviour
 {
     [SerializeField]
-    private TestPlayerController player;
+    private PlayerHFSMStateManager player;
     [SerializeField]
-    private TestPlayerInputHandler inputHandler;
+    private HSFMPlayerInputHandler inputHandler;
     [SerializeField]
-    private TestPlayerPhysicsCheck physicsCheck;
+    private HSFMPlayerPhysicsCheck physicsCheck;
     [SerializeField]
     private PlayerAttribute attribute;
 
@@ -36,7 +36,7 @@ public class TestMovement : MonoBehaviour
 
     public void GroundMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel)
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
 
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
@@ -69,7 +69,7 @@ public class TestMovement : MonoBehaviour
 
     public void InAirMove(float lerpAmount, float xInput, float maxSpeed, float accel, float deccel, float jumpHangTimeThreshold, float jumpHangAccelerationMult, float jumpHangMaxSpeedMult, bool doConserveMomentum, bool isAnyJumping)
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
 
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = xInput * maxSpeed;
@@ -122,8 +122,8 @@ public class TestMovement : MonoBehaviour
 
     public void Move(float lerpAmount)
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
-        TestPlayerInputHandler inputHandler = this.inputHandler;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerInputHandler inputHandler = this.inputHandler;
         PlayerAttribute attribute = this.attribute;
 
         //Calculate the direction we want to move in and our desired velocity
@@ -200,7 +200,7 @@ public class TestMovement : MonoBehaviour
     #region JUMP METHOD
     public void Jump()
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
         PlayerAttribute attribute = this.attribute;
 
         //Ensures we can't call Jump multiple times from one press
@@ -239,7 +239,7 @@ public class TestMovement : MonoBehaviour
 
     private void Gravity()
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
         PlayerAttribute attribute = this.attribute;
 
         isjumping = inputHandler.IsJumping;
@@ -271,7 +271,7 @@ public class TestMovement : MonoBehaviour
     }
     public void SetGravityScale(float scale)
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
         physicsCheck.RB.gravityScale = scale;
     }
 
@@ -291,7 +291,7 @@ public class TestMovement : MonoBehaviour
     #region  PUNCH
     public void Punch()
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
 
         List<Collider2D> hitEnemies = physicsCheck.CheckHittedUnit();
         foreach (Collider2D Enemy in hitEnemies)
@@ -351,7 +351,7 @@ public class TestMovement : MonoBehaviour
     }
     private IEnumerator StartDash(Vector2 dir)
     {
-        TestPlayerPhysicsCheck physicsCheck = this.physicsCheck;
+        HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
         PlayerAttribute attribute = this.attribute;
         //Overall this method of dashing aims to mimic Celeste, if you're looking for
         // a more physics-based approach try a method similar to that used in the jump

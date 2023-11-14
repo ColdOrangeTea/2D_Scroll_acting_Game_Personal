@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityHFSM;
-public class TestPlayerController : MonoBehaviour
+public class PlayerHFSMStateManager : MonoBehaviour
 {
     [SerializeField]
     private StateMachine fsm;
@@ -12,11 +12,11 @@ public class TestPlayerController : MonoBehaviour
     [SerializeField]
     public Animator animator;
     [SerializeField]
-    public TestPlayerInputHandler InputHandler; //{ get; private set; }
+    public HSFMPlayerInputHandler InputHandler; //{ get; private set; }
     [SerializeField]
-    public TestPlayerPhysicsCheck PhysicsCheck; //{ get; private set; }
+    public HSFMPlayerPhysicsCheck PhysicsCheck; //{ get; private set; }
     [SerializeField]
-    public TestMovement Movement;
+    public HSFMMovement Movement;
     [SerializeField]
     public PlayerStatus Status;
     [SerializeField]
@@ -45,14 +45,15 @@ public class TestPlayerController : MonoBehaviour
     private float invulnerableCounter;
     public bool IsInvulnerable;
     public UnityEvent<Transform> OnTakeDamage;
+    public UnityEvent OnPlayerDie;
     #endregion
 
     void GetComponents()
     {
         animator = GetComponentInChildren<Animator>();
-        InputHandler = GetComponent<TestPlayerInputHandler>();
-        PhysicsCheck = GetComponent<TestPlayerPhysicsCheck>();
-        Movement = GetComponent<TestMovement>();
+        InputHandler = GetComponent<HSFMPlayerInputHandler>();
+        PhysicsCheck = GetComponent<HSFMPlayerPhysicsCheck>();
+        Movement = GetComponent<HSFMMovement>();
 
         SendUnitAttribute sendUnitAttribute = new SendUnitAttribute(); // publisher
 
@@ -192,6 +193,12 @@ public class TestPlayerController : MonoBehaviour
     }
 
     #region  DAMAGE
+    public void PlayerDie()
+    {
+        OnPlayerDie?.Invoke();
+        this.gameObject.SetActive(false);
+    }
+
     public void TakeColliderDamage(Bullet bullet)
     {
         if (IsInvulnerable) return;
@@ -207,6 +214,8 @@ public class TestPlayerController : MonoBehaviour
         else
         {
             hp = 0;
+            //OnPlayerDie?.Invoke(bullet.transform);
+            PlayerDie();
         }
     }
     public void TakeColliderDamage(EnemyStatus attackerStatus)
@@ -224,6 +233,8 @@ public class TestPlayerController : MonoBehaviour
         else
         {
             hp = 0;
+            //OnPlayerDie?.Invoke(attackerStatus.transform);
+            PlayerDie();
         }
     }
 
