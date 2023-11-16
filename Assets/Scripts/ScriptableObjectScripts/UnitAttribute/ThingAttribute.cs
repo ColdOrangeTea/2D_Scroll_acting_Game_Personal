@@ -23,10 +23,14 @@ public class ThingAttribute : ScriptableObject
 
     [Header("Portable Thing 掉落補血物等物品的物件")]
     public bool CanBePickedUp;
-
     public int PortableThingID;
-    public Sprite ThingSprite;
     public int DropChance;
+    public bool IsHeal;
+    public int HealAmount;
+    public bool IsFunctional;
+    public float ThingInvulnerableDuration;
+
+    public Sprite ThingSprite;
 
     private void OnValidate()
     {

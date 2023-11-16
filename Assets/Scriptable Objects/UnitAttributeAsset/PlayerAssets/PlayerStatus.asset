@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHp: 20
   Hp: 20
-  ColliderDamage: 3
-  Damage: 3
+  Damage: 8

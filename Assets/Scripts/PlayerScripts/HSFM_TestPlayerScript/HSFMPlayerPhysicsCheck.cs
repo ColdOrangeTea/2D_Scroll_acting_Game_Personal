@@ -165,8 +165,22 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
         {
             if (other.gameObject.CompareTag(P_THING))
             {
-                Debug.Log("Trigger P_THING");
+                Debug.Log("Trigger P_THING " + other.name);
                 other.gameObject.GetComponent<Thing>().TriggerThing();
+
+                if (other.gameObject.GetComponent<LootPrefab>().GetIsHeal())
+                {
+                    int healAmount = other.gameObject.GetComponent<LootPrefab>().GetHealAmount();
+                    player.Heal(healAmount);
+                    Debug.Log("Trigger healAmount " + healAmount);
+                }
+                else if (other.gameObject.GetComponent<LootPrefab>().GetIsFunctional())
+                {
+                    float thingInvulnerableDuration = other.gameObject.GetComponent<LootPrefab>().GetThingInvulnerableDuration();
+                    player.PickThingTriggerInvulnerable(thingInvulnerableDuration);
+                    Debug.Log("Trigger thingInvulnerableDuration " + thingInvulnerableDuration);
+                }
+
             }
         }
     }

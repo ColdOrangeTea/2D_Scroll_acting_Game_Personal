@@ -21,5 +21,9 @@ MonoBehaviour:
   ActivatedCoolDown: 2
   CanBePickedUp: 0
   PortableThingID: 0
-  ThingSprite: {fileID: 0}
   DropChance: 0
+  IsHeal: 0
+  HealAmount: 0
+  IsFunctional: 0
+  ThingInvulnerableDuration: 0
+  ThingSprite: {fileID: 0}

@@ -33,6 +33,8 @@ public class LootBag : MonoBehaviour
         Loot droppedThing = GetDroppingThing();
         if (droppedThing != null)
         {
+            droppedThingPrefab.GetComponent<LootPrefab>().Attribute = droppedThing.attribute;
+
             GameObject lootGameObject = Instantiate(droppedThingPrefab, spawnPosition, Quaternion.identity);
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedThing.attribute.ThingSprite;
             float dropForce = 10f;

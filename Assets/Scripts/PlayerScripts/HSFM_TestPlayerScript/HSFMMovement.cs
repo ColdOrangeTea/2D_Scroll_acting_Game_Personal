@@ -294,13 +294,15 @@ public class HSFMMovement : MonoBehaviour
         HSFMPlayerPhysicsCheck physicsCheck = this.physicsCheck;
 
         List<Collider2D> hitEnemies = physicsCheck.CheckHittedUnit();
-        foreach (Collider2D Enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
         {
-            if (Enemy.tag == "Enemy")
+            if (enemy.tag == "Enemy")
             {
-                Debug.Log("打的敵人是: " + Enemy.name);
+                Debug.Log("打的敵人是: " + enemy.name);
+                enemy.GetComponent<EnemyStatus>().TakeDamage(player.Status.Damage);
+                //doDMG
             }
-            //doDMG
+
         }
         List<Collider2D> hitted_things = physicsCheck.CheckHittedThing();
         foreach (Collider2D hitted_thing in hitted_things)

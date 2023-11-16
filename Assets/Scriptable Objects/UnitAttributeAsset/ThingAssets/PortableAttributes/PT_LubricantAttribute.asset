@@ -21,5 +21,9 @@ MonoBehaviour:
   ActivatedCoolDown: 0
   CanBePickedUp: 1
   PortableThingID: 1
-  ThingSprite: {fileID: 21300130, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
   DropChance: 80
+  IsHeal: 0
+  HealAmount: 192
+  IsFunctional: 1
+  ThingInvulnerableDuration: 5
+  ThingSprite: {fileID: 21300130, guid: 7810966f0f690954c87305933cabf2b0, type: 3}

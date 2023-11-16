@@ -13,6 +13,21 @@ public class EnemyStatus : MonoBehaviour
     {
 
     }
+    public void TakeDamage(int damage)
+    {
+        if (hp - damage > 0)
+        {
+            hp -= damage;
+
+        }
+        else
+        {
+            hp = 0;
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
+    }
     public int GetColliderDamage()
     {
         return colliderDamage;

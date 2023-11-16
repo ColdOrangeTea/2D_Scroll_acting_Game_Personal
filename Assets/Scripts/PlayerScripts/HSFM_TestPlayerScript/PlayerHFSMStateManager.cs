@@ -40,7 +40,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     [Header("TakeDamage")]
     [SerializeField] private int maxHp;
     [SerializeField] private int hp;
-    [SerializeField] private int hurtForce=10;
+    [SerializeField] private int hurtForce = 10;
     public float InvulnerableDuration;
     private float invulnerableCounter;
     public bool IsInvulnerable;
@@ -167,7 +167,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
         onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false); },
         canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
-        
+
         fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
         fsm.AddTransition(Dash, InAir, t => InputHandler.IfDashTimeIsOver() && !PhysicsCheck.onGround && InputHandler.JumpInput);
         #endregion
@@ -192,7 +192,21 @@ public class PlayerHFSMStateManager : MonoBehaviour
         }
     }
 
-    #region  DAMAGE
+    #region HEAL
+    public void Heal(int healAmount)
+    {
+        if (hp + healAmount > maxHp)
+        {
+            hp = maxHp;
+        }
+        else
+        {
+            hp += healAmount;
+        }
+    }
+    #endregion
+
+    #region TAKE DAMAGE
     public void PlayerDie()
     {
         OnPlayerDie?.Invoke();
@@ -214,8 +228,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         else
         {
             hp = 0;
-            //OnPlayerDie?.Invoke(bullet.transform);
-            PlayerDie();
+            // PlayerDie();
         }
     }
     public void TakeColliderDamage(EnemyStatus attackerStatus)
@@ -233,34 +246,40 @@ public class PlayerHFSMStateManager : MonoBehaviour
         else
         {
             hp = 0;
-            //OnPlayerDie?.Invoke(attackerStatus.transform);
-            PlayerDie();
+            // PlayerDie();
         }
     }
+    public void PickThingTriggerInvulnerable(float invulnerableDuration)
+    {
+        Debug.Log("撿物品觸發無敵");
+        invulnerableCounter = invulnerableDuration;
+        IsInvulnerable = true;
 
+        animator.SetTrigger("PickThingTriggerInvulnerable");
+    }
     void TriggerInvulnerable()
     {
         if (!IsInvulnerable)
         {
             Debug.Log("觸發無敵");
-            IsInvulnerable = true;
             invulnerableCounter = InvulnerableDuration;
+            IsInvulnerable = true;
         }
-    }    
+    }
     public void HurtForce(Transform attackPosition)
     {
-        float jumpHeight = 5f,gs = PhysicsCheck.RB.gravityScale;
-        Vector2 dir = new Vector2((transform.position.x-attackPosition.position.x)*10, jumpHeight).normalized;
+        float jumpHeight = 5f, gs = PhysicsCheck.RB.gravityScale;
+        Vector2 dir = new Vector2((transform.position.x - attackPosition.position.x) * 10, jumpHeight).normalized;
 
         PhysicsCheck.RB.velocity = Vector2.zero;
 
         PhysicsCheck.RB.AddForce(dir * hurtForce, ForceMode2D.Impulse);
-        Debug.Log("HurtForce "+ dir+" "+dir*hurtForce);
+        Debug.Log("HurtForce " + dir + " " + dir * hurtForce);
     }
     public void HurtAnimator()
     {
         animator.SetTrigger("Hurt");
-       // Debug.Log(" animator.SetTrigger");
+        // Debug.Log(" animator.SetTrigger");
     }
     #endregion
 

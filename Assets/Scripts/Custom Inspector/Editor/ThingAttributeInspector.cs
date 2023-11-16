@@ -17,6 +17,9 @@ public class ThingAttributeInspector : Editor
     private bool e_is_show_up_CanBeDamaged;
     private bool e_is_show_up_CanBeOperated;
     private bool e_is_show_up_CanBePickedUp;
+    private bool e_is_show_up_IsHeal;
+    private bool e_is_show_up_IsFunctional;
+
     #endregion
 
     public void Awake()
@@ -36,18 +39,6 @@ public class ThingAttributeInspector : Editor
         }
     }
 
-    // public override VisualElement CreateInspectorGUI()
-    // {
-    //     // Create a new VisualElement to be the root of our inspector UI
-    //     VisualElement myInspector = new VisualElement();
-
-    //     // Add a simple label
-    //     myInspector.Add(new Label("This is a custom inspector"));
-
-    //     // Return the finished inspector UI
-    //     return myInspector;
-    // }
-
     public override void OnInspectorGUI()
     {
         attribute = (ThingAttribute)target;
@@ -55,7 +46,7 @@ public class ThingAttributeInspector : Editor
 
         GUIStyle style = new GUIStyle();
         style.richText = true; // 允許（Rich Text Format），RTF格式啟用
-        EditorGUILayout.LabelField("<size=16><color=white><b>只能勾選其中一個!!</b> </color> </size> ", style);
+        EditorGUILayout.LabelField("<size=16><color=white><b>物品種類只能勾選其中一個!!</b> </color> </size> ", style);
         EditorGUILayout.Space(10);
 
         #region  NAME
@@ -106,11 +97,41 @@ public class ThingAttributeInspector : Editor
         {
             attribute.PortableThingID = EditorGUILayout.IntField("PortableThingID: ", attribute.PortableThingID);
             attribute.DropChance = EditorGUILayout.IntField("DropChance", attribute.DropChance);
+            EditorGUI.EndDisabledGroup();
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("<size=12><color=white><b>勾選其一</b> </color> </size> ", style);
+            e_is_show_up_IsHeal = EditorGUILayout.Toggle("治療用品", attribute.IsHeal);
+            attribute.IsHeal = e_is_show_up_IsHeal;
 
+            e_is_show_up_IsHeal = EditorGUILayout.BeginFoldoutHeaderGroup(e_is_show_up_IsHeal, "");
+            EditorGUI.BeginDisabledGroup(e_is_show_up_IsHeal == false);
+            if (e_is_show_up_IsHeal)
+            {
+                attribute.HealAmount = EditorGUILayout.IntField("HealAmount", attribute.HealAmount);
+            }
+            EditorGUI.EndDisabledGroup();
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
+
+            EditorGUILayout.Space(10);
+            e_is_show_up_IsFunctional = EditorGUILayout.Toggle("功能用品", attribute.IsFunctional);
+            attribute.IsFunctional = e_is_show_up_IsFunctional;
+
+            e_is_show_up_IsFunctional = EditorGUILayout.BeginFoldoutHeaderGroup(e_is_show_up_IsFunctional, "");
+            EditorGUI.BeginDisabledGroup(e_is_show_up_IsFunctional == false);
+            if (e_is_show_up_IsFunctional)
+            {
+                attribute.ThingInvulnerableDuration = EditorGUILayout.Slider(attribute.ThingInvulnerableDuration, 0.1f, 5f);
+                // attribute.ThingInvulnerableDuration = EditorGUILayout.IntField("ThingInvulnerableDuration", attribute.ThingInvulnerableDuration);
+            }
+            EditorGUI.EndDisabledGroup();
+            EditorGUILayout.EndFoldoutHeaderGroup();
             attribute.ThingSprite = (Sprite)EditorGUILayout.ObjectField("圖片:", attribute.ThingSprite, typeof(Sprite), true);
+
+
         }
-        EditorGUI.EndDisabledGroup();
-        EditorGUILayout.EndFoldoutHeaderGroup();
+
         #endregion
 
         EditorUtility.SetDirty(attribute);

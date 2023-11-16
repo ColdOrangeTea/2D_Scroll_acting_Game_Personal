@@ -45,6 +45,30 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 3203559975
+    locked: 0
+  - name: Ground_Back02
+    uniqueID: 925487147
+    locked: 0
+  - name: Ground_Back01
+    uniqueID: 2305122057
+    locked: 0
+  - name: Ground_Back00
+    uniqueID: 4045757173
+    locked: 0
+  - name: Ground
+    uniqueID: 955001067
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground_Front00
+    uniqueID: 1599641097
+    locked: 0
+  - name: Ground_Front01
+    uniqueID: 626565751
+    locked: 0
+  - name: CameraSortingLayer
+    uniqueID: 3212002645
     locked: 0
