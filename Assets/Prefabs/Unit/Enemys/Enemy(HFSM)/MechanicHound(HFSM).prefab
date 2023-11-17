@@ -103,7 +103,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 955001067
-  m_SortingLayer: 3
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 208035580, guid: d3d16a2989428394ba790523c7a5848f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 2882242988598484590}
   - component: {fileID: 2882242988598484591}
   - component: {fileID: 8678653642675959841}
+  - component: {fileID: 1296211132891965017}
   m_Layer: 7
   m_Name: MechanicHound(HFSM)
   m_TagString: Enemy
@@ -263,6 +264,22 @@ MonoBehaviour:
   hp: 0
   colliderDamage: 3
   damage: 3
+--- !u!114 &1296211132891965017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882242988598484588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72e50b7f4ca5814e85b905d3d14c5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootlist:
+  - {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
+  - {fileID: 11400000, guid: f443626d3cd57ef408c642748d9b92fe, type: 2}
+  droppedThingPrefab: {fileID: 8647208237704486864, guid: facb02c5aba5b784e9a5ad0bb6a97c74, type: 3}
 --- !u!1 &2882242989148029230
 GameObject:
   m_ObjectHideFlags: 0

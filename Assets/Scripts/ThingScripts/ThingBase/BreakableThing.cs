@@ -27,8 +27,6 @@ public class BreakableThing : Thing
 
     public virtual void Drop()
     {
-        int thingID = Random.Range(10, 13);
-        Debug.Log(thingID);
     }
 
     public override void TriggerThing()

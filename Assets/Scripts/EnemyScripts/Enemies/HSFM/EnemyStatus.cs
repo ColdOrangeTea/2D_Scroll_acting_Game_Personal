@@ -23,6 +23,7 @@ public class EnemyStatus : MonoBehaviour
         else
         {
             hp = 0;
+            GetComponent<LootBag>().InstantiateLoot(transform.position);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
