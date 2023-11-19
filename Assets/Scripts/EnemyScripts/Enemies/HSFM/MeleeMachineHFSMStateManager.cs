@@ -30,7 +30,7 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     public Vector2 R_WallCheckSize;
     public Vector2 L_WallCheckOffset;
     public Vector2 L_WallCheckSize;
-    public float walkSpeed = 10f;
+    public float walkSpeed = 5f;
     public Transform playerPos;//chage to private
     #endregion
 
@@ -62,6 +62,8 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
                 if (isFacingRight && R_WallCheck())
                     Turn();
                 else if (!isFacingRight && L_WallCheck())
+                    Turn();
+                if (!GroundCheck())
                     Turn();
             });
         fsm.AddState("fall", onEnter: state => animator.Play("fall"));

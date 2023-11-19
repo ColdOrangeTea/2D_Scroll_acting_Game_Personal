@@ -135,11 +135,11 @@ MonoBehaviour:
   groundCheckSize: {x: 0.8, y: 1}
   xGroundCheck: 0.5
   yGroundCheck: 0.2
-  R_WallCheckOffset: {x: 0.54, y: -0.2}
-  R_WallCheckSize: {x: 0.1, y: 2}
-  L_WallCheckOffset: {x: -0.56, y: -0.2}
-  L_WallCheckSize: {x: 0.1, y: 2}
-  walkSpeed: 10
+  R_WallCheckOffset: {x: 0.54, y: -0.02}
+  R_WallCheckSize: {x: 0.2, y: 2.2}
+  L_WallCheckOffset: {x: -0.56, y: -0.02}
+  L_WallCheckSize: {x: 0.2, y: 2.2}
+  walkSpeed: 5
   playerPos: {fileID: 0}
   GroundLayer:
     serializedVersion: 2
@@ -253,7 +253,7 @@ SpriteRenderer:
   m_SortingLayerID: 955001067
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1947558317, guid: 6868de63e0514f84d9cf608e4082d2de, type: 3}
+  m_Sprite: {fileID: 2066361919, guid: 6868de63e0514f84d9cf608e4082d2de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -149,37 +149,46 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
                 player.TakeColliderDamage(status);
             }
         }
+
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.layer == (int)NumOfLayer.Attack)
         {
             if (other.gameObject.CompareTag(BULLET))
             {
                 Debug.Log("Collision Bullet");
                 Bullet bullet = other.gameObject.GetComponent<Bullet>();
-                player.TakeColliderDamage(bullet);
+                player.TakeDamage(bullet);
             }
         }
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+
         if (other.gameObject.layer == (int)NumOfLayer.Thing)
         {
             if (other.gameObject.CompareTag(P_THING))
             {
                 Debug.Log("Trigger P_THING " + other.name);
-                other.gameObject.GetComponent<Thing>().TriggerThing();
 
-                if (other.gameObject.GetComponent<LootPrefab>().GetIsHeal())
+                if (other.gameObject.GetComponent<Thing>())
                 {
-                    int healAmount = other.gameObject.GetComponent<LootPrefab>().GetHealAmount();
-                    player.Heal(healAmount);
-                    Debug.Log("Trigger healAmount " + healAmount);
+                    other.gameObject.GetComponent<Thing>().TriggerThing();
                 }
-                else if (other.gameObject.GetComponent<LootPrefab>().GetIsFunctional())
+                else if (other.gameObject.GetComponent<LootPrefab>())
                 {
-                    float thingInvulnerableDuration = other.gameObject.GetComponent<LootPrefab>().GetThingInvulnerableDuration();
-                    player.PickThingTriggerInvulnerable(thingInvulnerableDuration);
-                    Debug.Log("Trigger thingInvulnerableDuration " + thingInvulnerableDuration);
+                    if (other.gameObject.GetComponent<LootPrefab>().GetIsHeal())
+                    {
+                        int healAmount = other.gameObject.GetComponent<LootPrefab>().GetHealAmount();
+                        player.Heal(healAmount);
+                        Debug.Log("Trigger healAmount " + healAmount);
+                    }
+                    else if (other.gameObject.GetComponent<LootPrefab>().GetIsFunctional())
+                    {
+                        float thingInvulnerableDuration = other.gameObject.GetComponent<LootPrefab>().GetThingInvulnerableDuration();
+                        player.PickThingTriggerInvulnerable(thingInvulnerableDuration);
+                        Debug.Log("Trigger thingInvulnerableDuration " + thingInvulnerableDuration);
+                    }
                 }
+
 
             }
         }
@@ -213,7 +222,7 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
             {
                 hitted_units.Remove(hitted_unit);
             }
-            // Debug.Log("撞到那些人: " + hitted_unit.name);
+            // Debug.Log("那些: " + hitted_unit.name);
         }
         return hitted_units;
     }

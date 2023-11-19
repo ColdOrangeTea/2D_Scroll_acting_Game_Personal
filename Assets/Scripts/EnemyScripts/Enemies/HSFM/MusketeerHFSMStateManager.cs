@@ -22,7 +22,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     [Header("Status")]
     public bool isFacingRight = true;
     public bool inShootRange;
-    bool canShoot = true;
+    public bool canShoot = true;
     bool isShoot = false;
     [Space(10)]
 
@@ -52,16 +52,18 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
-        fsm.AddState("idle", onEnter: state => animator.Play("idle"),
+        fsm.AddState("idle", onEnter: state => animator.SetBool("idle", true),
             onLogic: state =>
             {
                 FacingPlayer();
-            });
+                DetectPlayer();
+            }, onExit: state => animator.SetBool("idle", false));
 
-        fsm.AddState("rangedAttack", onEnter: state => { SetUnAbleToShoot(); animator.Play("rangedAttack"); },
+        fsm.AddState("rangedAttack", onEnter: state => { SetUnAbleToShoot(); animator.SetBool("rangedAttack", true); },
         onLogic: state =>
         {
-
+            FacingPlayer();
+            DetectPlayer();
             if (!isShoot)
                 Shoot();
         }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
@@ -76,12 +78,24 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     {
         fsm.OnLogic();
         stateDisplayText.text = this.gameObject.name + " " + fsm.GetActiveHierarchyPath();
-        inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
+
+        // inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
         Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
+    }
+    void DetectPlayer()
+    {
+        if (Vector2.Distance(this.gameObject.transform.position, playerPos.position) < rangedRadius)
+        {
+            inShootRange = true;
+        }
+        else
+        {
+            inShootRange = false;
+        }
     }
     public void FacingPlayer()
     {
-        if (playerPos.position.x > transform.position.x != isFacingRight)
+        if (playerPos.position.x > transform.position.x == isFacingRight)
             Turn();
         //if (playerPos.position.x < transform.position.x != isFacingRight)
         //    Turn();

@@ -77,7 +77,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         onEnter: state => { InputHandler.dashUsed = false; InputHandler.JumpCount = 0; animator.SetBool(Idle, true); },
             onLogic: state =>
             {
-                Debug.Log("Idle");
+                // Debug.Log("Idle");
                 PhysicsCheck.RB.velocity = new Vector2(0, PhysicsCheck.RB.velocity.y);
                 PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
             }, onExit: state => animator.SetBool(Idle, false));
@@ -85,7 +85,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         groundFsm.AddState(Walk, onEnter: state => animator.SetBool(Walk, true),
         onLogic: state =>
         {
-            Debug.Log("Walk");
+            // Debug.Log("Walk");
             PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); PhysicsCheck.CheckDirectionToFace_Test();
             Movement.GroundMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
             // Debug.Log(Attribute.GravityScale + " *" + Attribute.FallGravityMult + ": " + Attribute.GravityScale * Attribute.FallGravityMult);
@@ -118,7 +118,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         inAirFsm.AddState(Jump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); animator.SetBool(Jump, true); },
         onLogic =>
         {
-            Debug.Log("Jump");
+            // Debug.Log("Jump");
             PhysicsCheck.OnGroundCheck();
             PhysicsCheck.CheckDirectionToFace_Test();
             Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
@@ -133,7 +133,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         inAirFsm.AddState(DoubleJump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); animator.SetBool(Jump, true); },
          onLogic =>
         {
-            Debug.Log("DoubleJump");
+            // Debug.Log("DoubleJump");
             PhysicsCheck.OnGroundCheck();
             PhysicsCheck.CheckDirectionToFace_Test();
             Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
@@ -213,7 +213,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void TakeColliderDamage(Bullet bullet)
+    public void TakeDamage(Bullet bullet)
     {
         if (IsInvulnerable) return;
 
