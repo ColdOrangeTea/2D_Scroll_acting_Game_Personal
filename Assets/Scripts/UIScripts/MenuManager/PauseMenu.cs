@@ -5,7 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance;
     public static bool GameIsPaused = false;
-    public bool SettingOpening;
+    public bool SettingIsOpening;
 
     public GameObject PauseMenuUI; // 自行拖入
     public GameObject SettingMenuUI;
@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused && !SettingOpening)
+            if (GameIsPaused && !SettingIsOpening)
             {
                 Resume();
             }
@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        if (SettingIsOpening) return;
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
@@ -54,16 +55,17 @@ public class PauseMenu : MonoBehaviour
     public void OpenSetting()
     {
         SettingMenuUI.SetActive(true);
-        SettingOpening = true;
+        SettingIsOpening = true;
         SoundManager.Instance.getSliders();
     }
     public void CloseSetting()
     {
         SettingMenuUI.SetActive(false);
-        SettingOpening = false;
+        SettingIsOpening = false;
     }
     public void BackToTitle()
     {
+        if (SettingIsOpening) return;
         Resume();
         CloseSetting();
         SceneManager.LoadScene(SceneOrder.Scene.TitleMenu.ToString());

@@ -9,7 +9,7 @@ public class StartMenu : MonoBehaviour
     [SerializeField] private GameObject settingMenu;
     [SerializeField] private GameObject titleMenu;
 
-    private bool SettingOpen = false;
+    private bool SettingIsOpening = false;
 
     [SerializeField] private SceneChangeManager manager; // 自行拖入
     [SerializeField] private string scene_to_load = "[SceneName]";
@@ -28,7 +28,7 @@ public class StartMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SettingOpen == true)
+            if (SettingIsOpening == true)
             {
                 CloseSetting();
             }
@@ -47,7 +47,7 @@ public class StartMenu : MonoBehaviour
     // }
     public void StartGame()
     {
-        if (SettingOpen) return;
+        if (SettingIsOpening) return;
         titleMenu.SetActive(false);
         // StartCoroutine(FadingOutMenuPanel());
 
@@ -59,21 +59,21 @@ public class StartMenu : MonoBehaviour
     }
     public void OpenSetting()
     {
-        if (SettingOpen) return;
+        if (SettingIsOpening) return;
 
         settingMenu.SetActive(true);
-        SettingOpen = true;
+        SettingIsOpening = true;
         SoundManager.Instance.getSliders();
     }
     public void CloseSetting()
     {
         settingMenu.SetActive(false);
-        SettingOpen = false;
+        SettingIsOpening = false;
     }
 
     public void QuitGame()
     {
-        if (SettingOpen) return;
+        if (SettingIsOpening) return;
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

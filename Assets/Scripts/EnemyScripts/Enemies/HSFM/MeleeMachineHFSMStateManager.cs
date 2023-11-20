@@ -24,30 +24,32 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     [Header("Adjustment")]
     #region WALK
     public Vector2 groundCheckOffset;
-    public Vector2 groundCheckSize;
+    // public Vector2 groundCheckSize;
     public float xGroundCheck, yGroundCheck;
     public Vector2 R_WallCheckOffset;
     public Vector2 R_WallCheckSize;
     public Vector2 L_WallCheckOffset;
     public Vector2 L_WallCheckSize;
     public float walkSpeed = 5f;
-    public Transform playerPos;//chage to private
+    // public Transform playerPos;//chage to private
     #endregion
 
-    #region  LAYER   
+    #region --LAYERS--
+    [Header("Layers")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask attackableLayer;
+    [SerializeField] private LayerMask thingLayer;
     enum NumOfLayer
     {
-        Attackable = 7,
-        Thing = 8
+        AttackableUnit = 7,
+        Thing = 8,
+        Attack = 9
     }
-    public LayerMask GroundLayer;
-    public LayerMask AttackLayer;
     #endregion
 
     #region TAG NAME
     public const string PLAYER = "Player";
     #endregion
-
 
     void Start()
     {
@@ -60,11 +62,18 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
             {
                 rb.velocity = new Vector2(walkSpeed * (isFacingRight ? 1 : -1), rb.velocity.y);
                 if (isFacingRight && R_WallCheck())
+                {
                     Turn();
+                }
                 else if (!isFacingRight && L_WallCheck())
+                {
                     Turn();
+                }
                 if (!GroundCheck())
+                {
                     Turn();
+                }
+
             });
         fsm.AddState("fall", onEnter: state => animator.Play("fall"));
         fsm.AddTransition("walk", "fall", t => rb.velocity.y < 0);
@@ -88,24 +97,37 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     }
     public bool R_WallCheck()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, GroundLayer))
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer))
             return true;
         else
             return false;
     }
     public bool L_WallCheck()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, GroundLayer))
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, groundLayer))
             return true;
         else
             return false;
     }
     public bool GroundCheck()
     {
-        if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, GroundLayer))
-            return true;
+        if (isFacingRight)
+        {
+            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
+            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
+                return true;
+            else
+                return false;
+        }
         else
-            return false;
+        {
+            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
+            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
+                return true;
+            else
+                return false;
+        }
+
     }
 
     private void OnDrawGizmos()

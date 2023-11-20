@@ -48,6 +48,11 @@ public class LootPrefab : PortableThing
     }
     public override void PickUp()
     {
-        //Do something
+
+    }
+    public override void TriggerThing()
+    {
+        PickUp();
+        DestroyThing();
     }
 }

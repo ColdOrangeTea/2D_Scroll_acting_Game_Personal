@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 2882242988598484591}
   - component: {fileID: 8678653642675959841}
   - component: {fileID: 1296211132891965017}
+  - component: {fileID: 7886035303831271990}
   m_Layer: 7
   m_Name: MechanicHound(HFSM)
   m_TagString: Enemy
@@ -261,9 +262,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 20
-  hp: 0
+  hp: 20
   colliderDamage: 3
   damage: 3
+  hurtForce: 10
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8678653642675959841}
+        m_TargetAssemblyTypeName: EnemyStatus, Assembly-CSharp
+        m_MethodName: HurtForce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8678653642675959841}
+        m_TargetAssemblyTypeName: EnemyStatus, Assembly-CSharp
+        m_MethodName: HurtAnimator
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7886035303831271990}
+        m_TargetAssemblyTypeName: SingleFlash, Assembly-CSharp
+        m_MethodName: Flash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1296211132891965017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +321,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 229722a7f0ff6b444907de5f641177bf, type: 2}
   - {fileID: 11400000, guid: f443626d3cd57ef408c642748d9b92fe, type: 2}
   droppedThingPrefab: {fileID: 8647208237704486864, guid: facb02c5aba5b784e9a5ad0bb6a97c74, type: 3}
+--- !u!114 &7886035303831271990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882242988598484588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47af5b2d48109a4d98cb64f44cc3ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 3ad74eb02b5f0144cbc9a19e3db7c6ee, type: 2}
+  duration: 0.2
 --- !u!1 &2882242989148029230
 GameObject:
   m_ObjectHideFlags: 0

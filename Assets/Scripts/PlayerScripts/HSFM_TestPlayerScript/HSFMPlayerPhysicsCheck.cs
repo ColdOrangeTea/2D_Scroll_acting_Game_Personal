@@ -18,19 +18,21 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
     #region --CHECK PARAMETERS--
     //Set all of these up in the inspector
     [Header("Checks")]
+    public Transform pivotPoint;
+    [Space(10)]
     [SerializeField] private Vector2 ground_check_offset;
-    [SerializeField] private Transform ground_checkpoint;
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
     [SerializeField] private Vector2 ground_checkSize = new Vector2(0.9f, 0.06f);
     [Space(5)]
 
     [SerializeField] private Vector2 roof_check_offset;
-    [SerializeField] private Transform roof_checkpoint;
     [SerializeField] private Vector2 roof_checkSize = new Vector2(0.9f, 0.06f);
     [Space(5)]
 
-    [SerializeField] private Vector2 punch_check_offset;
-    [SerializeField] private Transform punch_checkpoint;
+    [SerializeField] private Vector2 R_punch_check_offset;
+    [SerializeField] private Vector2 L_punch_check_offset;
+    [SerializeField] private PolygonCollider2D R_punch;
+    [SerializeField] private PolygonCollider2D L_punch;
     [SerializeField] private float punch_radius = 1f;
     [Space(5)]
     #endregion
@@ -70,6 +72,8 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
     public const string I_THING = "I_Thing";
     public const string P_THING = "P_Thing";
     #endregion
+    // [SerializeField] // Used for organization
+    // private PolygonCollider2D[] colliders;
 
     public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
     {
@@ -77,6 +81,7 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
         this.inputHandler = args.Player.InputHandler;
         this.attribute = args.Player.Attribute;
     }
+
     #region UNITY CALLBACK FUNCTIONS
     private void Start()
     {
@@ -125,7 +130,7 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
 
     public void OnGroundCheck()
     {
-        if (Physics2D.OverlapBox((Vector2)ground_checkpoint.position + ground_check_offset, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + ground_check_offset, ground_checkSize, 0, ground_layer)) //checks if set box overlaps with ground
         {
             //if so sets the lastGrounded to coyoteTime  coyoteTime:當玩家自地形邊界走出，發生離地的瞬間，此時角色已經底部浮空，但玩家仍可以進行跳躍的指令。
             LastOnGroundTime = attribute.CoyoteTime;
@@ -169,11 +174,7 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
             {
                 Debug.Log("Trigger P_THING " + other.name);
 
-                if (other.gameObject.GetComponent<Thing>())
-                {
-                    other.gameObject.GetComponent<Thing>().TriggerThing();
-                }
-                else if (other.gameObject.GetComponent<LootPrefab>())
+                if (other.gameObject.GetComponent<LootPrefab>())
                 {
                     if (other.gameObject.GetComponent<LootPrefab>().GetIsHeal())
                     {
@@ -189,42 +190,82 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
                     }
                 }
 
+                other.gameObject.GetComponent<PortableThing>().TriggerThing();
+
+
 
             }
         }
     }
 
-    #region GAIN THINGS METHOD
+    #region PUNCH THINGS METHOD
     public List<Collider2D> CheckHittedThing()
     {
-        Collider2D[] hit_things = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, thing_layer);
-        List<Collider2D> hitted_things = new List<Collider2D>();
-        Debug.Log("有沒有擊中的物件: ");
-        foreach (Collider2D hitted_thing in hit_things)
+        if (IsFacingRight)
         {
-            Debug.Log("擊中的物件是: " + hitted_thing.name);
-            hitted_things.Add(hitted_thing);
+
+            Collider2D[] hit_things = Physics2D.OverlapCircleAll((Vector2)pivotPoint.position + R_punch_check_offset, punch_radius, thing_layer);
+            List<Collider2D> hitted_things = new List<Collider2D>();
+            Debug.Log("有沒有擊中的物件: ");
+            foreach (Collider2D hitted_thing in hit_things)
+            {
+                Debug.Log("擊中的物件是: " + hitted_thing.name);
+                hitted_things.Add(hitted_thing);
+            }
+            return hitted_things;
         }
-        return hitted_things;
+        else
+        {
+            Collider2D[] hit_things = Physics2D.OverlapCircleAll((Vector2)pivotPoint.position + L_punch_check_offset, punch_radius, thing_layer);
+            List<Collider2D> hitted_things = new List<Collider2D>();
+            Debug.Log("有沒有擊中的物件: ");
+            foreach (Collider2D hitted_thing in hit_things)
+            {
+                Debug.Log("擊中的物件是: " + hitted_thing.name);
+                hitted_things.Add(hitted_thing);
+            }
+            return hitted_things;
+        }
+
     }
     #endregion
 
     #region PUNCH ATTACK METHOD
     public List<Collider2D> CheckHittedUnit()
     {
-        Collider2D[] hit_enemies = Physics2D.OverlapCircleAll((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius, attackable_layer);
-        List<Collider2D> hitted_units = new List<Collider2D>();
-
-        foreach (Collider2D hitted_unit in hit_enemies)
+        if (IsFacingRight)
         {
-            hitted_units.Add(hitted_unit);
-            if (hitted_unit == OwnCollider)
+            Collider2D[] hit_enemies = Physics2D.OverlapCircleAll((Vector2)pivotPoint.position + R_punch_check_offset, punch_radius, attackable_layer);
+            List<Collider2D> hitted_units = new List<Collider2D>();
+
+            foreach (Collider2D hitted_unit in hit_enemies)
             {
-                hitted_units.Remove(hitted_unit);
+                hitted_units.Add(hitted_unit);
+                if (hitted_unit == OwnCollider)
+                {
+                    hitted_units.Remove(hitted_unit);
+                }
+                // Debug.Log("那些: " + hitted_unit.name);
             }
-            // Debug.Log("那些: " + hitted_unit.name);
+            return hitted_units;
         }
-        return hitted_units;
+        else
+        {
+            Collider2D[] hit_enemies = Physics2D.OverlapCircleAll((Vector2)pivotPoint.position + L_punch_check_offset, punch_radius, attackable_layer);
+            List<Collider2D> hitted_units = new List<Collider2D>();
+
+            foreach (Collider2D hitted_unit in hit_enemies)
+            {
+                hitted_units.Add(hitted_unit);
+                if (hitted_unit == OwnCollider)
+                {
+                    hitted_units.Remove(hitted_unit);
+                }
+                // Debug.Log("那些: " + hitted_unit.name);
+            }
+            return hitted_units;
+        }
+
     }
     #endregion
 
@@ -283,12 +324,12 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube((Vector2)ground_checkpoint.position + ground_check_offset, ground_checkSize);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + ground_check_offset, ground_checkSize);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector2)roof_checkpoint.position + roof_check_offset, roof_checkSize);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + roof_check_offset, roof_checkSize);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)punch_checkpoint.position + punch_check_offset, punch_radius);
-
+        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + R_punch_check_offset, punch_radius);
+        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + L_punch_check_offset, punch_radius);
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
         //Gizmos.DrawWireCube(_barrelCheckPoint.position, _pushCheckSize);

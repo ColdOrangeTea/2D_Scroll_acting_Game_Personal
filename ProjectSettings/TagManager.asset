@@ -10,6 +10,7 @@ TagManager:
   - I_Thing
   - P_Thing
   - Bullet
+  - Punch
   - Attack
   layers:
   - Default

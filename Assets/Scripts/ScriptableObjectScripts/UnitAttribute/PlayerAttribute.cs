@@ -140,7 +140,7 @@ public class PlayerAttribute : ScriptableObject
 
 
     [Header("Melee 建議數值: 0.1")]
-    [Range(0.01f, 0.1f)] public float MeleeInputBufferTime;
+    [Range(0.01f, 1f)] public float MeleeInputBufferTime;
 
     [Header("Punch State 建議數值: 0.5、 建議數值: 1 、建議數值: 0.25 、建議數值: 0.5 、建議數值: 2")]
     public float PunchCooldown;

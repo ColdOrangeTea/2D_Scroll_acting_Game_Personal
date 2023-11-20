@@ -48,7 +48,7 @@ MonoBehaviour:
   DashEndRunLerp: 0.5
   DashRefillTime: 0.1
   DashInputBufferTime: 0.1
-  MeleeInputBufferTime: 0.1
+  MeleeInputBufferTime: 0.3
   PunchCooldown: 0.5
   MaxPunchHoldTime: 1
   PunchHoldtimeScale: 0.25

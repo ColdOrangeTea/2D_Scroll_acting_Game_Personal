@@ -155,7 +155,11 @@ public class PlayerHFSMStateManager : MonoBehaviour
 
         #region  PUNCH
         fsm.AddState(Punch, onEnter: state => { Movement.Punch(); animator.SetBool(Punch, true); },
-        onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); },
+        onLogic: state =>
+        {
+            PhysicsCheck.OnGroundCheck();
+            PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
+        },
         onExit: state => { animator.SetBool(Punch, false); }, canExit: state => InputHandler.IfMeleeTimeIsOver(), needsExitTime: true);
 
         fsm.AddTransition(Ground, Punch, t => !InputHandler.IfMeleeTimeIsOver());
