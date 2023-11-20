@@ -4,12 +4,23 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SoundManager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    public static AudioManager Instance;
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectSlider;
+    [Space(5)]
+    [Header("Volume")]
+    [Range(0.0001f, 1)]
+    [SerializeField] private float BGMVolume;
+
+    [Range(0.0001f, 1)]
+    [SerializeField] private float SoundVolume;
+
+    [Space(5)]
+    [Header("BGM List")]
+    public List<AudioClip> musicList;
     [SerializeField] private AudioSource _musicSource, _effectSource;
 
     [SerializeField] private const string musicMixer = "musicVolume";
@@ -59,20 +70,24 @@ public class SoundManager : MonoBehaviour
 
     public void ChangeMusicVolume()
     {
-        float volume = musicSlider.value;
-        myMixer.SetFloat(musicMixer, Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat(musicMixer, volume);
+        BGMVolume = musicSlider.value;
+        myMixer.SetFloat(musicMixer, Mathf.Log10(BGMVolume) * 20);
+        PlayerPrefs.SetFloat(musicMixer, BGMVolume);
     }
 
     public void ChangeSoundVolume()
     {
-        float volume = effectSlider.value;
-        myMixer.SetFloat(SFXMixer, Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat(SFXMixer, volume);
+        SoundVolume = effectSlider.value;
+        myMixer.SetFloat(SFXMixer, Mathf.Log10(SoundVolume) * 20);
+        PlayerPrefs.SetFloat(SFXMixer, SoundVolume);
     }
 
     public void LoadVolume()
     {
+        // for test
+        musicSlider.value = BGMVolume;
+        effectSlider.value = SoundVolume;
+
         musicSlider.value = PlayerPrefs.GetFloat(musicMixer);
         effectSlider.value = PlayerPrefs.GetFloat(SFXMixer);
         ChangeMusicVolume();

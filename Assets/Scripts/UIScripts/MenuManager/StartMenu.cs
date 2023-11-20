@@ -20,7 +20,7 @@ public class StartMenu : MonoBehaviour
         manager = GameObject.Find("SceneChangeManager").GetComponent<SceneChangeManager>();
         scene_to_load = scene_to_load_name.ToString();
 
-        SoundManager.Instance.getSliders();
+        AudioManager.Instance.getSliders();
         settingMenu.SetActive(false);
 
     }
@@ -63,7 +63,7 @@ public class StartMenu : MonoBehaviour
 
         settingMenu.SetActive(true);
         SettingIsOpening = true;
-        SoundManager.Instance.getSliders();
+        AudioManager.Instance.getSliders();
     }
     public void CloseSetting()
     {

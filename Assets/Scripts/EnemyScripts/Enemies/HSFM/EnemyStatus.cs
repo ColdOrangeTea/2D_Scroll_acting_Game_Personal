@@ -8,11 +8,13 @@ public class EnemyStatus : MonoBehaviour
 
     [SerializeField] private int maxHp = 20;
     [SerializeField] private int hp = 20;
-    [SerializeField] private int colliderDamage = 3;
-    [SerializeField] private int damage = 3;
+
     #region  DAMAGE PARAMETER
     [Header("TakeDamage")]
-    [SerializeField] private int hurtForce = 10;
+    [SerializeField] private int colliderDamage = 3;
+    [SerializeField] private int damage = 3;
+    private Coroutine hurtForceRoutine;
+    [SerializeField] private float hurtForceDuration;
     public UnityEvent OnTakeDamage;
     #endregion
 
@@ -22,9 +24,18 @@ public class EnemyStatus : MonoBehaviour
     }
     public void HurtForce()
     {
+        if (hurtForceRoutine != null)
+            StartCoroutine(FlashRoutine());
+
+        Debug.Log("Enemy Hurt.");
+    }
+    private IEnumerator FlashRoutine()
+    {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero;
-        Debug.Log("Enemy Hurt.");
+
+        yield return new WaitForSeconds(hurtForceDuration);
+        hurtForceRoutine = null;
     }
     public void HurtAnimator()
     {

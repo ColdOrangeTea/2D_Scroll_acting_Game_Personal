@@ -30,7 +30,7 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     public Vector2 R_WallCheckSize;
     public Vector2 L_WallCheckOffset;
     public Vector2 L_WallCheckSize;
-    public float walkSpeed = 5f;
+    public float walkSpeed = 2f;
     // public Transform playerPos;//chage to private
     #endregion
 
@@ -49,6 +49,8 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
 
     #region TAG NAME
     public const string PLAYER = "Player";
+    public const string B_THING = "B_Thing";
+    public const string P_THING = "P_Thing";
     #endregion
 
     void Start()
@@ -97,17 +99,39 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
     }
     public bool R_WallCheck()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer))
-            return true;
-        else
-            return false;
+        // if (isFacingRight)
+        // {
+        //     if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer) ||
+        //     Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer).CompareTag(B_THING))
+        //         return true;
+        // }
+        // return false;
+        if (isFacingRight)
+        {
+            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer))
+            {
+                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer);
+                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
+                    return true;
+            }
+
+        }
+        return false;
+
     }
     public bool L_WallCheck()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, groundLayer))
-            return true;
-        else
-            return false;
+        if (!isFacingRight)
+        {
+            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer))
+            {
+                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer);
+                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
+                    return true;
+            }
+
+        }
+        return false;
     }
     public bool GroundCheck()
     {

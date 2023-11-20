@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 7282897936392738755}
   - component: {fileID: 7282897936392738752}
   m_Layer: 0
-  m_Name: SoundManager
+  m_Name: AudioManager
   m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,8 +177,18 @@ MonoBehaviour:
   myMixer: {fileID: 24100000, guid: 689bd365df8929e44b19cedd588f806f, type: 2}
   musicSlider: {fileID: 0}
   effectSlider: {fileID: 0}
+  BGMVolume: 0.565
+  SoundVolume: 0.0001
+  musicList:
+  - {fileID: 8300000, guid: 2c8f331c7eb48614eb51605e107e980e, type: 3}
+  - {fileID: 8300000, guid: ce19747d3f34f1f43939c12e0b0b97b7, type: 3}
+  - {fileID: 8300000, guid: 34c00f7160d57cd46a48f34e3035817b, type: 3}
   _musicSource: {fileID: 7282897935831636947}
-  _effectSource: {fileID: 7282897936701661151}
+  _effectSource00: {fileID: 0}
+  _effectSource01: {fileID: 0}
+  _effectSource02: {fileID: 0}
+  _effectSource03: {fileID: 0}
+  _effectSource04: {fileID: 0}
 --- !u!1 &7282897936701661148
 GameObject:
   m_ObjectHideFlags: 0

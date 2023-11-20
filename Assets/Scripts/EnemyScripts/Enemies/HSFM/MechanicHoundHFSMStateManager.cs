@@ -29,14 +29,14 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     #endregion
 
     #region CHASE
-    public float chaseSpeed = 10f;
+    public float chaseSpeed = 2f;
     public Transform playerPos;//chage to private
     public Vector2 playerposition;
     #endregion
 
     #region  LAYER
     public LayerMask GroundLayer;
-    public LayerMask AttackLayer;
+    public LayerMask AttackableUnitLayer;
     #endregion
 
     void Start()
@@ -50,7 +50,7 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
         fsm.AddState(HFSMState.chase.ToString(), onEnter: state => animator.Play(HFSMState.chase.ToString()),
         onLogic: state =>
         {
-            Debug.Log("追逐中");
+            // Debug.Log("追逐中");
             FacingPlayer();
             rb.velocity = new Vector2(chaseSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
         });
@@ -68,7 +68,7 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     }
     public bool SawPlayer()
     {
-        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer).CompareTag("Player"))
+        if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackableUnitLayer).CompareTag("Player"))
         {
             return true;
         }

@@ -423,8 +423,8 @@ MonoBehaviour:
   inShootRange: 0
   canShoot: 1
   playerPos: {fileID: 0}
-  ShootCooldown: 1
-  ShootDuration: 3
+  ShootCooldown: 2
+  ShootDuration: 0
   Force: 50
   rangedPointoffset: {x: 0, y: 0.58}
   rangedRadius: 8
@@ -448,7 +448,7 @@ MonoBehaviour:
   hp: 20
   colliderDamage: 3
   damage: 3
-  hurtForce: 10
+  hurtForceDuration: 2
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:

@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour
     {
         SettingMenuUI.SetActive(true);
         SettingIsOpening = true;
-        SoundManager.Instance.getSliders();
+        AudioManager.Instance.getSliders();
     }
     public void CloseSetting()
     {

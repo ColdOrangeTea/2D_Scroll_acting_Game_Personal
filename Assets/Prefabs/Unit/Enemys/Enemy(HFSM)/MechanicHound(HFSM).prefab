@@ -238,15 +238,15 @@ MonoBehaviour:
   MyselfCollider: {fileID: 0}
   pivotPoint: {fileID: 2882242988354305040}
   isFacingRight: 1
-  playerCheckOffset: {x: 4.23, y: 0}
+  playerCheckOffset: {x: 0, y: 0}
   playerCheckSize: {x: 10.82, y: 2.07}
-  chaseSpeed: 10
+  chaseSpeed: 4
   playerPos: {fileID: 0}
   playerposition: {x: 0, y: 0}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  AttackLayer:
+  AttackableUnitLayer:
     serializedVersion: 2
     m_Bits: 128
 --- !u!114 &8678653642675959841
@@ -265,7 +265,7 @@ MonoBehaviour:
   hp: 20
   colliderDamage: 3
   damage: 3
-  hurtForce: 10
+  hurtForceDuration: 2
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:
