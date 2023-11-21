@@ -75,7 +75,7 @@ public class HSFMMovement : MonoBehaviour
         float targetSpeed = xInput * maxSpeed;
         targetSpeed = Mathf.Lerp(physicsCheck.RB.velocity.x, targetSpeed, lerpAmount);
         // Debug.Log("targetSpeed: " + targetSpeed);
-
+        SetGravityScale(attribute.GravityScale);
         #region Calculate AccelRate
 
         float accelRate;

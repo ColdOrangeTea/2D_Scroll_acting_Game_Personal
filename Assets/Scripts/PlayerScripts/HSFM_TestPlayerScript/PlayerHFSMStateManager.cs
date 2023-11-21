@@ -33,7 +33,6 @@ public class PlayerHFSMStateManager : MonoBehaviour
     const string DoubleJump = "DoubleJump";
     const string Punch = "Punch";
     const string Dash = "Dash";
-
     #endregion
 
     #region  DAMAGE PARAMETER
@@ -168,12 +167,13 @@ public class PlayerHFSMStateManager : MonoBehaviour
         #endregion
 
         #region DASH  
-        fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
-        onLogic: state => { PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false); },
-        canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
+        fsm.AddState(Dash, onEnter: state => {Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
+        onLogic: state => { Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
+            PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false);} );
+        // canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
 
         fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
-        fsm.AddTransition(Dash, InAir, t => InputHandler.IfDashTimeIsOver() && !PhysicsCheck.onGround && InputHandler.JumpInput);
+        fsm.AddTransition(Dash, InAir, t => !PhysicsCheck.onGround && InputHandler.JumpInput);
         #endregion
 
         fsm.AddTransitionFromAny(Ground, transition => PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f);

@@ -25,5 +25,5 @@ MonoBehaviour:
   IsHeal: 0
   HealAmount: 0
   IsFunctional: 0
-  ThingInvulnerableDuration: 0
+  ThingInvulnerableDuration: 0.1
   ThingSprite: {fileID: 0}

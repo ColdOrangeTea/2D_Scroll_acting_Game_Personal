@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class EnemyStatus : MonoBehaviour
 {
 
-    [SerializeField] private int maxHp = 20;
-    [SerializeField] private int hp = 20;
+    [SerializeField] private int maxHp;
+    [SerializeField] private int hp;
 
     #region  DAMAGE PARAMETER
     [Header("TakeDamage")]
