@@ -70,6 +70,7 @@ public class SceneChangeManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         Debug.Log("SceneChangeManager " + "OnSceneLoaded: " + scene.name);
+        LevelManager.NumOfGears = 0;
         // Debug.Log(loadSceneMode);
         GetCurrentScene();
     }
@@ -77,6 +78,7 @@ public class SceneChangeManager : MonoBehaviour
 
     public void ReloadScene()
     {
+        LevelManager.NumOfGears = 0;
         SceneManager.LoadScene(CurrentScene.name);
     }
 

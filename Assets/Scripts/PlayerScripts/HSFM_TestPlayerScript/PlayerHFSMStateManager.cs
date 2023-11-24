@@ -254,7 +254,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         else
         {
             hp = 0;
-            // PlayerDie();
+            PlayerDie();
         }
     }
     public void PickThingTriggerInvulnerable(float invulnerableDuration)

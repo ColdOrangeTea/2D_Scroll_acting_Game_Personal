@@ -101,8 +101,8 @@ public class AudioManager : MonoBehaviour
     public void LoadVolume()
     {
         // for test
-        musicSlider.value = BGMVolume;
-        effectSlider.value = SoundVolume;
+        // musicSlider.value = BGMVolume;
+        // effectSlider.value = SoundVolume;
 
         musicSlider.value = PlayerPrefs.GetFloat(musicMixer);
         effectSlider.value = PlayerPrefs.GetFloat(SFXMixer);
