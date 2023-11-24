@@ -13,8 +13,9 @@ public class SceneOrder
         ChangeScene = 10,
         ThingTest = 11,
         TestScene2 = 12,
-        EnemyTest=13,
-        StoryScene01=20,
+        EnemyTest = 13,
+        StoryScene01 = 20,
+        CutScene01 = 21,
     }
     // void Start()
     // {

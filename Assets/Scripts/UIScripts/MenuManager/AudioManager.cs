@@ -1,9 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+[SerializeField]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
@@ -21,8 +23,9 @@ public class AudioManager : MonoBehaviour
     [Space(5)]
     [Header("BGM List")]
     public List<AudioClip> musicList;
-    [SerializeField] private AudioSource _musicSource, _effectSource;
-
+    public SoundList soundList;
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] private AudioSource prefab_SoundFX;
     [SerializeField] private const string musicMixer = "musicVolume";
     [SerializeField] private const string SFXMixer = "SFXVolume";
 
@@ -58,10 +61,23 @@ public class AudioManager : MonoBehaviour
     {
         _musicSource.Play();
     }
-
-    public void PlaySound(AudioClip clip)
+    public float GetClipLength(AudioType.tags soundName)
     {
-        _effectSource.PlayOneShot(clip);
+        int tagNum = (int)soundName;
+        ClipTag clipTag = soundList.pairs[tagNum];
+        float clipLength = clipTag.clip.length;
+        return clipLength;
+    }
+
+    public void PlaySound(AudioType.tags soundName, Transform spawnTransform)
+    {
+        AudioSource audioSource = Instantiate(prefab_SoundFX, spawnTransform.position, quaternion.identity);
+        int tagNum = (int)soundName;
+        ClipTag clipTag = soundList.pairs[tagNum];
+        audioSource.clip = clipTag.clip;
+        audioSource.Play();
+        float clipLength = clipTag.clip.length;
+        Destroy(audioSource.gameObject, clipLength);
     }
 
     /// <summary>

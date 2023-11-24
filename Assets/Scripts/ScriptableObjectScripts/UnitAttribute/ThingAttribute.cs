@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 [System.Serializable]
-[CreateAssetMenu(fileName = "ThingAttribute", menuName = "DataTool/ Create ThingAttribute Asset", order = 3)]
+[CreateAssetMenu(fileName = "ThingAttribute", menuName = "SO/DataTool/ Create ThingAttribute Asset", order = 3)]
 public class ThingAttribute : ScriptableObject
 {
     public string ThingName;

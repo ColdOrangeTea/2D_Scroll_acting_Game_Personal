@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b914174030f194942b2962a24e23bc29, type: 3}
+  m_Name: SoundList
+  m_EditorClassIdentifier: 
+  pairs:
+  - tag: Player_Walk
+    clip: {fileID: 8300000, guid: f27a45b41c808334dbfb6980c643369a, type: 3}
+  - tag: Player_Punch00
+    clip: {fileID: 8300000, guid: 9b5da69daa3f8b7409319b429f3c17e5, type: 3}
+  - tag: Player_Punch01
+    clip: {fileID: 8300000, guid: 438b1112b39672c4784ffc5f991e149e, type: 3}
+  - tag: Player_Punch02
+    clip: {fileID: 8300000, guid: 69b638643044128469cc9b8c00a9be76, type: 3}
+  - tag: Player_Jump
+    clip: {fileID: 8300000, guid: a0662735f2d65ca4eaf2e65c5cccf1ed, type: 3}
+  - tag: Player_JumpOver
+    clip: {fileID: 8300000, guid: d6ce73ed2c4b31c43bd5fd68ff5bc521, type: 3}
+  - tag: MeleeMachine_Walk
+    clip: {fileID: 8300000, guid: d6ce73ed2c4b31c43bd5fd68ff5bc521, type: 3}

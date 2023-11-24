@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-[CreateAssetMenu(fileName = "Loot", menuName = "DataTool/ Create Loot Asset", order = 5)]
+[CreateAssetMenu(fileName = "Loot", menuName = "SO/DataTool/ Create Loot Asset", order = 5)]
 public class Loot : ScriptableObject
 {
     [Header("Loot 戰利品 ")]

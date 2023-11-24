@@ -22,7 +22,6 @@ public class HSFMPlayerInputHandler : MonoBehaviour
     public bool IsJumpCut { get; private set; }
     public bool dashUsed;
 
-
     [SerializeField] private PlayerAttribute attribute;
     public void GetPlayerAttribute(object source, UnitAttributeEventArgs args)
     {

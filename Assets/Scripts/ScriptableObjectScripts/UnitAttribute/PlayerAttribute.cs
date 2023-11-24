@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // fileName：建立檔案時的預設名稱。menuName：選單工具的路徑。order：在選單清單中的順序
-[CreateAssetMenu(fileName = "New PlayerAttribute", menuName = "DataTool/ Create  PlayerAttribute Asset", order = 1)]
+[CreateAssetMenu(fileName = "New PlayerAttribute", menuName = "SO/DataTool/ Create  PlayerAttribute Asset", order = 1)]
 public class PlayerAttribute : ScriptableObject
 {
     //     public int maxHp = 0;
@@ -156,7 +156,7 @@ public class PlayerAttribute : ScriptableObject
     {
         #region Gravity
         //Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
-        GravityStrength = -(2 * JumpHeight) / (JumpTimeToApex * JumpTimeToApex);
+        GravityStrength = -(JumpHeight) / (JumpTimeToApex * JumpTimeToApex);
 
         //Calculate the rigidbody's gravity scale (ie: gravity strength relative to unity's gravity value, see project settings/Physics2D)
         GravityScale = GravityStrength / Physics2D.gravity.y;
@@ -170,7 +170,7 @@ public class PlayerAttribute : ScriptableObject
 
         #region Jump
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
-        JumpForce = Mathf.Abs(GravityStrength) * JumpTimeToApex;
+        JumpForce = Mathf.Abs(1.5f * GravityStrength) * JumpTimeToApex;
         #endregion
 
         #region Variable Ranges

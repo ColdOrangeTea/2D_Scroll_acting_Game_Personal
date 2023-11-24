@@ -184,11 +184,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ce19747d3f34f1f43939c12e0b0b97b7, type: 3}
   - {fileID: 8300000, guid: 34c00f7160d57cd46a48f34e3035817b, type: 3}
   _musicSource: {fileID: 7282897935831636947}
-  _effectSource00: {fileID: 0}
-  _effectSource01: {fileID: 0}
-  _effectSource02: {fileID: 0}
-  _effectSource03: {fileID: 0}
-  _effectSource04: {fileID: 0}
+  _effectSource: {fileID: 0}
+  prefab_SoundFX: {fileID: 6919846637286629853, guid: 95be97ba700fa4345a35b03e056fc57a, type: 3}
 --- !u!1 &7282897936701661148
 GameObject:
   m_ObjectHideFlags: 0

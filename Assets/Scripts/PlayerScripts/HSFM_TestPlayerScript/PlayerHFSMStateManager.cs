@@ -81,7 +81,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
                 PhysicsCheck.OnGroundCheck(); Movement.SetGravityScale(Attribute.GravityScale); Movement.GroundMove(1, 0, 0, Attribute.RunAccelAmount, Attribute.RunDeccelAmount);
             }, onExit: state => animator.SetBool(Idle, false));
 
-        groundFsm.AddState(Walk, onEnter: state => animator.SetBool(Walk, true),
+        groundFsm.AddState(Walk, onEnter: state => { animator.SetBool(Walk, true); },
         onLogic: state =>
         {
             // Debug.Log("Walk");
@@ -167,9 +167,12 @@ public class PlayerHFSMStateManager : MonoBehaviour
         #endregion
 
         #region DASH  
-        fsm.AddState(Dash, onEnter: state => {Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
-        onLogic: state => { Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
-            PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false);} );
+        fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
+        onLogic: state =>
+        {
+            Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
+            PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false);
+        });
         // canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
 
         fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
@@ -194,6 +197,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
                 IsInvulnerable = false;
             }
         }
+
     }
 
     #region HEAL
@@ -232,7 +236,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         else
         {
             hp = 0;
-            // PlayerDie();
+            PlayerDie();
         }
     }
     public void TakeColliderDamage(EnemyStatus attackerStatus)

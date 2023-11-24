@@ -11,7 +11,6 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
-    private Text stateDisplayText;
     public GameObject Bullet;
     #endregion
 
@@ -50,7 +49,6 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
         fsm.AddState("idle", onEnter: state => animator.SetBool("idle", true),
             onLogic: state =>
@@ -77,8 +75,6 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     void Update()
     {
         fsm.OnLogic();
-        stateDisplayText.text = this.gameObject.name + " " + fsm.GetActiveHierarchyPath();
-
         // inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
         Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
     }

@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 6356484075745160238}
   - component: {fileID: 4305221598468476468}
   - component: {fileID: 8984287298926320353}
+  - component: {fileID: 3789299126062539067}
   m_Layer: 7
   m_Name: Animation
   m_TagString: Untagged
@@ -276,6 +277,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3789299126062539067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610698741328054494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c4b5f58247fed4aabb01dee67b5b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6212473386620161652
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,9 +335,8 @@ GameObject:
   - component: {fileID: 2905200564739399066}
   - component: {fileID: 2905200564739399064}
   - component: {fileID: 2905200564739399067}
-  - component: {fileID: 5671770976476127786}
   m_Layer: 7
-  m_Name: Hero(HFSM)
+  m_Name: Sasha(HFSM)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,19 +536,6 @@ MonoBehaviour:
   thing_layer:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &5671770976476127786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6395908222329320843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b914174030f194942b2962a24e23bc29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundList: []
 --- !u!1 &7011295286351277609
 GameObject:
   m_ObjectHideFlags: 0

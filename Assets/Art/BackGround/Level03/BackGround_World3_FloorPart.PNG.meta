@@ -39,10 +39,10 @@ TextureImporter:
     wrapU: 0
     wrapV: 0
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,7 +53,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -115,18 +115,414 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 911
+        width: 488
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 692b71166daced145b8f4d9bb55e4842
+      internalID: -2005091678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 800
+        width: 254
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f454a71c2c62794bb699ead0303a8f0
+      internalID: 819580999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 681
+        width: 1024
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a84f9849dac8fd47879decead8366ea
+      internalID: 1851178307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_3
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 382
+        width: 211
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6bdbcc5140cd04489df5d741b476b8
+      internalID: 1380938293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_4
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 168
+        width: 190
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08e731e86b6156b49bf7e72c322636b7
+      internalID: 914136824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 27
+        width: 128
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ad4353f7d586140bd73664528bb603
+      internalID: 252521329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_6
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 400
+        width: 173
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b483da4bf89c647b041aa7719fb389
+      internalID: -1494015927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_7
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 189
+        width: 141
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6525c188362a104ab5a5640c4b9b60c
+      internalID: -1066595782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_8
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 25
+        width: 135
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a6a4801793650349b65bd06dff4ae0c
+      internalID: -721502278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_9
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 415
+        width: 148
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc7ac8e111ed0a4189143355f96f99e
+      internalID: -1773949793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_10
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 178
+        width: 168
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4cb4c09a736f9c47a0d810799fd9449
+      internalID: 875527939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_11
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 23
+        width: 131
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43b166dd5980a54ba008b5a491ad9f4
+      internalID: 1752782842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_12
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 400
+        width: 189
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8043f7542ae153847a41b35dfddb247e
+      internalID: 900464638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_13
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 202
+        width: 129
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebd451e3469323478715856122a6fa1
+      internalID: 1962848639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_14
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 29
+        width: 121
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2489ed6d6c61a84189b7d4bb23d6bf8
+      internalID: -768847801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_15
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 418
+        width: 140
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73667ae1807507d429ae84aa6c2ae6a7
+      internalID: -882597705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_16
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 200
+        width: 126
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 813737bfe5d69e840b6ecc458c1db848
+      internalID: -606060594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackGround_World3_FloorPart_17
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 27
+        width: 110
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae5d1b77604a7a34f9fdac62736d53d1
+      internalID: -1069902280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a32ac6d1c5f575049b16c7f1c9622970
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BackGround_World3_FloorPart_12: 900464638
+      BackGround_World3_FloorPart_6: -1494015927
+      BackGround_World3_FloorPart_9: -1773949793
+      BackGround_World3_FloorPart_13: 1962848639
+      BackGround_World3_FloorPart_17: -1069902280
+      BackGround_World3_FloorPart_5: 252521329
+      BackGround_World3_FloorPart_11: 1752782842
+      BackGround_World3_FloorPart_4: 914136824
+      BackGround_World3_FloorPart_1: 819580999
+      BackGround_World3_FloorPart_2: 1851178307
+      BackGround_World3_FloorPart_10: 875527939
+      BackGround_World3_FloorPart_15: -882597705
+      BackGround_World3_FloorPart_8: -721502278
+      BackGround_World3_FloorPart_16: -606060594
+      BackGround_World3_FloorPart_7: -1066595782
+      BackGround_World3_FloorPart_3: 1380938293
+      BackGround_World3_FloorPart_0: -2005091678
+      BackGround_World3_FloorPart_14: -768847801
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
