@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_0
+      name: BG_World3_FloorPart_0
       rect:
         serializedVersion: 2
         x: 27
@@ -125,7 +125,7 @@ TextureImporter:
         width: 488
         height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_1
+      name: BG_World3_FloorPart_1
       rect:
         serializedVersion: 2
         x: 38
@@ -146,7 +146,7 @@ TextureImporter:
         width: 254
         height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_2
+      name: BG_World3_FloorPart_2
       rect:
         serializedVersion: 2
         x: 0
@@ -167,7 +167,7 @@ TextureImporter:
         width: 1024
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,7 +180,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_3
+      name: BG_World3_FloorPart_3
       rect:
         serializedVersion: 2
         x: 35
@@ -188,7 +188,7 @@ TextureImporter:
         width: 211
         height: 212
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -201,7 +201,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_4
+      name: BG_World3_FloorPart_4
       rect:
         serializedVersion: 2
         x: 59
@@ -209,7 +209,7 @@ TextureImporter:
         width: 190
         height: 183
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,7 +222,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_5
+      name: BG_World3_FloorPart_5
       rect:
         serializedVersion: 2
         x: 70
@@ -230,7 +230,7 @@ TextureImporter:
         width: 128
         height: 117
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -243,7 +243,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_6
+      name: BG_World3_FloorPart_6
       rect:
         serializedVersion: 2
         x: 287
@@ -251,7 +251,7 @@ TextureImporter:
         width: 173
         height: 178
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_7
+      name: BG_World3_FloorPart_7
       rect:
         serializedVersion: 2
         x: 302
@@ -272,7 +272,7 @@ TextureImporter:
         width: 141
         height: 136
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -285,7 +285,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_8
+      name: BG_World3_FloorPart_8
       rect:
         serializedVersion: 2
         x: 306
@@ -293,7 +293,7 @@ TextureImporter:
         width: 135
         height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -306,7 +306,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_9
+      name: BG_World3_FloorPart_9
       rect:
         serializedVersion: 2
         x: 486
@@ -314,7 +314,7 @@ TextureImporter:
         width: 148
         height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -327,7 +327,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_10
+      name: BG_World3_FloorPart_10
       rect:
         serializedVersion: 2
         x: 483
@@ -335,7 +335,7 @@ TextureImporter:
         width: 168
         height: 161
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,7 +348,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_11
+      name: BG_World3_FloorPart_11
       rect:
         serializedVersion: 2
         x: 499
@@ -356,7 +356,7 @@ TextureImporter:
         width: 131
         height: 125
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -369,7 +369,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_12
+      name: BG_World3_FloorPart_12
       rect:
         serializedVersion: 2
         x: 642
@@ -377,7 +377,7 @@ TextureImporter:
         width: 189
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -390,7 +390,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_13
+      name: BG_World3_FloorPart_13
       rect:
         serializedVersion: 2
         x: 675
@@ -398,7 +398,7 @@ TextureImporter:
         width: 129
         height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -411,7 +411,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_14
+      name: BG_World3_FloorPart_14
       rect:
         serializedVersion: 2
         x: 680
@@ -419,7 +419,7 @@ TextureImporter:
         width: 121
         height: 117
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -432,7 +432,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_15
+      name: BG_World3_FloorPart_15
       rect:
         serializedVersion: 2
         x: 849
@@ -440,7 +440,7 @@ TextureImporter:
         width: 140
         height: 148
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -453,7 +453,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_16
+      name: BG_World3_FloorPart_16
       rect:
         serializedVersion: 2
         x: 862
@@ -461,7 +461,7 @@ TextureImporter:
         width: 126
         height: 121
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -474,7 +474,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_World3_FloorPart_17
+      name: BG_World3_FloorPart_17
       rect:
         serializedVersion: 2
         x: 867
@@ -482,7 +482,7 @@ TextureImporter:
         width: 110
         height: 119
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -490,6 +490,27 @@ TextureImporter:
       bones: []
       spriteID: ae5d1b77604a7a34f9fdac62736d53d1
       internalID: -1069902280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG_World3_FloorPart_18
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 911
+        width: 110
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5925d70b6c6770742947eadb625b6db7
+      internalID: 631274243
       vertices: []
       indices: 
       edges: []
@@ -505,24 +526,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BackGround_World3_FloorPart_12: 900464638
-      BackGround_World3_FloorPart_6: -1494015927
-      BackGround_World3_FloorPart_9: -1773949793
-      BackGround_World3_FloorPart_13: 1962848639
-      BackGround_World3_FloorPart_17: -1069902280
-      BackGround_World3_FloorPart_5: 252521329
-      BackGround_World3_FloorPart_11: 1752782842
-      BackGround_World3_FloorPart_4: 914136824
-      BackGround_World3_FloorPart_1: 819580999
-      BackGround_World3_FloorPart_2: 1851178307
-      BackGround_World3_FloorPart_10: 875527939
-      BackGround_World3_FloorPart_15: -882597705
-      BackGround_World3_FloorPart_8: -721502278
-      BackGround_World3_FloorPart_16: -606060594
-      BackGround_World3_FloorPart_7: -1066595782
-      BackGround_World3_FloorPart_3: 1380938293
-      BackGround_World3_FloorPart_0: -2005091678
-      BackGround_World3_FloorPart_14: -768847801
+      BG_World3_FloorPart_15: -882597705
+      BG_World3_FloorPart_14: -768847801
+      BG_World3_FloorPart_18: 631274243
+      BG_World3_FloorPart_6: -1494015927
+      BG_World3_FloorPart_11: 1752782842
+      BG_World3_FloorPart_16: -606060594
+      BG_World3_FloorPart_12: 900464638
+      BG_World3_FloorPart_9: -1773949793
+      BG_World3_FloorPart_2: 1851178307
+      BG_World3_FloorPart_8: -721502278
+      BG_World3_FloorPart_7: -1066595782
+      BG_World3_FloorPart_1: 819580999
+      BG_World3_FloorPart_5: 252521329
+      BG_World3_FloorPart_0: -2005091678
+      BG_World3_FloorPart_3: 1380938293
+      BG_World3_FloorPart_10: 875527939
+      BG_World3_FloorPart_13: 1962848639
+      BG_World3_FloorPart_4: 914136824
+      BG_World3_FloorPart_17: -1069902280
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

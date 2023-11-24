@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackGround_FloorParts_0
+      name: BG_FloorParts_0
       rect:
         serializedVersion: 2
         x: 27
@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_FloorParts_1
+      name: BG_FloorParts_1
       rect:
         serializedVersion: 2
         x: 38
@@ -159,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_FloorParts_2
+      name: BG_FloorParts_2
       rect:
         serializedVersion: 2
         x: 0
@@ -180,7 +180,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear00_00
+      name: BG_Gear00_00
       rect:
         serializedVersion: 2
         x: 34
@@ -201,7 +201,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear01_00
+      name: BG_Gear01_00
       rect:
         serializedVersion: 2
         x: 297
@@ -222,7 +222,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear02_00
+      name: BG_Gear02_00
       rect:
         serializedVersion: 2
         x: 491
@@ -243,7 +243,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear03_00
+      name: BG_Gear03_00
       rect:
         serializedVersion: 2
         x: 651
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear04_00
+      name: BG_Gear04_00
       rect:
         serializedVersion: 2
         x: 857
@@ -327,7 +327,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear00_01
+      name: BG_Gear00_01
       rect:
         serializedVersion: 2
         x: 62
@@ -335,7 +335,7 @@ TextureImporter:
         width: 166
         height: 174
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,7 +348,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear00_02
+      name: BG_Gear00_02
       rect:
         serializedVersion: 2
         x: 85
@@ -356,7 +356,7 @@ TextureImporter:
         width: 99
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -369,7 +369,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear01_01
+      name: BG_Gear01_01
       rect:
         serializedVersion: 2
         x: 311
@@ -377,7 +377,7 @@ TextureImporter:
         width: 122
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -390,7 +390,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear02_01
+      name: BG_Gear02_01
       rect:
         serializedVersion: 2
         x: 488
@@ -398,7 +398,7 @@ TextureImporter:
         width: 146
         height: 143
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -411,7 +411,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear03_01
+      name: BG_Gear03_01
       rect:
         serializedVersion: 2
         x: 685
@@ -419,7 +419,7 @@ TextureImporter:
         width: 106
         height: 104
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -432,7 +432,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear04_01
+      name: BG_Gear04_01
       rect:
         serializedVersion: 2
         x: 873
@@ -440,7 +440,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -453,7 +453,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear01_02
+      name: BG_Gear01_02
       rect:
         serializedVersion: 2
         x: 321
@@ -461,7 +461,7 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -474,7 +474,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear02_02
+      name: BG_Gear02_02
       rect:
         serializedVersion: 2
         x: 510
@@ -482,7 +482,7 @@ TextureImporter:
         width: 107
         height: 107
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -495,7 +495,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear03_02
+      name: BG_Gear03_02
       rect:
         serializedVersion: 2
         x: 697
@@ -503,7 +503,7 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -516,7 +516,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Gear04_02
+      name: BG_Gear04_02
       rect:
         serializedVersion: 2
         x: 872
@@ -524,7 +524,7 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -547,25 +547,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BackGround_Gear03_01: -1553890543
-      BackGround_Gear01_00: -497466509
-      BackGround_Gear04_02: 479291738
-      BackGround_Gear00_02: 1274765513
-      BackGround_Gear00_00: 664044159
-      BackGround_Gear01_01: -613127412
-      BackGround_Gear02_00: -933607701
-      BackGround_Gear00_01: -1590048813
-      BackGround_Gear02_01: 1746547031
-      BackGround_FloorParts_2: 42138820
-      BackGround_FloorParts_1: -902446133
-      BackGround_Gear02_02: 1502394248
-      BackGround_Gear03_00: 627954580
-      BackGround_Gear01_02: 1760607342
+      BG_Gear03_00: 627954580
+      BG_Gear03_02: -1366451632
+      BG_Gear00_01: -1590048813
+      BG_Gear03_01: -1553890543
+      BG_Gear02_00: -933607701
+      BG_FloorParts_0: 1213231904
+      BG_Gear02_01: 1746547031
+      BG_Gear00_02: 1274765513
+      BG_Gear00_00: 664044159
+      BG_Gear04_02: 479291738
+      BG_Gear02_02: 1502394248
+      BG_FloorParts_2: 42138820
+      BG_Gear04_00: -1231983009
+      BG_FloorParts_1: -902446133
       BackGround_FloorParts_9: -1044593355
-      BackGround_Gear04_00: -1231983009
-      BackGround_Gear04_01: -1272547649
-      BackGround_FloorParts_0: 1213231904
-      BackGround_Gear03_02: -1366451632
+      BG_Gear01_02: 1760607342
+      BG_Gear04_01: -1272547649
+      BG_Gear01_01: -613127412
+      BG_Gear01_00: -497466509
       BackGround_FloorParts_8: 1524018907
   spritePackingTag: 
   pSDRemoveMatte: 0

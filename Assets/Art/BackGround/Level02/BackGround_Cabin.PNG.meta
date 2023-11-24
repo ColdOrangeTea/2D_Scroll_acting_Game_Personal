@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackGround_Cabin00_00
+      name: BG_Cabin00_00
       rect:
         serializedVersion: 2
         x: 0
@@ -125,7 +125,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin01_00
+      name: BG_Cabin01_00
       rect:
         serializedVersion: 2
         x: 129
@@ -146,7 +146,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin02_00
+      name: BG_Cabin02_00
       rect:
         serializedVersion: 2
         x: 256
@@ -167,7 +167,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,7 +180,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin03_00
+      name: BG_Cabin03_00
       rect:
         serializedVersion: 2
         x: 384
@@ -188,7 +188,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -201,15 +201,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin00_01
+      name: BG_Cabin00_01
       rect:
         serializedVersion: 2
         x: 0
-        y: 512
+        y: 510
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,7 +222,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin01_01
+      name: BG_Cabin01_01
       rect:
         serializedVersion: 2
         x: 128
@@ -230,7 +230,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -243,7 +243,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin02_01
+      name: BG_Cabin02_01
       rect:
         serializedVersion: 2
         x: 256
@@ -251,7 +251,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,7 +264,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin03_01
+      name: BG_Cabin03_01
       rect:
         serializedVersion: 2
         x: 384
@@ -272,7 +272,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -285,7 +285,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin00_02
+      name: BG_Cabin00_02
       rect:
         serializedVersion: 2
         x: 0
@@ -293,7 +293,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -306,7 +306,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin01_02
+      name: BG_Cabin01_02
       rect:
         serializedVersion: 2
         x: 128
@@ -314,7 +314,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -327,7 +327,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin02_02
+      name: BG_Cabin02_02
       rect:
         serializedVersion: 2
         x: 256
@@ -335,7 +335,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,7 +348,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackGround_Cabin03_02
+      name: BG_Cabin03_02
       rect:
         serializedVersion: 2
         x: 384
@@ -356,7 +356,7 @@ TextureImporter:
         width: 128
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -380,31 +380,32 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       BackGround_Cabin_2: 1309714889
+      BG_Cabin01_00: -381604011
       BackGround_Cabin_11: 303613941
-      BackGround_Cabin01_01: 1767041302
-      BackGround_Cabin02_00: -652552581
+      BackGround_Cabin_0: -2116232461
+      BG_Cabin01_01: -653757829
       BackGround_Cabin_10: -2041219143
+      BG_Cabin03_01: 7379234
       BackGround_Cabin_18: 1330259635
-      BackGround_Cabin03_01: 7379234
-      BackGround_Cabin01_00: -381604011
+      BG_Cabin02_00: -652552581
+      BG_Cabin03_02: -1126950448
+      BG_Cabin01_02: 1767041302
       BackGround_Cabin_1: 232897356
-      BackGround_Cabin00_01: -1775209210
-      BackGround_Cabin03_00: 1858859988
+      BG_Cabin00_00: 1246223723
+      BG_Cabin02_01: -779098378
       BackGround_Cabin_26: -1854786723
+      BG_Cabin00_02: -1775209210
       BackGround_Cabin_21: 1842539560
-      BackGround_Cabin01_02: -779098378
       BackGround_Cabin_3: -121114946
+      BG_Cabin02_02: -1810573806
       BackGround_Cabin_19: 2062196008
-      BackGround_Cabin03_02: -1126950448
       BackGround_Cabin_20: 496674279
-      BackGround_Cabin02_01: -1810573806
+      BG_Cabin00_01: 1858859988
       BackGround_Cabin_9: -1359297746
-      BackGround_Cabin00_02: -653757829
+      BG_Cabin03_00: -1861835085
       BackGround_Cabin_12: 511298329
       BackGround_Cabin_8: 932145540
       BackGround_Cabin_17: 1127625316
-      BackGround_Cabin00_00: 1246223723
-      BackGround_Cabin02_02: -1861835085
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
