@@ -5,29 +5,34 @@ using UnityHFSM;
 
 public class MachineBearHFSMStateManager : MonoBehaviour
 {
-    #region COMPONENTS
+ #region COMPONENTS
+    [Header("Component")]
     private Rigidbody2D rb;
+    public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
-    private Text stateDisplayText;
     #endregion
-
-    public Transform playerPos;//chage to private
-    [Header("Adjustment")]
-    public float chaseSpeed = 10f;
-
-    public Vector2 jumpDir = new Vector2(0.1f, 1f);
-    public float jumpForce = 5f;//can use newrton's law to adjust
-    public float heightGap = 5f;
 
     [Header("Checksbox")]
     public Transform pivotPoint;
-    public Vector2 platformCheckPointoffset;
-    public Vector2 platformChecksize = new Vector2(0.5f, 1);
+    [Space(10)]
 
     [Header("Status")]
     public bool isFacingRight = true;
-    public bool onHeadHavePlatform;
+    [Space(10)]
+
+    [Header("Adjustment")]
+    #region WALK
+    public Vector2 groundCheckOffset;
+    // public Vector2 groundCheckSize;
+    public float xGroundCheck, yGroundCheck;
+    public Vector2 R_WallCheckOffset;
+    public Vector2 R_WallCheckSize;
+    public Vector2 L_WallCheckOffset;
+    public Vector2 L_WallCheckSize;
+    public float walkSpeed = 2f;
+    // public Transform playerPos;//chage to private
+    #endregion
 
     #region --LAYERS--
     [Header("Layers")]
@@ -47,39 +52,42 @@ public class MachineBearHFSMStateManager : MonoBehaviour
     public const string B_THING = "B_Thing";
     public const string P_THING = "P_Thing";
     #endregion
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
-        fsm.AddState("Chase", onEnter: state => animator.Play("Walk"),
-        onLogic: state =>
-        {
-            facingPlayer();
-            rb.velocity = new Vector2(chaseSpeed * (isFacingRight ? -1 : 1), rb.velocity.y);
-        });
-        fsm.AddState("Jump", onEnter: state => { rb.AddForce(jumpDir * jumpForce, ForceMode2D.Impulse); animator.Play("LongJump"); }, onExit: state => rb.velocity = new Vector2(0, 0), canExit: state => !AnimatorIsPlaying("LongJump"), needsExitTime: true);
-        fsm.AddTransition("Chase", "Jump", t => playerPos.position.y - transform.position.y > heightGap && onHeadHavePlatform);
+        fsm.AddState("walk", onEnter: state => animator.Play("walk"),
+            onLogic: state =>
+            {
+                rb.velocity = new Vector2(walkSpeed * (isFacingRight ? 1 : -1), rb.velocity.y);
+                if (isFacingRight && R_WallCheck())
+                {
+                    Turn();
+                }
+                else if (!isFacingRight && L_WallCheck())
+                {
+                    Turn();
+                }
+                if (!GroundCheck())
+                {
+                    Turn();
+                }
 
-        fsm.AddTransitionFromAny("Chase");
-        fsm.SetStartState("Chase");
+            });
+        fsm.AddState("fall", onEnter: state => animator.Play("fall"));
+        fsm.AddTransition("walk", "fall", t => rb.velocity.y < 0);
+        fsm.AddTransition("fall", "walk", t => rb.velocity.y >= 0);
+        fsm.SetStartState("walk");
         fsm.Init();
     }
-
-    // Update is called once per frame
     void Update()
     {
         fsm.OnLogic();
-        stateDisplayText.text = fsm.GetActiveHierarchyPath();
-        onHeadHavePlatform = Physics2D.OverlapBox((Vector2)pivotPoint.position + platformCheckPointoffset, platformChecksize, 0, groundLayer);
     }
-    public void facingPlayer()
-    {
-        if (playerPos.position.x < transform.position.x != isFacingRight)
-            Turn();
-    }
+
     public void Turn()
     {
         //stores scale and flips the enemy along the x axis, 
@@ -89,25 +97,80 @@ public class MachineBearHFSMStateManager : MonoBehaviour
 
         isFacingRight = !isFacingRight;
     }
+    public bool R_WallCheck()
+    {
+        // if (isFacingRight)
+        // {
+        //     if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer) ||
+        //     Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer).CompareTag(B_THING))
+        //         return true;
+        // }
+        // return false;
+        if (isFacingRight)
+        {
+            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer))
+            {
+                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer);
+                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
+                    return true;
+            }
+            else if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer))
+            {
+                return true;
+            }
+        }
+        return false;
 
-    private void SetIgnoreCollision()
+    }
+    public bool L_WallCheck()
     {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), playerPos.GetComponent<Collider2D>());
+        if (!isFacingRight)
+        {
+            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer))
+            {
+                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer);
+                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
+                    return true;
+            }
+            else if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, groundLayer))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+    public bool GroundCheck()
+    {
+        if (isFacingRight)
+        {
+            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
+            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
+            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
+                return true;
+            else
+                return false;
+        }
+
     }
 
-    bool AnyAnimatorIsPlaying()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).length >
-               animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-    }
-    bool AnimatorIsPlaying(string stateName)
-    {
-        return AnyAnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube((Vector2)pivotPoint.position + platformCheckPointoffset, platformChecksize);
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset, (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(0, -yGroundCheck));
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, -yGroundCheck));
+        Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, -yGroundCheck));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize);
 
     }
 }

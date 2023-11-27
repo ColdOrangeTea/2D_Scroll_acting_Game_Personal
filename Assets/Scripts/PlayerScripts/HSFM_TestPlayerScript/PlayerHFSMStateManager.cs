@@ -286,7 +286,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         float jumpHeight = 5f, gs = PhysicsCheck.RB.gravityScale;
         Vector2 dir = new Vector2((transform.position.x - attackPosition.position.x) * 10, jumpHeight).normalized;
 
-        PhysicsCheck.RB.velocity = Vector2.zero;
+        // PhysicsCheck.RB.velocity = Vector2.zero;
 
         PhysicsCheck.RB.AddForce(dir * hurtForce, ForceMode2D.Impulse);
         Debug.Log("HurtForce " + dir + " " + dir * hurtForce);

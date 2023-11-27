@@ -224,7 +224,7 @@ public class HSFMMovement : MonoBehaviour
             {
                 Debug.Log("打的敵人是: " + enemy.name);
                 if (enemy.GetComponent<EnemyStatus>())
-                    enemy.GetComponent<EnemyStatus>().TakeDamage(player.Status.Damage);
+                    enemy.GetComponent<EnemyStatus>().TakeDamage(player.Status.ThunderDamage);
                 //doDMG
             }
 
@@ -253,7 +253,11 @@ public class HSFMMovement : MonoBehaviour
             {
                 Debug.Log("打的敵人是: " + enemy.name);
                 if (enemy.GetComponent<EnemyStatus>())
+                {
+                    if(!enemy.GetComponent<EnemyStatus>().GetIsImmunePunch())
                     enemy.GetComponent<EnemyStatus>().TakeDamage(player.Status.Damage);
+                }
+                   
                 //doDMG
             }
 

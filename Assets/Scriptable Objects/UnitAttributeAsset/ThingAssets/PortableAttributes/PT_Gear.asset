@@ -21,7 +21,7 @@ MonoBehaviour:
   ActivatedCoolDown: 0
   CanBePickedUp: 1
   PortableThingID: 10
-  DropChance: 0
+  DropChance: 100
   IsHeal: 0
   HealAmount: 0
   IsFunctional: 0

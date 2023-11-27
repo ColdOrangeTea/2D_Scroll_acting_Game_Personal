@@ -16,11 +16,16 @@ public class EnemyStatus : MonoBehaviour
     private Coroutine hurtForceRoutine;
     [SerializeField] private float hurtForceDuration;
     public UnityEvent OnTakeDamage;
+    public bool isImmunePunch;
     #endregion
 
     void Start()
     {
         hp = maxHp;
+    }
+    public bool GetIsImmunePunch()
+    {
+        return isImmunePunch;
     }
     public void HurtForce()
     {

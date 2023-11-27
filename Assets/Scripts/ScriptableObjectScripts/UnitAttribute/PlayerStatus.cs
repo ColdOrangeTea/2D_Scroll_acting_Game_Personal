@@ -10,5 +10,8 @@ public class PlayerStatus : ScriptableObject
     public int Hp = 20;
     // public int maxMp = 0;
     // public int mp = 0;
-    public int Damage = 3;
+    public int Damage = 2;
+    public int ThunderDamage = 3;
+    
+
 }
