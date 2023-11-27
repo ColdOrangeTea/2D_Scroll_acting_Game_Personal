@@ -32,7 +32,8 @@ public class PlayerHFSMStateManager : MonoBehaviour
     const string Jump = "Jump";
     const string DoubleJump = "DoubleJump";
     const string Punch = "Punch";
-    const string Dash = "Dash";
+    const string Thunder = "Thunder";
+    // const string Dash = "Dash";
     #endregion
 
     #region  DAMAGE PARAMETER
@@ -104,16 +105,6 @@ public class PlayerHFSMStateManager : MonoBehaviour
         #region  INAIR
         var inAirFsm = new HybridStateMachine();
         fsm.AddTransition(Ground, InAir, transition => PhysicsCheck.onGround && InputHandler.JumpInput == true);
-
-        // inAirFsm.AddState(Fall, onEnter: state => { },
-        //  onLogic =>
-        // {
-        //     PhysicsCheck.OnGroundCheck();
-        //     PhysicsCheck.CheckDirectionToFace_Test();
-        //     Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
-        // },
-        // onExit: state => { Movement.SetGravityScale(Attribute.GravityScale); });
-
         inAirFsm.AddState(Jump, onEnter: state => { Movement.Jump(); InputHandler.SetJumping(true); animator.SetBool(Jump, true); },
         onLogic =>
         {
@@ -166,18 +157,34 @@ public class PlayerHFSMStateManager : MonoBehaviour
         fsm.AddTransition(Punch, InAir, t => InputHandler.IfMeleeTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
         #endregion
 
-        #region DASH  
-        fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
-        onLogic: state =>
-        {
-            Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
-            PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false);
-        });
-        // canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
+        #region THUNDER
+        fsm.AddState(Thunder, onEnter: state => { Debug.Log("THUNDER Start"); Movement.Thunder(); animator.SetBool(Thunder, true); },
+              onLogic: state =>
+              {
+                  Debug.Log("THUNDER");
+                  PhysicsCheck.OnGroundCheck();
+                  PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
+              },
+              onExit: state => { animator.SetBool(Thunder, false); }, canExit: state => InputHandler.IfThunderTimeIsOver(), needsExitTime: true);
 
-        fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
-        fsm.AddTransition(Dash, InAir, t => !PhysicsCheck.onGround && InputHandler.JumpInput);
+        fsm.AddTransition(Ground, Thunder, t => !InputHandler.IfThunderTimeIsOver());
+        fsm.AddTransition(InAir, Thunder, t => !InputHandler.IfThunderTimeIsOver());
+        fsm.AddTransition(Thunder, InAir, t => InputHandler.IfThunderTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
+
         #endregion
+
+        // #region DASH  
+        // fsm.AddState(Dash, onEnter: state => { Vector2 lastDashDir = Movement.SetDashDir(); Movement.GoDash(lastDashDir); animator.SetBool(Dash, true); },
+        // onLogic: state =>
+        // {
+        //     Movement.InAirMove(1, InputHandler.XInput, Attribute.RunMaxSpeed, Attribute.RunAccelAmount * Attribute.AccelInAir, Attribute.RunDeccelAmount * Attribute.DeccelInAir, Attribute.JumpHangTimeThreshold, Attribute.JumpHangAccelerationMult, Attribute.JumpHangMaxSpeedMult, Attribute.DoConserveMomentum, PhysicsCheck.RB.velocity.y > 0);
+        //     PhysicsCheck.OnGroundCheck(); PhysicsCheck.CheckDirectionToFace_Test(); animator.SetBool(Dash, false);
+        // });
+        // // canExit: state => InputHandler.IfDashTimeIsOver(), needsExitTime: true);
+
+        // fsm.AddTransitionFromAny(Dash, transition => !InputHandler.IfDashTimeIsOver() && InputHandler.DashInput);
+        // fsm.AddTransition(Dash, InAir, t => !PhysicsCheck.onGround && InputHandler.JumpInput);
+        // #endregion
 
         fsm.AddTransitionFromAny(Ground, transition => PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f);
 

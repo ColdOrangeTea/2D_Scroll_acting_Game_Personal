@@ -31,9 +31,11 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
 
     [SerializeField] private Vector2 R_punch_check_offset;
     [SerializeField] private Vector2 L_punch_check_offset;
-    [SerializeField] private PolygonCollider2D R_punch;
-    [SerializeField] private PolygonCollider2D L_punch;
     [SerializeField] private float punch_radius = 1f;
+
+    [SerializeField] private Vector2 R_Thunder_check_offset;
+    [SerializeField] private Vector2 L_Thunder_check_offset;
+    [SerializeField] private Vector2 ThunderSize;
     [Space(5)]
     #endregion
 
@@ -198,6 +200,75 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
         }
     }
 
+    #region THUNDER THINGS METHOD
+    public List<Collider2D> CheckThunderHittedThing()
+    {
+        if (IsFacingRight)
+        {
+
+            Collider2D[] hit_things = Physics2D.OverlapBoxAll((Vector2)pivotPoint.position + R_Thunder_check_offset, ThunderSize, 0, thing_layer);
+            List<Collider2D> hitted_things = new List<Collider2D>();
+            foreach (Collider2D hitted_thing in hit_things)
+            {
+                Debug.Log("雷電擊中的道具: " + hitted_thing.name);
+                hitted_things.Add(hitted_thing);
+            }
+            return hitted_things;
+        }
+        else
+        {
+            Collider2D[] hit_things = Physics2D.OverlapBoxAll((Vector2)pivotPoint.position + L_Thunder_check_offset, ThunderSize, 0, thing_layer);
+            List<Collider2D> hitted_things = new List<Collider2D>();
+            foreach (Collider2D hitted_thing in hit_things)
+            {
+                Debug.Log("擊中的物件是: " + hitted_thing.name);
+                hitted_things.Add(hitted_thing);
+            }
+            return hitted_things;
+        }
+
+    }
+    #endregion
+
+    #region THUNDER ATTACK METHOD
+    public List<Collider2D> CheckThunderHittedUnit()
+    {
+        if (IsFacingRight)
+        {
+            Collider2D[] hit_enemies = Physics2D.OverlapBoxAll((Vector2)pivotPoint.position + R_Thunder_check_offset, ThunderSize, attackable_layer);
+            List<Collider2D> hitted_units = new List<Collider2D>();
+
+            foreach (Collider2D hitted_unit in hit_enemies)
+            {
+                hitted_units.Add(hitted_unit);
+                if (hitted_unit == OwnCollider)
+                {
+                    hitted_units.Remove(hitted_unit);
+                }
+                // Debug.Log("那些: " + hitted_unit.name);
+            }
+            return hitted_units;
+        }
+        else
+        {
+            Collider2D[] hit_enemies = Physics2D.OverlapBoxAll((Vector2)pivotPoint.position + L_Thunder_check_offset, ThunderSize, attackable_layer);
+            List<Collider2D> hitted_units = new List<Collider2D>();
+
+            foreach (Collider2D hitted_unit in hit_enemies)
+            {
+                hitted_units.Add(hitted_unit);
+                if (hitted_unit == OwnCollider)
+                {
+                    hitted_units.Remove(hitted_unit);
+                }
+                // Debug.Log("那些: " + hitted_unit.name);
+            }
+            return hitted_units;
+        }
+
+    }
+    #endregion
+
     #region PUNCH THINGS METHOD
     public List<Collider2D> CheckHittedThing()
     {
@@ -330,6 +401,9 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere((Vector2)pivotPoint.position + R_punch_check_offset, punch_radius);
         Gizmos.DrawWireSphere((Vector2)pivotPoint.position + L_punch_check_offset, punch_radius);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + R_Thunder_check_offset, ThunderSize);
+        Gizmos.DrawWireCube((Vector2)pivotPoint.position + L_Thunder_check_offset, ThunderSize);
+
         //Gizmos.color=Color.white;
         //Gizmos.DrawSphere(_slashPoint.position,_slashRadius);//3Dball WTF!!
         //Gizmos.DrawWireCube(_barrelCheckPoint.position, _pushCheckSize);

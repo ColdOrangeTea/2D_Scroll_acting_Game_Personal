@@ -26,4 +26,4 @@ MonoBehaviour:
   HealAmount: 0
   IsFunctional: 0
   ThingInvulnerableDuration: 0.1
-  ThingSprite: {fileID: 0}
+  ThingSprite: {fileID: -1590048813, guid: 6d521cfdd85ae374c93b153ad486d628, type: 3}

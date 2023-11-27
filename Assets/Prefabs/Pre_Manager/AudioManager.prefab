@@ -182,6 +182,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2c8f331c7eb48614eb51605e107e980e, type: 3}
   - {fileID: 8300000, guid: ce19747d3f34f1f43939c12e0b0b97b7, type: 3}
   - {fileID: 8300000, guid: 34c00f7160d57cd46a48f34e3035817b, type: 3}
-  soundList: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  soundList: {fileID: 11400000, guid: 3514c668defc53b4a92e04f24aa43281, type: 2}
   _musicSource: {fileID: 7282897935831636947}
   prefab_SoundFX: {fileID: 6919846637286629853, guid: 95be97ba700fa4345a35b03e056fc57a, type: 3}

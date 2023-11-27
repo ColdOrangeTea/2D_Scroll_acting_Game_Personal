@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dbabcd315412a3548aa39632137ede25
+guid: 06a0a4f9ccf64bb488f11d9e8ab96e40
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,84 +115,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: CS_Gear
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1262
-        width: 2204
-        height: 1218
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4947025b111f2ba4c9e7e13ae57a33b1
-      internalID: -1422360329
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CS_Bed
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1985
-        height: 850
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 401ed3717cced834594595cda9a34ff9
-      internalID: -1361181760
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CS_Light
-      rect:
-        serializedVersion: 2
-        x: 2134
-        y: 0
-        width: 1310
-        height: 1592
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7125e9316de438419428307f670c749
-      internalID: 1714806864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f18e5197c11f28f4e9e65265b348051e
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      CS_Bed: -1361181760
-      CS_Gear: -1422360329
-      CS_Light: 1714806864
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

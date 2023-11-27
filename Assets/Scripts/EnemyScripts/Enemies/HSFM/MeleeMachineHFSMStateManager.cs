@@ -114,7 +114,10 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
                 if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
                     return true;
             }
-
+            else if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer))
+            {
+                return true;
+            }
         }
         return false;
 
@@ -128,6 +131,10 @@ public class MeleeMachineHFSMStateManager : MonoBehaviour
                 Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer);
                 if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
                     return true;
+            }
+            else if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, groundLayer))
+            {
+                return true;
             }
 
         }

@@ -138,7 +138,8 @@ public class PlayerAttribute : ScriptableObject
     [Tooltip("建議數值: 0.1")]
     [Range(0.01f, 0.5f)] public float DashInputBufferTime;
 
-
+    [Header("Melee 建議數值: 0.1")]
+    [Range(0.01f, 1f)] public float ThunderInputBufferTime;
     [Header("Melee 建議數值: 0.1")]
     [Range(0.01f, 1f)] public float MeleeInputBufferTime;
 

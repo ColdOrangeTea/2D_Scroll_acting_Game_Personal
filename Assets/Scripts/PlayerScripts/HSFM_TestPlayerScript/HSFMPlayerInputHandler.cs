@@ -10,11 +10,13 @@ public class HSFMPlayerInputHandler : MonoBehaviour
     public float YInput { get; private set; }
     public bool JumpInput { get; private set; }
     public bool JumpCutInput { get; private set; }
+    public bool ThunderInput { get; private set; }
     public bool MeleeInput { get; private set; }
     public bool DashInput { get; private set; }
     #endregion
 
     public float LastPressedJumpTime { get; private set; }
+    public float LastPressedThunderTime { get; private set; }
     public float LastPressedMeleeTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
     public int JumpCount { get; set; }
@@ -32,6 +34,7 @@ public class HSFMPlayerInputHandler : MonoBehaviour
     void Update()
     {
         LastPressedJumpTime -= Time.deltaTime;
+        LastPressedThunderTime -= Time.deltaTime;
         LastPressedMeleeTime -= Time.deltaTime;
         LastPressedDashTime -= Time.deltaTime;
 
@@ -56,7 +59,19 @@ public class HSFMPlayerInputHandler : MonoBehaviour
             SetJumpCutInput(false);
             SetJumpCut(true);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        if (Input.GetKeyDown(KeyCode.Z)) // Thunder
+        {
+            Debug.Log("Z is pressed");
+            OnThunderInput();
+            SetThunderInput(true);
+        }
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            SetThunderInput(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) // Punch
         {
             Debug.Log("Q is pressed");
             OnMeleeInput();
@@ -81,6 +96,8 @@ public class HSFMPlayerInputHandler : MonoBehaviour
 
     public void SetJumpInput(bool setting) => JumpInput = setting;
     public void SetJumpCutInput(bool setting) => JumpCutInput = setting;
+    public void SetThunderInput(bool setting) => ThunderInput = setting;
+
     public void SetMeleeInput(bool setting) => MeleeInput = setting;
     public void SetDashInput(bool setting) => DashInput = setting;
 
@@ -90,9 +107,11 @@ public class HSFMPlayerInputHandler : MonoBehaviour
 
 
     // public bool JumpInput() => LastPressedJumpTime > 0;
+    public bool IfThunderTimeIsOver() => LastPressedThunderTime <= 0;
     public bool IfMeleeTimeIsOver() => LastPressedMeleeTime <= 0;
     public bool IfDashTimeIsOver() => LastPressedDashTime <= 0;
     public void OnJumpInput() => LastPressedJumpTime = attribute.JumpInputBufferTime;
+    public void OnThunderInput() => LastPressedThunderTime = attribute.ThunderInputBufferTime;
     public void OnMeleeInput() => LastPressedMeleeTime = attribute.MeleeInputBufferTime;
     public void OnDashInput() => LastPressedDashTime = attribute.DashInputBufferTime;
 

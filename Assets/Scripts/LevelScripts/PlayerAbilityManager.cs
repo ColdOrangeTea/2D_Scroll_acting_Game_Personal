@@ -7,6 +7,7 @@ public class PlayerAbilityManager : MonoBehaviour
     public static PlayerAbilityManager Instance;
 
     public static bool CanDoubleJump = false;
+    public static bool CanThunder = false;
 
     void Awake()
     {

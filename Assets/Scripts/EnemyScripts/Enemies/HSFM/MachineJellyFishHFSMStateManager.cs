@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 using UnityHFSM;
 
@@ -11,139 +11,112 @@ public class MachineJellyFishHFSMStateManager : MonoBehaviour
     public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
-    private Text stateDisplayText;
-    public GameObject Bullet;
     #endregion
 
     [Header("Checksbox")]
     public Transform pivotPoint;
-    [Space(10)]
-
-    [Header("Status")]
-    public bool isFacingRight = true;
-    public bool inShootRange;
-    public bool canShoot = true;
-    bool isShoot = false;
+    public Transform TentaclesCollider;
     [Space(10)]
 
     [Header("Adjustment")]
-    public Transform playerPos;//chage to private
-    public float ShootCooldown = 1f;
-    public float ShootDuration = 3f;
-    public float Force;
-
-    // [SerializeField] private float lastShootTime;
-
-    #region ATTACK
-    public Vector2 rangedPointoffset;
-    public float rangedRadius = 8f;
-    public Vector2 shootPointoffset;
-    float lastShootTime;
+    #region StretchOut
+    bool goDown = true;
+    bool goBack = false;
+    public float StretchOutSpeed = 2f;
+    public float yOriginPosition;
+    [Range(0.1f, 5)]
+    public float yLengthStretchOut;
+    public float stretchOutTimer;
+    public float stretchOutSec;
     #endregion
 
-    #region  LAYER
-    public LayerMask AttackLayer;
+    #region --LAYERS--
+    [Header("Layers")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask attackableLayer;
+    [SerializeField] private LayerMask thingLayer;
+    enum NumOfLayer
+    {
+        AttackableUnit = 7,
+        Thing = 8,
+        Attack = 9
+    }
     #endregion
 
+    #region TAG NAME
+    public const string PLAYER = "Player";
+    public const string B_THING = "B_Thing";
+    public const string P_THING = "P_Thing";
+    #endregion
+    // private IEnumerator stretchOutCoroutine;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        stateDisplayText = GetComponentInChildren<Text>();
+        yOriginPosition = TentaclesCollider.position.y;
+        stretchOutTimer = stretchOutSec;
+        // stretchOutCoroutine = GoBack();
         fsm = new StateMachine();
-        fsm.AddState("idle", onEnter: state => animator.SetBool("idle", true),
-            onLogic: state =>
-            {
-                FacingPlayer();
-                DetectPlayer();
-            }, onExit: state => animator.SetBool("idle", false));
-
-        fsm.AddState("rangedAttack", onEnter: state => { SetUnAbleToShoot(); animator.SetBool("rangedAttack", true); },
+        fsm.AddState("stretchOut", onEnter: state => { },
         onLogic: state =>
         {
-            FacingPlayer();
-            DetectPlayer();
-            if (!isShoot)
-                Shoot();
-        }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
+            if (!goBack && goDown)
+            {
+                float distance = Mathf.Abs(TentaclesCollider.position.y - yLengthStretchOut);
+                // Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yLengthStretchOut);
 
-        fsm.AddTransition("rangedAttack", "idle", t => !canShoot);
-        fsm.AddTransition("idle", "rangedAttack", t => canShoot && inShootRange);
-        // fsm.AddTransitionFromAny("rangedAttack", t => inShootRange && canShoot);
-        fsm.SetStartState("idle");
+                if (distance <= 0.01f)
+                {
+                    //Debug.Log("開始倒數");
+
+                    // TentaclesCollider.transform.position = new Vector2(TentaclesCollider.transform.position.x, yOriginPosition - yLengthstretchOut);
+                    stretchOutTimer -= Time.deltaTime;
+                    if (stretchOutTimer <= 0)
+                    {
+                        // Debug.Log("倒數完畢");
+                        goDown = false;
+                        goBack = true;
+                        stretchOutTimer = stretchOutSec;
+                    }
+                }
+                else
+                {
+                    // 往下
+                    TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition - yLengthStretchOut), Time.deltaTime * StretchOutSpeed);
+                }
+            }
+            else if (!goDown && goBack)
+            {
+                float distance = Mathf.Abs(TentaclesCollider.position.y - yOriginPosition);
+                //Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yOriginPosition);
+
+                if (distance <= 0.01f)
+                {
+                    // Debug.Log("開始倒數");
+                    stretchOutTimer -= Time.deltaTime;
+                    if (stretchOutTimer <= 0)
+                    {
+                        //  Debug.Log("倒數完畢");
+                        goBack = false;
+                        goDown = true;
+                        stretchOutTimer = stretchOutSec;
+                    }
+                }
+                else
+                {
+                    // 往回
+                    TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition), Time.deltaTime * StretchOutSpeed);
+                }
+            }
+        }
+        );
+
+        fsm.SetStartState("stretchOut");
         fsm.Init();
     }
     void Update()
     {
         fsm.OnLogic();
-        stateDisplayText.text = this.gameObject.name + " " + fsm.GetActiveHierarchyPath();
-
-        // inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
-        Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
-    }
-    void DetectPlayer()
-    {
-        if (Vector2.Distance(this.gameObject.transform.position, playerPos.position) < rangedRadius)
-        {
-            inShootRange = true;
-        }
-        else
-        {
-            inShootRange = false;
-        }
-    }
-    public void FacingPlayer()
-    {
-        if (playerPos.position.x > transform.position.x == isFacingRight)
-            Turn();
-        //if (playerPos.position.x < transform.position.x != isFacingRight)
-        //    Turn();
-    }
-    public void Turn()
-    {
-        //stores scale and flips the enemy along the x axis, 
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-
-        isFacingRight = !isFacingRight;
-    }
-    void Shoot()
-    {
-        isShoot = true;
-        Debug.Log("射擊");
-        Vector3 attackDir = (playerPos.transform.position - transform.position).normalized;
-        GameObject BulletIns = Instantiate(Bullet, (Vector2)pivotPoint.position + shootPointoffset, transform.rotation);
-        BulletIns.GetComponent<Rigidbody2D>().velocity = attackDir * Force * 0.1f;
-    }
-    private void SetUnAbleToShoot()
-    {
-        canShoot = false;
-        isShoot = false;
-        CancelInvoke("SetAbletoShoot");
-        Invoke("SetAbletoShoot", ShootCooldown);
-    }
-    private void SetAbletoShoot()
-    {
-        canShoot = true;
-    }
-    bool AnyAnimatorIsPlaying()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).length >
-               animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-    }
-    bool AnimatorIsPlaying(string stateName)
-    {
-        return AnyAnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius);
-        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + shootPointoffset, 0.2f);
-
     }
 }

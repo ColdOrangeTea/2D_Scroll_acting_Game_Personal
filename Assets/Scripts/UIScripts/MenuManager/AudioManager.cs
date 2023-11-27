@@ -57,6 +57,35 @@ public class AudioManager : MonoBehaviour
         CheckthenLoad();
     }
 
+    public void ChangeMusic()
+    {
+        Debug.Log("變更音樂 " + SceneChangeManager.CurrentScene.name);
+        if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.TitleMenu.ToString())
+        {
+            _musicSource.clip = musicList[0];
+        }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene01.ToString())
+        {
+            _musicSource.clip = musicList[1];
+        }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.CutScene01.ToString())
+        {
+            _musicSource.clip = musicList[2];
+        }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.Level01.ToString())
+        {
+            _musicSource.clip = musicList[3];
+        }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.Level02.ToString())
+        {
+            _musicSource.clip = musicList[4];
+        }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.Level03.ToString())
+        {
+            _musicSource.clip = musicList[5];
+        }
+
+    }
     public void PlayMusic(AudioClip clip)
     {
         _musicSource.Play();

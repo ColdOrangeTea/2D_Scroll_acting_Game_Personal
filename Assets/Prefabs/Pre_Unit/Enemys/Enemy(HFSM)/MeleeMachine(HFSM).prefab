@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0466f2d46d4b14f9ce7e605bc9e982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 20
-  hp: 20
+  maxHp: 5
+  hp: 5
   colliderDamage: 3
   damage: 3
   hurtForceDuration: 2

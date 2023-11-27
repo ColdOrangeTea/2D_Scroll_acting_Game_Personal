@@ -1,6 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.ProBuilder;
-using UnityEngine.UI;
 using UnityHFSM;
 
 public class MachineBatHFSMStateManager : MonoBehaviour
@@ -17,21 +16,12 @@ public class MachineBatHFSMStateManager : MonoBehaviour
     public Transform pivotPoint;
     [Space(10)]
 
-    [Header("Status")]
-    public bool isFacingRight = true;
-    [Space(10)]
-
     [Header("Adjustment")]
-    #region WALK
+    #region DROP
     public Vector2 groundCheckOffset;
-    // public Vector2 groundCheckSize;
     public float xGroundCheck, yGroundCheck;
-    public Vector2 R_WallCheckOffset;
-    public Vector2 R_WallCheckSize;
-    public Vector2 L_WallCheckOffset;
-    public Vector2 L_WallCheckSize;
-    public float walkSpeed = 2f;
-    // public Transform playerPos;//chage to private
+    public float DropSpeed = 2f;
+    public float dropSec;
     #endregion
 
     #region --LAYERS--
@@ -52,106 +42,57 @@ public class MachineBatHFSMStateManager : MonoBehaviour
     public const string B_THING = "B_Thing";
     public const string P_THING = "P_Thing";
     #endregion
-
+    private IEnumerator DropCoroutine;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
+        DropCoroutine = Drop();
         fsm = new StateMachine();
-        fsm.AddState("walk", onEnter: state => animator.Play("walk"),
-            onLogic: state =>
-            {
-                rb.velocity = new Vector2(walkSpeed * (isFacingRight ? 1 : -1), rb.velocity.y);
-                if (isFacingRight && R_WallCheck())
-                {
-                    Turn();
-                }
-                else if (!isFacingRight && L_WallCheck())
-                {
-                    Turn();
-                }
-                if (!GroundCheck())
-                {
-                    Turn();
-                }
+        fsm.AddState("drop", onEnter: state => { rb.velocity = new Vector2(0, -1 * DropSpeed); StartCoroutine(DropCoroutine); });
 
-            });
-        fsm.AddState("fall", onEnter: state => animator.Play("fall"));
-        fsm.AddTransition("walk", "fall", t => rb.velocity.y < 0);
-        fsm.AddTransition("fall", "walk", t => rb.velocity.y >= 0);
-        fsm.SetStartState("walk");
+        fsm.SetStartState("drop");
         fsm.Init();
     }
     void Update()
     {
         fsm.OnLogic();
     }
-
-    public void Turn()
+    IEnumerator Drop()
     {
-        //stores scale and flips the enemy along the x axis, 
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-
-        isFacingRight = !isFacingRight;
-    }
-    public bool R_WallCheck()
-    {
-        // if (isFacingRight)
-        // {
-        //     if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, groundLayer) ||
-        //     Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer).CompareTag(B_THING))
-        //         return true;
-        // }
-        // return false;
-        if (isFacingRight)
+        // 無窮迴圈
+        while (true)
         {
-            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer))
-            {
-                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize, 0, thingLayer);
-                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
-                    return true;
+            // Debug.Log("掉落");
+            rb.velocity = new Vector2(0, -1 * DropSpeed);
+            yield return new WaitForEndOfFrame();
+            if (GroundCheck())
+            {// 停止指定秒數
+                StartCoroutine(DestroySelf(dropSec));
+                break;
             }
-
         }
-        return false;
-
     }
-    public bool L_WallCheck()
+    IEnumerator DestroySelf(float sec)
     {
-        if (!isFacingRight)
-        {
-            if (Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer))
-            {
-                Collider2D wall = Physics2D.OverlapBox((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize, 0, thingLayer);
-                if (wall.CompareTag(B_THING) || wall.CompareTag(P_THING))
-                    return true;
-            }
+        rb.velocity = new Vector2(0, 0);
+        yield return new WaitForSeconds(sec);
 
-        }
-        return false;
+        // 刪除物件
+        // Debug.Log("刪除");
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
+
     public bool GroundCheck()
     {
-        if (isFacingRight)
-        {
-            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
-            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
-                return true;
-            else
-                return false;
-        }
+        if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
+        Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer) &&
+        Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(+xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
+            return true;
         else
-        {
-            if (Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset, Vector2.down, yGroundCheck, groundLayer) &&
-            Physics2D.Raycast((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), Vector2.down, yGroundCheck, groundLayer))
-                return true;
-            else
-                return false;
-        }
-
+            return false;
     }
 
     private void OnDrawGizmos()
@@ -160,10 +101,6 @@ public class MachineBatHFSMStateManager : MonoBehaviour
         Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset, (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(0, -yGroundCheck));
         Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(xGroundCheck, -yGroundCheck));
         Gizmos.DrawLine((Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, 0), (Vector2)pivotPoint.position + groundCheckOffset + new Vector2(-xGroundCheck, -yGroundCheck));
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector2)pivotPoint.position + R_WallCheckOffset, R_WallCheckSize);
-        Gizmos.DrawWireCube((Vector2)pivotPoint.position + L_WallCheckOffset, L_WallCheckSize);
 
     }
 }
