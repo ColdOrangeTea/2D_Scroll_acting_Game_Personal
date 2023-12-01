@@ -527,7 +527,7 @@ MonoBehaviour:
   punch_radius: 1
   R_Thunder_check_offset: {x: 2.6, y: 0}
   L_Thunder_check_offset: {x: -2.6, y: 0}
-  ThunderSize: {x: 4, y: 2}
+  ThunderSize: {x: 8, y: 2}
   ground_layer:
     serializedVersion: 2
     m_Bits: 64
