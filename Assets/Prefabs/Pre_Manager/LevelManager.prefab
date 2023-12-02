@@ -434,9 +434,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb3269f3834ff24aa1543708c440512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerUICanva: {fileID: 5086803774157624389}
   Level01_GoalNum: 6
   Level02_GoalNum: 6
   Level03_GoalNum: 6
+  L1Fin: 0
+  L2Fin: 0
+  L3Fin: 0
   GearCount: {fileID: 385883659484295463}
   ToNextLevel_00: {fileID: 3337629111321761687}
   ToNextLevel_01: {fileID: 5497403065862944026}

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
+    [SerializeField] private GameObject PlayerUICanva;
     [SerializeField] private int Level01_GoalNum = 6;
     [SerializeField] private int Level02_GoalNum = 6;
     [SerializeField] private int Level03_GoalNum = 6;
@@ -41,8 +42,18 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
+        if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.TitleMenu.ToString())
+        {
+            PlayerUICanva.SetActive(false);
+            GearCount.gameObject.SetActive(false);
+        }
         if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level01.ToString())
         {
+            if (!PlayerUICanva.activeInHierarchy)
+                PlayerUICanva.SetActive(true);
+            if (!GearCount.gameObject.activeInHierarchy)
+                GearCount.gameObject.SetActive(true);
+
             GearCount.text = "             " + NumOfGears;
             if (NumOfGears == Level01_GoalNum && !L1Fin)
             {
@@ -62,6 +73,11 @@ public class LevelManager : MonoBehaviour
         }
         else if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level02.ToString())
         {
+            if (!PlayerUICanva.activeInHierarchy)
+                PlayerUICanva.SetActive(true);
+            if (!GearCount.gameObject.activeInHierarchy)
+                GearCount.gameObject.SetActive(true);
+
             GearCount.text = "             " + NumOfGears;
             if (NumOfGears == Level02_GoalNum && !L2Fin)
             {
@@ -81,6 +97,11 @@ public class LevelManager : MonoBehaviour
         }
         else if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level03.ToString())
         {
+            if (!PlayerUICanva.activeInHierarchy)
+                PlayerUICanva.SetActive(true);
+            if (!GearCount.gameObject.activeInHierarchy)
+                GearCount.gameObject.SetActive(true);
+
             GearCount.text = "             " + NumOfGears;
             if (NumOfGears == Level03_GoalNum && !L3Fin)
             {

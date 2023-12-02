@@ -62,8 +62,8 @@ public class MusketeerHFSMStateManager : MonoBehaviour
             DetectPlayer();
             if (!isShoot)
                 Shoot();
-            Debug.Log("可開槍動畫狀態: " + AnimatorIsPlaying("rangedAttack"));
-        }, onExit: state => { Debug.Log("可開槍動畫狀態: " + AnimatorIsPlaying("rangedAttack")); }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
+            // Debug.Log("可開槍動畫狀態: " + AnimatorIsPlaying("rangedAttack"));
+        }, onExit: state => { }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
 
         fsm.AddTransition("rangedAttack", "idle", t => !canShoot || !inShootRange);
         fsm.AddTransition("idle", "rangedAttack", t => canShoot && inShootRange);
@@ -75,7 +75,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     {
         fsm.OnLogic();
         // inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
-        Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
+        // Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
         fireDir = (Vector2)playerPos.position - (Vector2)transform.position;
     }
     void DetectPlayer()
@@ -108,7 +108,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     void Shoot()
     {
         isShoot = true;
-        Debug.Log("射擊");
+        // Debug.Log("射擊");
         Vector3 attackDir = (playerPos.transform.position - transform.position).normalized;
         gun.transform.right = -fireDir;
         GameObject BulletIns = Instantiate(Bullet, (Vector2)pivotPoint.position + shootPointoffset, gun.transform.rotation);

@@ -14,7 +14,7 @@ public class CheatMenu : MonoBehaviour
             CheatInvulnerable = true;
             InvulnerableText.text = "切換無敵模式(目前:開啟)";
         }
-        else
+        else if (isCheatInvulnerable)
         {
             CheatInvulnerable = false;
             InvulnerableText.text = "切換無敵模式(目前:關閉)";

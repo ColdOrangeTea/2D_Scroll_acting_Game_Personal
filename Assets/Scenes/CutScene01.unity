@@ -9771,71 +9771,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1621556275
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7282897936392738752, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: musicSlider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738752, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: effectSlider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738753, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_Name
-      value: SoundManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282897936392738755, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ffae9c03e9c17ba4d9f82aede7c69741, type: 3}
 --- !u!1 &1621826306
 GameObject:
   m_ObjectHideFlags: 3
@@ -11218,7 +11153,7 @@ Transform:
   - {fileID: 1308243129}
   - {fileID: 1714328364}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1815094914 stripped
 Transform:

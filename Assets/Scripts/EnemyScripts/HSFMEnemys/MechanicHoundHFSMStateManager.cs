@@ -10,7 +10,6 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     public Collider2D MyselfCollider;
     private StateMachine fsm;
     private Animator animator;
-    private Text stateDisplayText;
     #endregion
 
     [Header("Checksbox")]
@@ -43,7 +42,6 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        stateDisplayText = GetComponentInChildren<Text>();
         fsm = new StateMachine();
         fsm.AddState(HFSMState.idle.ToString(), onEnter: state => animator.Play(HFSMState.idle.ToString()));
         fsm.AddState(HFSMState.chase.ToString(), onEnter: state => animator.Play(HFSMState.chase.ToString()),
@@ -62,8 +60,7 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
     {
         playerposition = playerPos.position;
         fsm.OnLogic();
-        stateDisplayText.text = fsm.GetActiveHierarchyPath();
-        Debug.Log("看到: " + SawPlayer());
+        // Debug.Log("看到: " + SawPlayer());
     }
     public bool SawPlayer()
     {
