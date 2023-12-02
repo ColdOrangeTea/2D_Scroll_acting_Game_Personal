@@ -72,7 +72,7 @@ public class MachineDancerHFSMStateManager : MonoBehaviour
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         fsm = new StateMachine();
-        fsm.AddState("Patrol", onEnter: state => { walkTimer = walkSec; Debug.Log("巡邏進入 " + walkTimer); },
+        fsm.AddState("Patrol", onEnter: state => { walkTimer = walkSec; Debug.Log("巡邏進入 " + walkTimer); animator.SetBool("patrol", true); },
              onLogic: state =>
              {
                  Debug.Log("巡邏中");
@@ -92,9 +92,10 @@ public class MachineDancerHFSMStateManager : MonoBehaviour
                      rb.velocity = new Vector2(0, rb.velocity.y);
                  }
 
-             });
+             }, onExit: state => animator.SetBool("patrol", false));
         fsm.AddState("Slash", new CoState(this, FeetSlash, loop: false, canExit: state => !isSlashing, needsExitTime: true));
-        fsm.AddState("Wait", onEnter: state => { WaitForAttack(); rb.velocity = new Vector2(0, rb.velocity.y); }, onExit: state => Turn(), canExit: state => !isWaiting, needsExitTime: true);
+
+        fsm.AddState("Wait", onEnter: state => { animator.SetBool("slash", false); animator.SetBool("wait", true); WaitForAttack(); rb.velocity = new Vector2(0, rb.velocity.y); }, onExit: state => { Turn(); animator.SetBool("wait", false); }, canExit: state => !isWaiting, needsExitTime: true);
         fsm.AddTransition("Patrol", "Slash", t => walkTimer <= 0);
         fsm.AddTransition("Slash", "Wait");
         fsm.AddTransition("Wait", "Patrol");
@@ -111,7 +112,7 @@ public class MachineDancerHFSMStateManager : MonoBehaviour
     {
         int AttackRound = 1;
         isSlashing = true;
-
+        animator.SetBool("slash", true);
         while (AttackRound > 0)
         {
 
@@ -145,6 +146,8 @@ public class MachineDancerHFSMStateManager : MonoBehaviour
             AttackRound--;
         }
         isSlashing = false;
+        // animator.SetBool("slash", false);
+
         yield break;
     }
     private void WaitForAttack()

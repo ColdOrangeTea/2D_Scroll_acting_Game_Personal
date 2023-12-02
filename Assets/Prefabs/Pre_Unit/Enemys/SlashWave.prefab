@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderDamage: 1
-  DestroySec: 3
+  DestroySec: 2
 --- !u!212 &-4825500807928263443
 SpriteRenderer:
   m_ObjectHideFlags: 0

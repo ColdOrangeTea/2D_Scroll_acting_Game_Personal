@@ -136,9 +136,9 @@ MonoBehaviour:
   xGroundCheck: 1.09
   yGroundCheck: 0.2
   R_WallCheckOffset: {x: -1.25, y: 0}
-  R_WallCheckSize: {x: 0.3, y: 4}
+  R_WallCheckSize: {x: 0.4, y: 4}
   L_WallCheckOffset: {x: 1.25, y: 0}
-  L_WallCheckSize: {x: 0.3, y: 4}
+  L_WallCheckSize: {x: 0.4, y: 4}
   walkSpeed: 3
   groundLayer:
     serializedVersion: 2
