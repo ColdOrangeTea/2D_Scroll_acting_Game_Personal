@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LootPrefab : PortableThing
 {
+    [SerializeField] private int ThingID = 0;
     [SerializeField] private bool isHeal;
     [SerializeField] private int healAmount = 0;
     [SerializeField] private bool isFunctional;
@@ -29,6 +30,7 @@ public class LootPrefab : PortableThing
             }
 
         }
+        ThingID = Attribute.PortableThingID;
     }
     public bool GetIsHeal()
     {
@@ -48,6 +50,20 @@ public class LootPrefab : PortableThing
     }
     public override void PickUp()
     {
+        if (ThingID == 10)
+        {
+            LevelManager.NumOfGears += 1;
+            GetComponent<ThingSound>().PlayGear_PickUp();
+            Debug.Log("撿取物品: 齒輪+1 ，目前數量:" + LevelManager.NumOfGears);
+        }
+        if (isFunctional)
+        {
+            GetComponent<ThingSound>().PlayLubratacation_PickUp();
+        }
+        else if (isHeal)
+        {
+            GetComponent<ThingSound>().PlayPotion_PickUp();
+        }
 
     }
     public override void TriggerThing()

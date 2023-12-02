@@ -32,8 +32,9 @@ public class SoundList : ScriptableObject
         {
             file.WriteLine(generatedTag);
         }
-
+#if UNITY_EDITOR
         AssetDatabase.ImportAsset(tempPath);
+#endif
     }
 }
 

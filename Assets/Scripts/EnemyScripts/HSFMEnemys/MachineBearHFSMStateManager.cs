@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 using UnityHFSM;
 
 public class MachineBearHFSMStateManager : MonoBehaviour
 {
- #region COMPONENTS
+    #region COMPONENTS
     [Header("Component")]
     private Rigidbody2D rb;
     public Collider2D MyselfCollider;

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
-using UnityEngine.UI;
 using UnityHFSM;
 
 public class MachineFishHFSMStateManager : MonoBehaviour

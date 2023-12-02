@@ -16,14 +16,28 @@ MonoBehaviour:
   - tag: Player_Walk
     clip: {fileID: 8300000, guid: f27a45b41c808334dbfb6980c643369a, type: 3}
   - tag: Player_Punch00
-    clip: {fileID: 8300000, guid: 9b5da69daa3f8b7409319b429f3c17e5, type: 3}
-  - tag: Player_Punch01
-    clip: {fileID: 8300000, guid: 438b1112b39672c4784ffc5f991e149e, type: 3}
-  - tag: Player_Punch02
-    clip: {fileID: 8300000, guid: 69b638643044128469cc9b8c00a9be76, type: 3}
+    clip: {fileID: 8300000, guid: aba38b7a930c2d4428c6e1ad6bf31ed8, type: 3}
+  - tag: Player_Thunder
+    clip: {fileID: 8300000, guid: 691a64114c93b36419a06d194faae12f, type: 3}
   - tag: Player_Jump
-    clip: {fileID: 8300000, guid: a0662735f2d65ca4eaf2e65c5cccf1ed, type: 3}
-  - tag: Player_JumpOver
     clip: {fileID: 8300000, guid: d6ce73ed2c4b31c43bd5fd68ff5bc521, type: 3}
   - tag: MeleeMachine_Walk
-    clip: {fileID: 8300000, guid: d6ce73ed2c4b31c43bd5fd68ff5bc521, type: 3}
+    clip: {fileID: 8300000, guid: 249a256b2a648e144b26f01c9a9259c8, type: 3}
+  - tag: Musketeer_Shot
+    clip: {fileID: 8300000, guid: 80771bc307934f94eaf372338ee39ce2, type: 3}
+  - tag: MechanicHound_Bark
+    clip: {fileID: 8300000, guid: 5a1e934509c52fc4d9958a4fb10bd50f, type: 3}
+  - tag: MachineBear_Walk
+    clip: {fileID: 8300000, guid: 0849a022c014a8e478b440dc080e351b, type: 3}
+  - tag: MachineRabbit_Throw
+    clip: {fileID: 8300000, guid: f280aa0a7453c2c4891b919a9ce760db, type: 3}
+  - tag: MachineDancer_Slash
+    clip: {fileID: 8300000, guid: 53056c11958d01942b6cd1f4168bb238, type: 3}
+  - tag: Potion_PickUp
+    clip: {fileID: 8300000, guid: 1dd5edfa780031e45a657db3fe3bd7be, type: 3}
+  - tag: Lubratacation_PickUp
+    clip: {fileID: 8300000, guid: 8d819c2dcda9c884db89d29f92894df6, type: 3}
+  - tag: Gear_PickUp
+    clip: {fileID: 8300000, guid: 64629bf5aee6550448f6c973ffd02901, type: 3}
+  - tag: Level_Success
+    clip: {fileID: 8300000, guid: 9e2b87e5a4dec084da3bc86f1036e802, type: 3}

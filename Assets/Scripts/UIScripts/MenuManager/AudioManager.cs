@@ -68,6 +68,10 @@ public class AudioManager : MonoBehaviour
         {
             _musicSource.clip = musicList[1];
         }
+        else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene02.ToString())
+        {
+            _musicSource.clip = musicList[1];
+        }
         else if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.CutScene01.ToString())
         {
             _musicSource.clip = musicList[2];

@@ -189,6 +189,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: rangedAttack
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: idle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5399332724421364706}
   m_Solo: 0

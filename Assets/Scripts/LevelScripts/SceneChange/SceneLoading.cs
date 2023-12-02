@@ -72,8 +72,8 @@ public class SceneLoading : MonoBehaviour
     public void OnFadeOutComplete()
     {
         async.allowSceneActivation = true;
-        Debug.Log("音樂切換" + SceneChangeManager.CurrentScene.name);
-        AudioManager.Instance.ChangeMusic();
+        // Debug.Log("音樂切換" + SceneChangeManager.CurrentScene.name);
+        // AudioManager.Instance.ChangeMusic();
     }
 
     IEnumerator LoadScene()

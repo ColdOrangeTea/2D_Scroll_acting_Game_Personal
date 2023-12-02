@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1705165255012609594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8418936737196479160}
+  - component: {fileID: 4562972666998913561}
+  m_Layer: 7
+  m_Name: TentaclesCollider_Below
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8418936737196479160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705165255012609594}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6100873583666565445}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4562972666998913561
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705165255012609594}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 3}
+  m_EdgeRadius: 0
 --- !u!1 &4956006168712747756
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +69,7 @@ GameObject:
   - component: {fileID: 4956006168712747763}
   - component: {fileID: 4956006168712747762}
   m_Layer: 7
-  m_Name: TentaclesCollider
+  m_Name: TentaclesCollider_Mid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +83,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4956006168712747756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +114,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2.5, y: 3}
   m_EdgeRadius: 0
 --- !u!1 &6100873583666565496
 GameObject:
@@ -95,6 +153,7 @@ Transform:
   - {fileID: 6100873584303430499}
   - {fileID: 8833827374927782023}
   - {fileID: 4956006168712747763}
+  - {fileID: 8418936737196479160}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,7 +191,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.06}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 2.4}
+  m_Size: {x: 2.5, y: 4}
   m_EdgeRadius: 0
 --- !u!114 &7269231081002288428
 MonoBehaviour:
@@ -159,21 +218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyselfCollider: {fileID: 0}
   pivotPoint: {fileID: 8833827374927782023}
-  TentaclesCollider: {fileID: 4956006168712747763}
-  StretchOutSpeed: 2
-  yOriginPosition: 0
-  yLengthStretchOut: 4
-  stretchOutTimer: 0
-  stretchOutSec: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  attackableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  thingLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &7620283047665866153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,10 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0466f2d46d4b14f9ce7e605bc9e982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 20
-  hp: 20
+  maxHp: 50
+  hp: 50
   colliderDamage: 2
-  damage: 3
+  damage: 2
   hurtForceDuration: 2
   OnTakeDamage:
     m_PersistentCalls:
@@ -230,6 +274,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isImmunePunch: 0
 --- !u!114 &828411097502998607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +316,8 @@ GameObject:
   - component: {fileID: 6100873584303430499}
   - component: {fileID: 6100873584303430497}
   - component: {fileID: 6100873584303430496}
+  - component: {fileID: 5781382085976026743}
+  - component: {fileID: 4254760382773440047}
   m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
@@ -286,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6100873584303430498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -334,7 +381,7 @@ SpriteRenderer:
   m_SortingLayerID: 955001067
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2066361919, guid: 6868de63e0514f84d9cf608e4082d2de, type: 3}
+  m_Sprite: {fileID: -1513998694, guid: 9ac3331eb4f7bb244847d148f04f714d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -355,7 +402,7 @@ Animator:
   m_GameObject: {fileID: 6100873584303430498}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 11ac3923548835742acc877ac910d17b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7f190112d1d16e3468da3edb1e398b86, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -365,6 +412,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5781382085976026743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100873584303430498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae6d43b03bb13945a0305ee20a1fc6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4254760382773440047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100873584303430498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e819fafcd51d4154cacc77e75092af79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TentaclesCollider_Mid: {fileID: 4956006168712747762}
+  TentaclesCollider_Below: {fileID: 4562972666998913561}
 --- !u!1 &8833827374927782022
 GameObject:
   m_ObjectHideFlags: 0

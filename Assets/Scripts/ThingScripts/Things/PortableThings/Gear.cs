@@ -19,6 +19,7 @@ public class Gear : PortableThing
     {
         base.PickUp();
         LevelManager.NumOfGears += 1;
+        GetComponent<ThingSound>().PlayGear_PickUp();
         Debug.Log("撿取物品: 齒輪+1 ，目前數量:" + LevelManager.NumOfGears);
     }
 }

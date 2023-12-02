@@ -15,100 +15,81 @@ public class MachineJellyFishHFSMStateManager : MonoBehaviour
 
     [Header("Checksbox")]
     public Transform pivotPoint;
-    public Transform TentaclesCollider;
-    [Space(10)]
+    // public Transform TentaclesCollider;
+    // [Space(10)]
 
-    [Header("Adjustment")]
-    #region StretchOut
-    bool goDown = true;
-    bool goBack = false;
-    public float StretchOutSpeed = 2f;
-    public float yOriginPosition;
-    [Range(0.1f, 5)]
-    public float yLengthStretchOut;
-    public float stretchOutTimer;
-    public float stretchOutSec;
-    #endregion
+    // [Header("Adjustment")]
+    // #region StretchOut
+    // bool goDown = true;
+    // bool goBack = false;
+    // public float StretchOutSpeed = 2f;
+    // public float yOriginPosition;
+    // [Range(0.1f, 5)]
+    // public float yLengthStretchOut;
+    // public float stretchOutTimer;
+    // public float stretchOutSec;
+    // #endregion
 
-    #region --LAYERS--
-    [Header("Layers")]
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask attackableLayer;
-    [SerializeField] private LayerMask thingLayer;
-    enum NumOfLayer
-    {
-        AttackableUnit = 7,
-        Thing = 8,
-        Attack = 9
-    }
-    #endregion
-
-    #region TAG NAME
-    public const string PLAYER = "Player";
-    public const string B_THING = "B_Thing";
-    public const string P_THING = "P_Thing";
-    #endregion
-    // private IEnumerator stretchOutCoroutine;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         MyselfCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        yOriginPosition = TentaclesCollider.position.y;
-        stretchOutTimer = stretchOutSec;
-        // stretchOutCoroutine = GoBack();
+        // yOriginPosition = TentaclesCollider.position.y;
+        // stretchOutTimer = stretchOutSec;
+
         fsm = new StateMachine();
         fsm.AddState("stretchOut", onEnter: state => { },
         onLogic: state =>
         {
-            if (!goBack && goDown)
-            {
-                float distance = Mathf.Abs(TentaclesCollider.position.y - yLengthStretchOut);
-                // Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yLengthStretchOut);
+            // if (!goBack && goDown)
+            // {
+            //     float distance = Mathf.Abs((yLengthStretchOut + TentaclesCollider.position.y) - yOriginPosition);
+            //     Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yLengthStretchOut + " " + yOriginPosition);
 
-                if (distance <= 0.01f)
-                {
-                    //Debug.Log("開始倒數");
+            //     if (distance <= 0.01f)
+            //     {
+            //         Debug.Log("開始倒數");
 
-                    // TentaclesCollider.transform.position = new Vector2(TentaclesCollider.transform.position.x, yOriginPosition - yLengthstretchOut);
-                    stretchOutTimer -= Time.deltaTime;
-                    if (stretchOutTimer <= 0)
-                    {
-                        // Debug.Log("倒數完畢");
-                        goDown = false;
-                        goBack = true;
-                        stretchOutTimer = stretchOutSec;
-                    }
-                }
-                else
-                {
-                    // 往下
-                    TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition - yLengthStretchOut), Time.deltaTime * StretchOutSpeed);
-                }
-            }
-            else if (!goDown && goBack)
-            {
-                float distance = Mathf.Abs(TentaclesCollider.position.y - yOriginPosition);
-                //Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yOriginPosition);
+            //         // TentaclesCollider.transform.position = new Vector2(TentaclesCollider.transform.position.x, yOriginPosition - yLengthstretchOut);
+            //         stretchOutTimer -= Time.deltaTime;
+            //         if (stretchOutTimer <= 0)
+            //         {
+            //             Debug.Log("倒數完畢");
+            //             goDown = false;
+            //             goBack = true;
+            //             stretchOutTimer = stretchOutSec;
+            //         }
+            //     }
+            //     else
+            //     {
+            //         // 往下
+            //         TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition - yLengthStretchOut), Time.deltaTime * StretchOutSpeed);
+            //     }
+            // }
+            // else if (!goDown && goBack)
+            // {
+            //     float distance = Mathf.Abs(TentaclesCollider.position.y - yOriginPosition);
+            //     //Debug.Log("dis: " + distance + " 往下TentaclesCollider.position.y " + TentaclesCollider.position.y + " " + yOriginPosition);
 
-                if (distance <= 0.01f)
-                {
-                    // Debug.Log("開始倒數");
-                    stretchOutTimer -= Time.deltaTime;
-                    if (stretchOutTimer <= 0)
-                    {
-                        //  Debug.Log("倒數完畢");
-                        goBack = false;
-                        goDown = true;
-                        stretchOutTimer = stretchOutSec;
-                    }
-                }
-                else
-                {
-                    // 往回
-                    TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition), Time.deltaTime * StretchOutSpeed);
-                }
-            }
+            //     if (distance <= 0.01f)
+            //     {
+            //         // Debug.Log("開始倒數");
+            //         stretchOutTimer -= Time.deltaTime;
+            //         if (stretchOutTimer <= 0)
+            //         {
+            //             //  Debug.Log("倒數完畢");
+            //             goBack = false;
+            //             goDown = true;
+            //             stretchOutTimer = stretchOutSec;
+            //         }
+            //     }
+            //     else
+            //     {
+            //         // 往回
+            //         TentaclesCollider.transform.position = Vector2.MoveTowards(TentaclesCollider.position, new Vector2(TentaclesCollider.position.x, yOriginPosition), Time.deltaTime * StretchOutSpeed);
+            //     }
+            // }
         }
         );
 

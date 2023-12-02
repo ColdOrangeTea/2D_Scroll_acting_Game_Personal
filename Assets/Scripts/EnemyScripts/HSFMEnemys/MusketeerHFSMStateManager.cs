@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
-using UnityEngine.UI;
 using UnityHFSM;
 
 public class MusketeerHFSMStateManager : MonoBehaviour
@@ -12,10 +10,12 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     private StateMachine fsm;
     private Animator animator;
     public GameObject Bullet;
+    public GameObject gun;
     #endregion
 
     [Header("Checksbox")]
     public Transform pivotPoint;
+    public Vector2 fireDir;
     [Space(10)]
 
     [Header("Status")]
@@ -27,8 +27,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
 
     [Header("Adjustment")]
     public Transform playerPos;//chage to private
-    public float ShootCooldown = 1f;
-    public float ShootDuration = 3f;
+    public float ShootCooldown = 3f;
     public float Force;
 
     // [SerializeField] private float lastShootTime;
@@ -37,7 +36,6 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     public Vector2 rangedPointoffset;
     public float rangedRadius = 8f;
     public Vector2 shootPointoffset;
-    float lastShootTime;
     #endregion
 
     #region  LAYER
@@ -64,9 +62,10 @@ public class MusketeerHFSMStateManager : MonoBehaviour
             DetectPlayer();
             if (!isShoot)
                 Shoot();
-        }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
+            Debug.Log("可開槍動畫狀態: " + AnimatorIsPlaying("rangedAttack"));
+        }, onExit: state => { Debug.Log("可開槍動畫狀態: " + AnimatorIsPlaying("rangedAttack")); }, canExit: state => !AnimatorIsPlaying("rangedAttack"), needsExitTime: true);
 
-        fsm.AddTransition("rangedAttack", "idle", t => !canShoot);
+        fsm.AddTransition("rangedAttack", "idle", t => !canShoot || !inShootRange);
         fsm.AddTransition("idle", "rangedAttack", t => canShoot && inShootRange);
         // fsm.AddTransitionFromAny("rangedAttack", t => inShootRange && canShoot);
         fsm.SetStartState("idle");
@@ -77,6 +76,7 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         fsm.OnLogic();
         // inShootRange = Physics2D.OverlapCircle((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius, AttackLayer).CompareTag("Player");
         Debug.Log("當前State: " + fsm.GetActiveHierarchyPath() + " 在射擊範圍內?: " + inShootRange + " canShoot: " + canShoot);
+        fireDir = (Vector2)playerPos.position - (Vector2)transform.position;
     }
     void DetectPlayer()
     {
@@ -110,7 +110,8 @@ public class MusketeerHFSMStateManager : MonoBehaviour
         isShoot = true;
         Debug.Log("射擊");
         Vector3 attackDir = (playerPos.transform.position - transform.position).normalized;
-        GameObject BulletIns = Instantiate(Bullet, (Vector2)pivotPoint.position + shootPointoffset, transform.rotation);
+        gun.transform.right = -fireDir;
+        GameObject BulletIns = Instantiate(Bullet, (Vector2)pivotPoint.position + shootPointoffset, gun.transform.rotation);
         BulletIns.GetComponent<Rigidbody2D>().velocity = attackDir * Force * 0.1f;
     }
     private void SetUnAbleToShoot()
@@ -135,8 +136,6 @@ public class MusketeerHFSMStateManager : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere((Vector2)pivotPoint.position + rangedPointoffset, rangedRadius);
         Gizmos.DrawWireSphere((Vector2)pivotPoint.position + shootPointoffset, 0.2f);

@@ -1,1 +1,1 @@
-public static partial class AudioType{public enum tags { Player_Walk,Player_Punch00,Player_Punch01,Player_Punch02,Player_Jump,Player_JumpOver,MeleeMachine_Walk,} }
+public static partial class AudioType{public enum tags { Player_Walk,Player_Punch00,Player_Thunder,Player_Jump,MeleeMachine_Walk,Musketeer_Shot,MechanicHound_Bark,MachineBear_Walk,MachineRabbit_Throw,MachineDancer_Slash,Potion_PickUp,Lubratacation_PickUp,Gear_PickUp,Level_Success,} }

@@ -5,10 +5,12 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance;
     public static bool GameIsPaused = false;
+
     public bool SettingIsOpening;
 
     public GameObject PauseMenuUI; // 自行拖入
     public GameObject SettingMenuUI;
+    public GameObject CheatMenuUI;
     private void Start()
     {
         if (Instance == null)
@@ -17,6 +19,7 @@ public class PauseMenu : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             PauseMenuUI.SetActive(false);
             SettingMenuUI.SetActive(false);
+            CheatMenuUI.SetActive(false);
         }
         else
         {
@@ -25,11 +28,27 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (CheatMenuUI.activeInHierarchy)
+            {
+                CheatMenuUI.SetActive(false);
+            }
+            else
+            {
+                if (SceneManager.GetActiveScene().name != SceneOrder.Scene.TitleMenu.ToString())
+                    CheatMenuUI.SetActive(true);
+            }
+
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused && !SettingIsOpening)
+
+            if (GameIsPaused)
             {
-                Resume();
+
+                if (!SettingIsOpening)
+                    Resume();
             }
             else
             {
@@ -43,6 +62,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (SettingIsOpening) return;
         PauseMenuUI.SetActive(false);
+        CheatMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }

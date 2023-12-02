@@ -104,7 +104,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.06}
+  m_Offset: {x: 0, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -115,7 +115,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 2.4}
+  m_Size: {x: 2.5, y: 4.5}
   m_EdgeRadius: 0
 --- !u!114 &1769311271192952959
 MonoBehaviour:
@@ -132,14 +132,14 @@ MonoBehaviour:
   MyselfCollider: {fileID: 0}
   pivotPoint: {fileID: 852722967626528082}
   isFacingRight: 1
-  groundCheckOffset: {x: 0, y: -1.14}
-  xGroundCheck: 0.4
+  groundCheckOffset: {x: 0, y: -2.02}
+  xGroundCheck: 1.09
   yGroundCheck: 0.2
-  R_WallCheckOffset: {x: -0.55, y: 0}
-  R_WallCheckSize: {x: 0.2, y: 2}
-  L_WallCheckOffset: {x: 0.55, y: 0}
-  L_WallCheckSize: {x: 0.2, y: 2}
-  walkSpeed: 1
+  R_WallCheckOffset: {x: -1.25, y: 0}
+  R_WallCheckSize: {x: 0.3, y: 4}
+  L_WallCheckOffset: {x: 1.25, y: 0}
+  L_WallCheckSize: {x: 0.3, y: 4}
+  walkSpeed: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 15
   hp: 15
-  colliderDamage: 2
-  damage: 2
+  colliderDamage: 3
+  damage: 3
   hurtForceDuration: 2
   OnTakeDamage:
     m_PersistentCalls:
@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 2731393624657579702}
   - component: {fileID: 2731393624657579700}
   - component: {fileID: 2731393624657579701}
+  - component: {fileID: 1902722899994590526}
   m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
@@ -309,7 +310,7 @@ SpriteRenderer:
   m_SortingLayerID: 955001067
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2066361919, guid: 6868de63e0514f84d9cf608e4082d2de, type: 3}
+  m_Sprite: {fileID: 24646430, guid: 6d62add8c20b3e546bc96cf1296fbabc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -330,7 +331,7 @@ Animator:
   m_GameObject: {fileID: 2731393624657579703}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d1619096cc488a847a5c43f0063e670c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 12880d5ad1510cd489495042e2ee8a3a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -340,3 +341,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1902722899994590526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731393624657579703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae6d43b03bb13945a0305ee20a1fc6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class StoryText : MonoBehaviour
 {
     [SerializeField]
-    private List<string> StoryDialogue = new List<string>();
+    private List<string> OpeningStoryDialogue = new List<string>();
+    [SerializeField]
+    private List<string> EndingStoryDialogue = new List<string>();
+
+
     [SerializeField]
     private int num = 0;
     [SerializeField]
@@ -21,57 +25,92 @@ public class StoryText : MonoBehaviour
 
     void Start()
     {
+
         manager = GameObject.Find("SceneChangeManager").GetComponent<SceneChangeManager>();
         CG1 = GameObject.Find("CG1").GetComponent<Image>();
         scene_to_load = scene_to_load_name.ToString();
-
         curStoryDialogue = GetComponentInChildren<Text>();
-        StoryDialogue.Add("單人床上躺著一個小小的人影，他看起來表情痛苦，似乎是做了惡夢");
-        StoryDialogue.Add("少年從噩夢中驚醒");
-        StoryDialogue.Add("Sasha : …… ");
-        StoryDialogue.Add("Sasha : ……頭好痛 ");
-        StoryDialogue.Add("Sasha : 我……腦海裡一片空白");
-        StoryDialogue.Add("迷之音 : 快……");
-        StoryDialogue.Add("Sasha : 腦袋裡有聲音…?");
-        StoryDialogue.Add("迷之音 : …逃…");
-        StoryDialogue.Add("Sasha : 什麼? ");
-        StoryDialogue.Add("迷之音 : 快逃!!!往地面上逃!!!");
+        if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene01.ToString())
+        {
+            OpeningStoryDialogue.Add("單人床上躺著一個小小的人影，他看起來表情痛苦，似乎是做了惡夢");
+            OpeningStoryDialogue.Add("少年從噩夢中驚醒");
+            OpeningStoryDialogue.Add("Sasha : …… ");
+            OpeningStoryDialogue.Add("Sasha : ……頭好痛 ");
+            OpeningStoryDialogue.Add("Sasha : 我……腦海裡一片空白");
+            OpeningStoryDialogue.Add("迷之音 : 快……");
+            OpeningStoryDialogue.Add("Sasha : 腦袋裡有聲音…?");
+            OpeningStoryDialogue.Add("迷之音 : …逃…");
+            OpeningStoryDialogue.Add("Sasha : 什麼? ");
+            OpeningStoryDialogue.Add("迷之音 : 快逃!!!往地面上逃!!!");
+        }
+
+        if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene02.ToString())
+        {
+            EndingStoryDialogue.Add("結局文本");
+            EndingStoryDialogue.Add("~END~");
+            EndingStoryDialogue.Add("");
+
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        curStoryDialogue.text = StoryDialogue[num].ToString();
-        if (num == 1)
+        if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene01.ToString())
         {
-            CG1.sprite = CG[1];
-        }
-        if (num == 3)
-        {
-            CG1.sprite = CG[2];
-        }
-        if (num == 5)
-        {
-            CG1.sprite = CG[3];
-        }
-        if (num == 9)
-        {
-            CG1.sprite = CG[4];
-        }
-        if (StoryDialogue.Count - 1 > num)
-        {
-            if (Input.GetMouseButtonDown(0))
-                num++;
-        }
-        else if (StoryDialogue.Count - 1 == num && !IsDialogueOver)
-        {
-            if (Input.GetMouseButtonDown(0))
+            curStoryDialogue.text = OpeningStoryDialogue[num].ToString();
+            if (num == 1)
             {
-                IsDialogueOver = true;
-                manager.GetSceneToLoad(scene_to_load);
+                CG1.sprite = CG[1];
             }
-
+            if (num == 3)
+            {
+                CG1.sprite = CG[2];
+            }
+            if (num == 5)
+            {
+                CG1.sprite = CG[3];
+            }
+            if (num == 9)
+            {
+                CG1.sprite = CG[4];
+            }
+            if (OpeningStoryDialogue.Count - 1 > num)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    num++;
+            }
+            else if (OpeningStoryDialogue.Count - 1 == num && !IsDialogueOver)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    IsDialogueOver = true;
+                    manager.GetSceneToLoad(scene_to_load);
+                }
+            }
         }
+
+        if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene02.ToString())
+        {
+            curStoryDialogue.text = EndingStoryDialogue[num].ToString();
+            if (EndingStoryDialogue.Count - 1 > num)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    num++;
+            }
+            else if (EndingStoryDialogue.Count - 1 == num && !IsDialogueOver)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    IsDialogueOver = true;
+                    manager.GetSceneToLoad(scene_to_load);
+                }
+            }
+        }
+
+
+
 
     }
 }

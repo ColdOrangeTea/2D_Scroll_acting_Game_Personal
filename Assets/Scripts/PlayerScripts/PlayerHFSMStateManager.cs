@@ -45,9 +45,22 @@ public class PlayerHFSMStateManager : MonoBehaviour
     private float invulnerableCounter;
     public bool IsInvulnerable;
     public UnityEvent<Transform> OnTakeDamage;
+    public UnityEvent OnHeal;
     public UnityEvent OnPlayerDie;
     #endregion
-
+    public void UpdateUIHP()
+    {
+        if (LevelManager.Instance != null)
+            LevelManager.Instance.UpdateUIHpBar(GetMaxHp(), GetHp());
+    }
+    public int GetMaxHp()
+    {
+        return maxHp;
+    }
+    public int GetHp()
+    {
+        return hp;
+    }
     void GetComponents()
     {
         animator = GetComponentInChildren<Animator>();
@@ -68,7 +81,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         GetComponents();
         maxHp = Status.MaxHp;
         hp = Status.Hp;
-
+        UpdateUIHP();
         fsm = new StateMachine();
         #region GROUND
         var groundFsm = new HybridStateMachine();
@@ -154,14 +167,14 @@ public class PlayerHFSMStateManager : MonoBehaviour
 
         fsm.AddTransition(Ground, Punch, t => !InputHandler.IfMeleeTimeIsOver());
         fsm.AddTransition(InAir, Punch, t => !InputHandler.IfMeleeTimeIsOver());
-        fsm.AddTransition(Punch, InAir, t => InputHandler.IfMeleeTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
+        fsm.AddTransition(Punch, InAir, t => InputHandler.IfMeleeTimeIsOver() && PlayerAbilityManager.CanDoubleJump && InputHandler.JumpCount <= 1 && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
         #endregion
 
         #region THUNDER
         fsm.AddState(Thunder, onEnter: state => { Debug.Log("THUNDER Start"); Movement.Thunder(); animator.SetBool(Thunder, true); },
               onLogic: state =>
               {
-                  Debug.Log("THUNDER");
+                  //   Debug.Log("THUNDER");
                   PhysicsCheck.OnGroundCheck();
                   PhysicsCheck.RB.velocity = new Vector2(PhysicsCheck.RB.velocity.x, Mathf.Max(PhysicsCheck.RB.velocity.y, -Attribute.MaxFallSpeed));
               },
@@ -169,7 +182,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
 
         fsm.AddTransition(Ground, Thunder, t => PlayerAbilityManager.CanThunder && !InputHandler.IfThunderTimeIsOver());
         fsm.AddTransition(InAir, Thunder, t => PlayerAbilityManager.CanThunder && !InputHandler.IfThunderTimeIsOver());
-        fsm.AddTransition(Thunder, InAir, t => InputHandler.IfThunderTimeIsOver() && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
+        fsm.AddTransition(Thunder, InAir, t => InputHandler.IfThunderTimeIsOver() && PlayerAbilityManager.CanDoubleJump && InputHandler.JumpCount <= 1 && !PhysicsCheck.onGround && PhysicsCheck.RB.velocity.y < 0.01f && InputHandler.JumpInput);
 
         #endregion
 
@@ -195,7 +208,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     private void Update()
     {
         fsm.OnLogic();
-        Debug.Log("玩家目前狀態: " + fsm.ActiveStateName + " " + InputHandler.JumpCount);
+        // Debug.Log("玩家目前狀態: " + fsm.ActiveStateName + " " + InputHandler.JumpCount);
         if (IsInvulnerable)
         {
             invulnerableCounter -= Time.deltaTime;
@@ -213,10 +226,12 @@ public class PlayerHFSMStateManager : MonoBehaviour
         if (hp + healAmount > maxHp)
         {
             hp = maxHp;
+            OnHeal?.Invoke();
         }
         else
         {
             hp += healAmount;
+            OnHeal?.Invoke();
         }
     }
     #endregion
@@ -230,6 +245,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
 
     public void TakeDamage(Bullet bullet)
     {
+        if (CheatMenu.CheatInvulnerable) return;
         if (IsInvulnerable) return;
 
         int damage = bullet.GetColliderDamage();
@@ -248,6 +264,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     }
     public void TakeColliderDamage(EnemyStatus attackerStatus)
     {
+        if (CheatMenu.CheatInvulnerable) return;
         if (IsInvulnerable) return;
 
         int damage = attackerStatus.GetColliderDamage();
@@ -266,7 +283,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     }
     public void PickThingTriggerInvulnerable(float invulnerableDuration)
     {
-        Debug.Log("撿物品觸發無敵");
+        // Debug.Log("撿物品觸發無敵");
         invulnerableCounter = invulnerableDuration;
         IsInvulnerable = true;
 
@@ -276,7 +293,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     {
         if (!IsInvulnerable)
         {
-            Debug.Log("觸發無敵");
+            // Debug.Log("觸發無敵");
             invulnerableCounter = InvulnerableDuration;
             IsInvulnerable = true;
         }
@@ -289,7 +306,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         // PhysicsCheck.RB.velocity = Vector2.zero;
 
         PhysicsCheck.RB.AddForce(dir * hurtForce, ForceMode2D.Impulse);
-        Debug.Log("HurtForce " + dir + " " + dir * hurtForce);
+        // Debug.Log("HurtForce " + dir + " " + dir * hurtForce);
     }
     public void HurtAnimator()
     {

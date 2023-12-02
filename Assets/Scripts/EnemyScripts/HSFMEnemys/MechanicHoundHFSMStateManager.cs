@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 using UnityHFSM;
 
@@ -74,24 +73,6 @@ public class MechanicHoundHFSMStateManager : MonoBehaviour
         }
         else
             return false;
-        // if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer))
-        // {
-        //     if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer) == MyselfCollider)
-        //     {
-        //         return false;
-        //     }
-        //     else
-        //     {
-        //         if (Physics2D.OverlapBox((Vector2)pivotPoint.position + playerCheckOffset, playerCheckSize, 0, AttackLayer).CompareTag("Player"))
-        //         {
-        //             return true;
-        //         }
-        //         else // 不是自己 也不是玩家
-        //             return false;
-        //     }
-        // }
-        // else // 沒東西
-        //     return false;
     }
     public void FacingPlayer()
     {

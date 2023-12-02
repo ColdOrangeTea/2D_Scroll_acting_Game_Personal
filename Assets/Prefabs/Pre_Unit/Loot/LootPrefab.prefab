@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1367144946328283169}
   - component: {fileID: 8647208237704485935}
   - component: {fileID: 3016139379802680161}
+  - component: {fileID: 1975724782268931632}
   m_Layer: 8
   m_Name: LootPrefab
   m_TagString: P_Thing
@@ -176,8 +177,20 @@ MonoBehaviour:
   OwnCollider: {fileID: 8647208237704485934}
   Animation: {fileID: 0}
   PhysicsCheck: {fileID: 0}
-  Attribute: {fileID: 0}
+  Attribute: {fileID: 11400000, guid: eb6f9caec2fa13d418b36193f6435b29, type: 2}
   isHeal: 0
   healAmount: 0
   isFunctional: 0
   thingInvulnerableDuration: 0
+--- !u!114 &1975724782268931632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8647208237704486864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158598995336f1a43ae7ccc264e5d2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

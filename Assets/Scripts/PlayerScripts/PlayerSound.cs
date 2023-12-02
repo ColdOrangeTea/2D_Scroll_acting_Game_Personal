@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerSound : MonoBehaviour
 {
-    void PlayFootStepSound()
+    public void PlayFootStepSound()
     {
         AudioManager.Instance.PlaySound(AudioType.tags.Player_Walk, gameObject.transform);
     }
-    void PlayJumpSound()
+    public void PlayJumpSound()
     {
         AudioManager.Instance.PlaySound(AudioType.tags.Player_Jump, gameObject.transform);
     }
@@ -14,8 +14,12 @@ public class PlayerSound : MonoBehaviour
     // {
     //     AudioManager.Instance.PlaySound(AudioType.tags.Player_JumpOver, gameObject.transform);
     // }
-    void PlayPunchSound()
+    public void PlayPunchSound()
     {
         AudioManager.Instance.PlaySound(AudioType.tags.Player_Punch00, gameObject.transform);
+    }
+    public void PlayThunderSound()
+    {
+        AudioManager.Instance.PlaySound(AudioType.tags.Player_Thunder, gameObject.transform);
     }
 }

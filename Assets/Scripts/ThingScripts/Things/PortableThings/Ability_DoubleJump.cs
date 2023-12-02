@@ -19,5 +19,6 @@ public class Ability_DoubleJump : PortableThing
     {
         Debug.Log("學習能力: 跳躍");
         PlayerAbilityManager.CanDoubleJump = true;
+        GetComponent<ThingSound>().PlayGear_PickUp();
     }
 }
