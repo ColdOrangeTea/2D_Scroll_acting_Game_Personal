@@ -11,11 +11,15 @@ public class CheatMenu : MonoBehaviour
     {
         if (!isCheatInvulnerable)
         {
+            Debug.Log("開無敵狀態: " + isCheatInvulnerable);
+            isCheatInvulnerable = true;
             CheatInvulnerable = true;
             InvulnerableText.text = "切換無敵模式(目前:開啟)";
         }
         else if (isCheatInvulnerable)
         {
+            Debug.Log("關閉無敵狀態: " + isCheatInvulnerable);
+            isCheatInvulnerable = false;
             CheatInvulnerable = false;
             InvulnerableText.text = "切換無敵模式(目前:關閉)";
 
