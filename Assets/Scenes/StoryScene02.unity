@@ -589,6 +589,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8cf56030352cc9844bbcdd25ddaf54db, type: 3}
   - {fileID: 21300000, guid: e8ea767710a478948ab4c2ac17800200, type: 3}
   - {fileID: 21300000, guid: 66fdd366e8c47474fb6056cb6371d868, type: 3}
+  - {fileID: 21300000, guid: 7330dda88f9cb9a459afa47ba7842f8f, type: 3}
   CG1: {fileID: 0}
   manager: {fileID: 0}
   scene_to_load: '[SceneName]'

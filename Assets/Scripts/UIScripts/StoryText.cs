@@ -46,9 +46,8 @@ public class StoryText : MonoBehaviour
 
         if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene02.ToString())
         {
-            EndingStoryDialogue.Add("結局文本");
+            EndingStoryDialogue.Add("經過重重阻礙，薩沙最終成功逃離設施，但在前方等著他的是未知的世界...");
             EndingStoryDialogue.Add("~END~");
-            EndingStoryDialogue.Add("");
 
         }
 
@@ -94,6 +93,10 @@ public class StoryText : MonoBehaviour
         if (SceneChangeManager.CurrentScene.name == SceneOrder.Scene.StoryScene02.ToString())
         {
             curStoryDialogue.text = EndingStoryDialogue[num].ToString();
+            if (num == 0)
+            {
+                CG1.sprite = CG[5];
+            }
             if (EndingStoryDialogue.Count - 1 > num)
             {
                 if (Input.GetMouseButtonDown(0))
