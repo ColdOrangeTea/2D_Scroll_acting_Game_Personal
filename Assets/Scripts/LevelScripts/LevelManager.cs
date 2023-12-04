@@ -46,22 +46,27 @@ public class LevelManager : MonoBehaviour
         {
             PlayerUICanva.SetActive(false);
             GearCount.gameObject.SetActive(false);
+            ToNextLevel_00.gameObject.SetActive(false);
+            ToNextLevel_01.gameObject.SetActive(false);
         }
         if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level01.ToString())
         {
+            if (NumOfGears == Level01_GoalNum && !L1Fin)
+            {
+                L1Fin = true;
+                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
+            }
             if (!PlayerUICanva.activeInHierarchy)
                 PlayerUICanva.SetActive(true);
             if (!GearCount.gameObject.activeInHierarchy)
                 GearCount.gameObject.SetActive(true);
 
             GearCount.text = "             " + NumOfGears;
-            if (NumOfGears == Level01_GoalNum && !L1Fin)
+            if (L1Fin)
             {
-                L1Fin = true;
                 GearCount.color = Color.green;
                 ToNextLevel_00.gameObject.SetActive(true);
                 ToNextLevel_01.gameObject.SetActive(true);
-                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
             }
             else
             {
@@ -73,19 +78,22 @@ public class LevelManager : MonoBehaviour
         }
         else if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level02.ToString())
         {
+            if (NumOfGears == Level02_GoalNum && !L2Fin)
+            {
+                L2Fin = true;
+                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
+            }
             if (!PlayerUICanva.activeInHierarchy)
                 PlayerUICanva.SetActive(true);
             if (!GearCount.gameObject.activeInHierarchy)
                 GearCount.gameObject.SetActive(true);
 
             GearCount.text = "             " + NumOfGears;
-            if (NumOfGears == Level02_GoalNum && !L2Fin)
+            if (L2Fin)
             {
-                L2Fin = true;
                 GearCount.color = Color.green;
                 ToNextLevel_00.gameObject.SetActive(true);
                 ToNextLevel_01.gameObject.SetActive(true);
-                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
             }
             else
             {
@@ -97,19 +105,22 @@ public class LevelManager : MonoBehaviour
         }
         else if (SceneChangeManager.CurrentScene.name.ToString() == SceneOrder.Scene.Level03.ToString())
         {
+            if (NumOfGears == Level03_GoalNum && !L3Fin)
+            {
+                L3Fin = true;
+                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
+            }
             if (!PlayerUICanva.activeInHierarchy)
                 PlayerUICanva.SetActive(true);
             if (!GearCount.gameObject.activeInHierarchy)
                 GearCount.gameObject.SetActive(true);
 
             GearCount.text = "             " + NumOfGears;
-            if (NumOfGears == Level03_GoalNum && !L3Fin)
+            if (L3Fin)
             {
-                L3Fin = true;
                 GearCount.color = Color.green;
                 ToNextLevel_00.gameObject.SetActive(true);
                 ToNextLevel_01.gameObject.SetActive(true);
-                AudioManager.Instance.PlaySound(AudioType.tags.Level_Success, this.gameObject.transform);
             }
             else
             {

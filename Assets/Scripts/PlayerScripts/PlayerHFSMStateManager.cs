@@ -23,7 +23,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
     public PlayerAttribute Attribute; //{ get; private set; }
     #endregion
     public UnityEvent OnPlayerAttack;
-
+    public UnityEvent OnPlayerThunder;
 
     #region STATE NAME
     const string Idle = "Idle";
@@ -173,7 +173,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         #endregion
 
         #region THUNDER
-        fsm.AddState(Thunder, onEnter: state => { Debug.Log("THUNDER Start"); Movement.Thunder(); animator.SetBool(Thunder, true); },
+        fsm.AddState(Thunder, onEnter: state => { Debug.Log("THUNDER Start"); OnPlayerThunder.Invoke(); Movement.Thunder(); animator.SetBool(Thunder, true); },
               onLogic: state =>
               {
                   //   Debug.Log("THUNDER");

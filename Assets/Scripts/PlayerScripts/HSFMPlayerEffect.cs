@@ -18,21 +18,30 @@ public class HSFMPlayerEffect : MonoBehaviour
 
     }
 
-
-    public  void SetAttackBoolTrue()
+    public void SetThunderBoolTrue()
     {
-        bool faceDir = physicsCheck.GetIsFacingRight();
-        if(faceDir)
-        {
-            animator.SetBool("IsEffectPlaying", true); 
-            Invoke("SetAttackBoolfalse",0.35f);
-        }
-        else
-        {
+        animator.SetBool("IsEffectPlaying", true);
+        Invoke("SetThunderBoolfalse", 0.1f);
+    }
+    public void SetThunderBoolfalse()
+    {
+        animator.SetBool("IsEffectPlaying", false);
+    }
 
-        }
-        
-       
+    public void SetAttackBoolTrue()
+    {
+        // bool faceDir = physicsCheck.GetIsFacingRight();
+        // if(faceDir)
+        // {
+        animator.SetBool("IsEffectPlaying", true);
+        Invoke("SetAttackBoolfalse", 0.1f);
+        // }
+        // else
+        // {
+
+        // }
+
+
     }
 
     public void SetAttackBoolfalse()
@@ -44,8 +53,8 @@ public class HSFMPlayerEffect : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)pivotPoint.position+ Punch_R_Pos, 0.2f);
-        Gizmos.DrawWireSphere((Vector2)pivotPoint.position+ Punch_L_Pos, 0.2f);
+        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + Punch_R_Pos, 0.2f);
+        Gizmos.DrawWireSphere((Vector2)pivotPoint.position + Punch_L_Pos, 0.2f);
 
     }
     #endregion

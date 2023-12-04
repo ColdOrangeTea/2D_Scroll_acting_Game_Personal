@@ -7,6 +7,15 @@ public class CheatMenu : MonoBehaviour
     public static bool CheatInvulnerable = false;
     bool isCheatInvulnerable;
     public Text InvulnerableText;
+
+    public void GearNumFull()
+    {
+        LevelManager.NumOfGears = 6;
+    }
+    public void GearNumZero()
+    {
+        LevelManager.NumOfGears = 0;
+    }
     public void EnableCheatInvulnerable()
     {
         if (!isCheatInvulnerable)

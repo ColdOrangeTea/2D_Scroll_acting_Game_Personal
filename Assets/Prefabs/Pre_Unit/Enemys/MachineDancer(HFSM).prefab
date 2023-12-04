@@ -101,8 +101,8 @@ MonoBehaviour:
   MyselfCollider: {fileID: 0}
   wavePrefab: {fileID: 6832337505502033508, guid: 4d4ddf774a081e146b953bae1b02a3ff, type: 3}
   pivotPoint: {fileID: 4409505390162898711}
-  L_firePoint_Offset: {x: -1, y: -1}
-  R_firePoint_Offset: {x: 1, y: -1}
+  L_firePoint_Offset: {x: -1, y: 0}
+  R_firePoint_Offset: {x: 1, y: 0}
   isFacingRight: 1
   isSlashing: 0
   isWaiting: 0
