@@ -22,6 +22,8 @@ public class PlayerHFSMStateManager : MonoBehaviour
     [SerializeField]
     public PlayerAttribute Attribute; //{ get; private set; }
     #endregion
+    public UnityEvent OnPlayerAttack;
+
 
     #region STATE NAME
     const string Idle = "Idle";
@@ -157,7 +159,7 @@ public class PlayerHFSMStateManager : MonoBehaviour
         #endregion
 
         #region  PUNCH
-        fsm.AddState(Punch, onEnter: state => { Movement.Punch(); animator.SetBool(Punch, true); },
+        fsm.AddState(Punch, onEnter: state => { OnPlayerAttack.Invoke(); Movement.Punch(); animator.SetBool(Punch, true); },
         onLogic: state =>
         {
             PhysicsCheck.OnGroundCheck();

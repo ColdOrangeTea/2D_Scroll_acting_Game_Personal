@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HSFMPlayerPhysicsCheck : MonoBehaviour
@@ -66,6 +67,11 @@ public class HSFMPlayerPhysicsCheck : MonoBehaviour
     public Vector2 CurrentVelocity { get; private set; }
     public bool onGround { get; private set; }
     #endregion   
+
+    public bool GetIsFacingRight()
+    {
+        return IsFacingRight;
+    }
 
     #region TAG NAME
     public const string ENEMY = "Enemy";
